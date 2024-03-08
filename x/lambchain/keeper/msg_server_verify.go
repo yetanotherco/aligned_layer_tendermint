@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"lambchain/x/lambchain/types"
@@ -12,6 +13,8 @@ import (
 func (k msgServer) Verify(goCtx context.Context, msg *types.MsgVerify) (*types.MsgVerifyResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	_ = ctx
+
+	fmt.Println("\n\n\n", msg, "\n\n\n")
 
 	if !verify(msg.Proof) {
 		return nil, types.ErrSample

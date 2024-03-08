@@ -39,8 +39,9 @@ message MsgUpdateParamsResponse {}
 
 message MsgVerify {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  string proof   = 2;
+  string creator  = 1;
+  string proof    = 2;
+  string verifier = 3;
 }
 
 message MsgVerifyResponse {}
