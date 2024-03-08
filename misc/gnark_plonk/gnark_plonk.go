@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/base64"
 	"fmt"
 	"os"
 
@@ -80,7 +81,9 @@ func main() {
 	// Serialize VK
 	var vk_buf bytes.Buffer
 	vk.WriteTo(&vk_buf)
-	os.WriteFile("vk.bin", vk_buf.Bytes(), 0644)
+	vk_buf_base64 := make([]byte, base64.StdEncoding.EncodedLen(vk_buf.Len()))
+	base64.StdEncoding.Encode(vk_buf_base64, vk_buf.Bytes())
+	os.WriteFile("vk.bin", vk_buf_base64, 0644)
 
 	// Serialize Proof
 	var proof_buf bytes.Buffer
@@ -100,8 +103,10 @@ func main() {
 
 	// Deserialize VK
 	vk_des := plonk.NewVerifyingKey(ecc.BN254)
-	vk_bin, _ := os.ReadFile("vk.bin")
-	vk_reader := bytes.NewReader(vk_bin)
+	vk_base64, _ := os.ReadFile("vk.bin")
+	vk_bytes := make([]byte, base64.StdEncoding.DecodedLen(len(vk_base64)))
+	base64.StdEncoding.Decode(vk_bytes, vk_base64)
+	vk_reader := bytes.NewReader(vk_bytes)
 	vk_des.ReadFrom(vk_reader)
 
 	// Deserialize PublicWitness
