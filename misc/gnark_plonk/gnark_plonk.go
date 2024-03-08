@@ -8,6 +8,7 @@ import (
 
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark/backend/plonk"
+	"github.com/consensys/gnark/backend/witness"
 	cs "github.com/consensys/gnark/constraint/bn254"
 	"github.com/consensys/gnark/frontend/cs/scs"
 	"github.com/consensys/gnark/test"
@@ -88,17 +89,22 @@ func main() {
 	// Serialize Proof
 	var proof_buf bytes.Buffer
 	proof.WriteTo(&proof_buf)
-	os.WriteFile("proof.bin", proof_buf.Bytes(), 0644)
+	proof_buf_base64 := make([]byte, base64.StdEncoding.EncodedLen(proof_buf.Len()))
+	base64.StdEncoding.Encode(proof_buf_base64, proof_buf.Bytes())
+	os.WriteFile("proof.bin", proof_buf_base64, 0644)
 
 	// Serialize PublicWitness
-	var publicWitness_buf bytes.Buffer
-	witnessPublic.WriteTo(&publicWitness_buf)
-	os.WriteFile("pw.bin", publicWitness_buf.Bytes(), 0644)
+	pw_buf, _ := witnessPublic.MarshalBinary()
+	pw_buf_base64 := make([]byte, base64.StdEncoding.EncodedLen(len(pw_buf)))
+	base64.StdEncoding.Encode(pw_buf_base64, pw_buf)
+	os.WriteFile("pw.bin", pw_buf_base64, 0644)
 
 	// Deserialize Proof
 	proof_des := plonk.NewProof(ecc.BN254)
-	proof_bin, _ := os.ReadFile("proof.bin")
-	proof_reader := bytes.NewReader(proof_bin)
+	proof_base64, _ := os.ReadFile("proof.bin")
+	proof_bytes := make([]byte, base64.StdEncoding.DecodedLen(len(proof_base64)))
+	base64.StdEncoding.Decode(proof_bytes, proof_base64)
+	proof_reader := bytes.NewReader(proof_bytes)
 	proof_des.ReadFrom(proof_reader)
 
 	// Deserialize VK
@@ -110,12 +116,16 @@ func main() {
 	vk_des.ReadFrom(vk_reader)
 
 	// Deserialize PublicWitness
-	pw_des, _ := frontend.NewWitness(&w, ecc.BN254.ScalarField(), frontend.PublicOnly())
-	pw_bin, _ := os.ReadFile("pw.bin")
-	pw_reader := bytes.NewReader(pw_bin)
-	pw_des.ReadFrom(pw_reader)
+	pw_des, err := witness.New(ecc.BN254.ScalarField())
+	if err != nil {
+		panic(err)
+	}
+	pw_base64, _ := os.ReadFile("pw.bin")
+	pw_bytes := make([]byte, base64.StdEncoding.DecodedLen(len(pw_base64)))
+	base64.StdEncoding.Decode(pw_bytes, pw_base64)
+	pw_des.UnmarshalBinary(pw_bytes)
 
-	err := plonk.Verify(proof_des, vk_des, pw_des)
+	err = plonk.Verify(proof_des, vk_des, pw_des)
 
 	if err != nil {
 		fmt.Print("Invalid Proof")
