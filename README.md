@@ -147,7 +147,7 @@ alignedlayerd keys --help
 Set a new key:
 
 ```sh
-alignedlayerd keys add <id_string> --account <id_int32>
+alignedlayerd keys add :q --account <id_int32>
 ```
 
 Use the faucet in order to have some balance:
