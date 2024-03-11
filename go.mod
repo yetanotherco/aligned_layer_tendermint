@@ -1,4 +1,4 @@
-module lambchain
+module alignedlayer
 
 go 1.21
 

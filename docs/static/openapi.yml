@@ -4,6 +4,98 @@ info:
   name: ''
   description: ''
 paths:
+  /alignedlayer.verification.Msg/UpdateParams:
+    post:
+      summary: |-
+        UpdateParams defines a (governance) operation for updating the module
+        parameters. The authority defaults to the x/gov module account.
+      operationId: AlignedlayerVerificationMsg_UpdateParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            description: >-
+              MsgUpdateParamsResponse defines the response structure for
+              executing a
+
+              MsgUpdateParams message.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          description: MsgUpdateParams is the Msg/UpdateParams request type.
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              authority:
+                type: string
+                description: >-
+                  authority is the address that controls the module (defaults to
+                  x/gov unless overwritten).
+              params:
+                description: 'NOTE: All parameters must be supplied.'
+                type: object
+            description: MsgUpdateParams is the Msg/UpdateParams request type.
+      tags:
+        - Msg
+  /alignedlayer.verification.Msg/Verify:
+    post:
+      operationId: AlignedlayerVerificationMsg_Verify
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              proof:
+                type: string
+      tags:
+        - Msg
   /cosmos.auth.v1beta1.Msg/UpdateParams:
     post:
       summary: >-
@@ -3501,100 +3593,8 @@ paths:
               Since: cosmos-sdk 0.47
       tags:
         - Msg
-  /lambchain.lambchain.Msg/UpdateParams:
-    post:
-      summary: |-
-        UpdateParams defines a (governance) operation for updating the module
-        parameters. The authority defaults to the x/gov module account.
-      operationId: LambchainLambchainMsg_UpdateParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            description: >-
-              MsgUpdateParamsResponse defines the response structure for
-              executing a
-
-              MsgUpdateParams message.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          description: MsgUpdateParams is the Msg/UpdateParams request type.
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              authority:
-                type: string
-                description: >-
-                  authority is the address that controls the module (defaults to
-                  x/gov unless overwritten).
-              params:
-                description: 'NOTE: All parameters must be supplied.'
-                type: object
-            description: MsgUpdateParams is the Msg/UpdateParams request type.
-      tags:
-        - Msg
-  /lambchain.lambchain.Msg/Verify:
-    post:
-      operationId: LambchainLambchainMsg_Verify
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              proof:
-                type: string
-      tags:
-        - Msg
 definitions:
-  cosmos.auth.v1beta1.MsgUpdateParams:
+  alignedlayer.verification.MsgUpdateParams:
     type: object
     properties:
       authority:
@@ -3603,57 +3603,26 @@ definitions:
           authority is the address that controls the module (defaults to x/gov
           unless overwritten).
       params:
-        description: |-
-          params defines the x/auth parameters to update.
-
-          NOTE: All parameters must be supplied.
+        description: 'NOTE: All parameters must be supplied.'
         type: object
-        properties:
-          max_memo_characters:
-            type: string
-            format: uint64
-          tx_sig_limit:
-            type: string
-            format: uint64
-          tx_size_cost_per_byte:
-            type: string
-            format: uint64
-          sig_verify_cost_ed25519:
-            type: string
-            format: uint64
-          sig_verify_cost_secp256k1:
-            type: string
-            format: uint64
-    description: |-
-      MsgUpdateParams is the Msg/UpdateParams request type.
-
-      Since: cosmos-sdk 0.47
-  cosmos.auth.v1beta1.MsgUpdateParamsResponse:
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  alignedlayer.verification.MsgUpdateParamsResponse:
     type: object
     description: |-
       MsgUpdateParamsResponse defines the response structure for executing a
       MsgUpdateParams message.
-
-      Since: cosmos-sdk 0.47
-  cosmos.auth.v1beta1.Params:
+  alignedlayer.verification.MsgVerify:
     type: object
     properties:
-      max_memo_characters:
+      creator:
         type: string
-        format: uint64
-      tx_sig_limit:
+      proof:
         type: string
-        format: uint64
-      tx_size_cost_per_byte:
-        type: string
-        format: uint64
-      sig_verify_cost_ed25519:
-        type: string
-        format: uint64
-      sig_verify_cost_secp256k1:
-        type: string
-        format: uint64
-    description: Params defines the parameters for the auth module.
+  alignedlayer.verification.MsgVerifyResponse:
+    type: object
+  alignedlayer.verification.Params:
+    type: object
+    description: Params defines the parameters for the module.
   google.protobuf.Any:
     type: object
     properties:
@@ -3989,6 +3958,66 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
+  cosmos.auth.v1beta1.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: |-
+          params defines the x/auth parameters to update.
+
+          NOTE: All parameters must be supplied.
+        type: object
+        properties:
+          max_memo_characters:
+            type: string
+            format: uint64
+          tx_sig_limit:
+            type: string
+            format: uint64
+          tx_size_cost_per_byte:
+            type: string
+            format: uint64
+          sig_verify_cost_ed25519:
+            type: string
+            format: uint64
+          sig_verify_cost_secp256k1:
+            type: string
+            format: uint64
+    description: |-
+      MsgUpdateParams is the Msg/UpdateParams request type.
+
+      Since: cosmos-sdk 0.47
+  cosmos.auth.v1beta1.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
+
+      Since: cosmos-sdk 0.47
+  cosmos.auth.v1beta1.Params:
+    type: object
+    properties:
+      max_memo_characters:
+        type: string
+        format: uint64
+      tx_sig_limit:
+        type: string
+        format: uint64
+      tx_size_cost_per_byte:
+        type: string
+        format: uint64
+      sig_verify_cost_ed25519:
+        type: string
+        format: uint64
+      sig_verify_cost_secp256k1:
+        type: string
+        format: uint64
+    description: Params defines the parameters for the auth module.
   cosmos.bank.v1beta1.Input:
     type: object
     properties:
@@ -5368,32 +5397,3 @@ definitions:
           min_commission_rate is the chain-wide minimum commission rate that a
           validator can charge their delegators
     description: Params defines the parameters for the x/staking module.
-  lambchain.lambchain.MsgUpdateParams:
-    type: object
-    properties:
-      authority:
-        type: string
-        description: >-
-          authority is the address that controls the module (defaults to x/gov
-          unless overwritten).
-      params:
-        description: 'NOTE: All parameters must be supplied.'
-        type: object
-    description: MsgUpdateParams is the Msg/UpdateParams request type.
-  lambchain.lambchain.MsgUpdateParamsResponse:
-    type: object
-    description: |-
-      MsgUpdateParamsResponse defines the response structure for executing a
-      MsgUpdateParams message.
-  lambchain.lambchain.MsgVerify:
-    type: object
-    properties:
-      creator:
-        type: string
-      proof:
-        type: string
-  lambchain.lambchain.MsgVerifyResponse:
-    type: object
-  lambchain.lambchain.Params:
-    type: object
-    description: Params defines the parameters for the module.

@@ -24,4 +24,4 @@ validators:
 - name: alice
   bonded: 100000000stake
 build:
-  main: cmd/lambchaind
+  main: cmd/alignedlayerd

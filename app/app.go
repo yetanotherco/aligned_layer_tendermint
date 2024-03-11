@@ -35,15 +35,15 @@ import (
 	_ "github.com/cosmos/cosmos-sdk/x/staking" // import for side-effects
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
-	lambchainmodulekeeper "lambchain/x/lambchain/keeper"
+	verificationmodulekeeper "alignedlayer/x/verification/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	"lambchain/docs"
+	"alignedlayer/docs"
 )
 
 const (
 	AccountAddressPrefix = "cosmos"
-	Name                 = "lambchain"
+	Name                 = "alignedlayer"
 )
 
 var (
@@ -73,7 +73,7 @@ type App struct {
 	DistrKeeper           distrkeeper.Keeper
 	ConsensusParamsKeeper consensuskeeper.Keeper
 
-	LambchainKeeper lambchainmodulekeeper.Keeper
+	VerificationKeeper verificationmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -180,7 +180,7 @@ func New(
 		&app.StakingKeeper,
 		&app.DistrKeeper,
 		&app.ConsensusParamsKeeper,
-		&app.LambchainKeeper,
+		&app.VerificationKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)

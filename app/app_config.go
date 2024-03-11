@@ -1,6 +1,10 @@
 package app
 
 import (
+	verificationmodulev1 "alignedlayer/api/alignedlayer/verification/module"
+	_ "alignedlayer/x/verification/module" // import for side-effects
+	verificationmoduletypes "alignedlayer/x/verification/types"
+
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
 	authmodulev1 "cosmossdk.io/api/cosmos/auth/module/v1"
@@ -20,10 +24,6 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-
-	lambchainmodulev1 "lambchain/api/lambchain/lambchain/module"
-	_ "lambchain/x/lambchain/module" // import for side-effects
-	lambchainmoduletypes "lambchain/x/lambchain/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -43,7 +43,7 @@ var (
 		stakingtypes.ModuleName,
 		genutiltypes.ModuleName,
 		// chain modules
-		lambchainmoduletypes.ModuleName,
+		verificationmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -56,7 +56,7 @@ var (
 		distrtypes.ModuleName,
 		stakingtypes.ModuleName,
 		// chain modules
-		lambchainmoduletypes.ModuleName,
+		verificationmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -64,7 +64,7 @@ var (
 		// cosmos sdk modules
 		stakingtypes.ModuleName,
 		// chain modules
-		lambchainmoduletypes.ModuleName,
+		verificationmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -157,8 +157,8 @@ var (
 				Config: appconfig.WrapAny(&genutilmodulev1.Module{}),
 			},
 			{
-				Name:   lambchainmoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&lambchainmodulev1.Module{}),
+				Name:   verificationmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&verificationmodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

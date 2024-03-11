@@ -31,11 +31,11 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 
-	"lambchain/app"
+	"alignedlayer/app"
 )
 
 const (
-	SimAppChainID = "lambchain-simapp"
+	SimAppChainID = "alignedlayer-simapp"
 )
 
 var FlagEnableStreamingValue bool
