@@ -79,6 +79,13 @@ func main() {
 
 	proof, _ := plonk.Prove(ccs, pk, witnessFull)
 
+	// Serialize PK
+	var pk_buf bytes.Buffer
+	pk.WriteTo(&pk_buf)
+	pk_buf_base64 := make([]byte, base64.StdEncoding.EncodedLen(pk_buf.Len()))
+	base64.StdEncoding.Encode(pk_buf_base64, pk_buf.Bytes())
+	os.WriteFile("pk.bin", pk_buf_base64, 0644)
+
 	// Serialize VK
 	var vk_buf bytes.Buffer
 	vk.WriteTo(&vk_buf)
