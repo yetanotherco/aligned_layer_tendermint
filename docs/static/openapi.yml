@@ -3591,6 +3591,8 @@ paths:
                 type: string
               proof:
                 type: string
+              pw:
+                type: string
       tags:
         - Msg
 definitions:
@@ -5391,6 +5393,8 @@ definitions:
       creator:
         type: string
       proof:
+        type: string
+      pw:
         type: string
   lambchain.lambchain.MsgVerifyResponse:
     type: object

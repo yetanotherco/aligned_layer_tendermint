@@ -30,9 +30,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "Verify",
-					Use:            "verify [proof]",
+					Use:            "verify [proof] [pw]",
 					Short:          "Send a verify tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}, {ProtoField: "pw"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

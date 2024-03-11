@@ -875,6 +875,7 @@ var (
 	md_MsgVerify         protoreflect.MessageDescriptor
 	fd_MsgVerify_creator protoreflect.FieldDescriptor
 	fd_MsgVerify_proof   protoreflect.FieldDescriptor
+	fd_MsgVerify_pw      protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -882,6 +883,7 @@ func init() {
 	md_MsgVerify = File_lambchain_lambchain_tx_proto.Messages().ByName("MsgVerify")
 	fd_MsgVerify_creator = md_MsgVerify.Fields().ByName("creator")
 	fd_MsgVerify_proof = md_MsgVerify.Fields().ByName("proof")
+	fd_MsgVerify_pw = md_MsgVerify.Fields().ByName("pw")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgVerify)(nil)
@@ -961,6 +963,12 @@ func (x *fastReflection_MsgVerify) Range(f func(protoreflect.FieldDescriptor, pr
 			return
 		}
 	}
+	if x.Pw != "" {
+		value := protoreflect.ValueOfString(x.Pw)
+		if !f(fd_MsgVerify_pw, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -980,6 +988,8 @@ func (x *fastReflection_MsgVerify) Has(fd protoreflect.FieldDescriptor) bool {
 		return x.Creator != ""
 	case "lambchain.lambchain.MsgVerify.proof":
 		return x.Proof != ""
+	case "lambchain.lambchain.MsgVerify.pw":
+		return x.Pw != ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: lambchain.lambchain.MsgVerify"))
@@ -1000,6 +1010,8 @@ func (x *fastReflection_MsgVerify) Clear(fd protoreflect.FieldDescriptor) {
 		x.Creator = ""
 	case "lambchain.lambchain.MsgVerify.proof":
 		x.Proof = ""
+	case "lambchain.lambchain.MsgVerify.pw":
+		x.Pw = ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: lambchain.lambchain.MsgVerify"))
@@ -1021,6 +1033,9 @@ func (x *fastReflection_MsgVerify) Get(descriptor protoreflect.FieldDescriptor) 
 		return protoreflect.ValueOfString(value)
 	case "lambchain.lambchain.MsgVerify.proof":
 		value := x.Proof
+		return protoreflect.ValueOfString(value)
+	case "lambchain.lambchain.MsgVerify.pw":
+		value := x.Pw
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
@@ -1046,6 +1061,8 @@ func (x *fastReflection_MsgVerify) Set(fd protoreflect.FieldDescriptor, value pr
 		x.Creator = value.Interface().(string)
 	case "lambchain.lambchain.MsgVerify.proof":
 		x.Proof = value.Interface().(string)
+	case "lambchain.lambchain.MsgVerify.pw":
+		x.Pw = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: lambchain.lambchain.MsgVerify"))
@@ -1070,6 +1087,8 @@ func (x *fastReflection_MsgVerify) Mutable(fd protoreflect.FieldDescriptor) prot
 		panic(fmt.Errorf("field creator of message lambchain.lambchain.MsgVerify is not mutable"))
 	case "lambchain.lambchain.MsgVerify.proof":
 		panic(fmt.Errorf("field proof of message lambchain.lambchain.MsgVerify is not mutable"))
+	case "lambchain.lambchain.MsgVerify.pw":
+		panic(fmt.Errorf("field pw of message lambchain.lambchain.MsgVerify is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: lambchain.lambchain.MsgVerify"))
@@ -1086,6 +1105,8 @@ func (x *fastReflection_MsgVerify) NewField(fd protoreflect.FieldDescriptor) pro
 	case "lambchain.lambchain.MsgVerify.creator":
 		return protoreflect.ValueOfString("")
 	case "lambchain.lambchain.MsgVerify.proof":
+		return protoreflect.ValueOfString("")
+	case "lambchain.lambchain.MsgVerify.pw":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
@@ -1164,6 +1185,10 @@ func (x *fastReflection_MsgVerify) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
+		l = len(x.Pw)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -1192,6 +1217,13 @@ func (x *fastReflection_MsgVerify) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Pw) > 0 {
+			i -= len(x.Pw)
+			copy(dAtA[i:], x.Pw)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Pw)))
+			i--
+			dAtA[i] = 0x1a
 		}
 		if len(x.Proof) > 0 {
 			i -= len(x.Proof)
@@ -1319,6 +1351,38 @@ func (x *fastReflection_MsgVerify) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
 				x.Proof = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 3:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Pw", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Pw = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -1805,6 +1869,7 @@ type MsgVerify struct {
 
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Proof   string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
+	Pw      string `protobuf:"bytes,3,opt,name=pw,proto3" json:"pw,omitempty"`
 }
 
 func (x *MsgVerify) Reset() {
@@ -1837,6 +1902,13 @@ func (x *MsgVerify) GetCreator() string {
 func (x *MsgVerify) GetProof() string {
 	if x != nil {
 		return x.Proof
+	}
+	return ""
+}
+
+func (x *MsgVerify) GetPw() string {
+	if x != nil {
+		return x.Pw
 	}
 	return ""
 }
@@ -1895,10 +1967,11 @@ var file_lambchain_lambchain_tx_proto_rawDesc = []byte{
 	0x61, 0x6d, 0x62, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61,
 	0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x4d, 0x73, 0x67, 0x55,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x49, 0x0a, 0x09, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79,
+	0x6e, 0x73, 0x65, 0x22, 0x59, 0x0a, 0x09, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79,
 	0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72,
 	0x6f, 0x6f, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x70, 0x72, 0x6f, 0x6f, 0x66,
+	0x12, 0x0e, 0x0a, 0x02, 0x70, 0x77, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x70, 0x77,
 	0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x13,
 	0x0a, 0x11, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x32, 0xc2, 0x01, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x62, 0x0a, 0x0c, 0x55,
