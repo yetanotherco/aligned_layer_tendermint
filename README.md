@@ -24,7 +24,7 @@ This command installs dependencies, builds, initializes, and starts your blockch
 To send a verify message (transaction), run:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer <proof>
+alignedlayerd tx verification verify --from alice --chain-id alignedlayer $(cat <proof_file>) $(cat <public_input_file>)
 ```
 
 This will output the transaction result (usually containing default values as it doesn't wait for the blockchain to execute it), and the transaction hash.
