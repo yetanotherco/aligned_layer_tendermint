@@ -5,7 +5,7 @@ package cairo_platinum
 #cgo linux LDFLAGS: misc/cairo_platinum/lib/libcairo_platinum.a -ldl -lrt -lm
 
 
-#include "lib/cairo_platinum.h"
+#include "misc/cairo_platinum/lib/cairo_platinum.h"
 */
 import "C"
 
