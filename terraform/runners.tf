@@ -14,6 +14,8 @@ resource "hcloud_server" "alignedlayer-runner" {
     ipv6_enabled = true
   }
   user_data = <<EOF
+    package_update: true
+    package_upgrade: true
     packages:
       - git
       - curl
