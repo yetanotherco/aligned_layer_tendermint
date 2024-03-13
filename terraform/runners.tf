@@ -7,9 +7,9 @@ variable "staking_amount" {
 }
 
 resource "random_string" "random" {
-	length = 12
-	special = false
-	upper = false
+  length  = 12
+  special = false
+  upper   = false
 }
 
 # Create a server
