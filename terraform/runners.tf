@@ -4,7 +4,7 @@ variable "seed_ip" {
 
 # Create a server
 resource "hcloud_server" "alignedlayer-runner" {
-  count       = 1
+  count = 1
 
   name        = "alignedlayer-${count.index}"
   image       = "debian-12"
