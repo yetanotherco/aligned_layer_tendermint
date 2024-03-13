@@ -25,6 +25,8 @@ resource "hcloud_server" "alignedlayer-runner" {
       - alignedlayerd init "alignedlayer-${count.index}" --chain-id alignedlayer
       - curl -s ${var.seed_ip}:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
       - curl -s ${var.seed_ip}:26657/status | jq '.result.node_info.id' > .seed_id
-      - alignedlayerd config set seeds "$(cat .seed_id)@${seed_ip}:26656"
+      - alignedlayerd config set config seeds "$(cat .seed_id)@${seed_ip}:26656" --skip-validate
+      - alignedlayerd config set config persistent_peers "$(cat .seed_id)@${seed_ip}:26656" --skip-validate
+      - alignedlayerd config set app minimum-gas-prices "0.0025stake"
   EOF
 }
