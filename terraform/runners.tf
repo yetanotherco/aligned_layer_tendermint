@@ -46,13 +46,13 @@ resource "hcloud_server" "alignedlayer-runner" {
       - curl -s ${var.seed_ip}:26657/status | jq '.result.node_info.id' > .seed_id
       - alignedlayerd config set config seeds "$(cat .seed_id)@${seed_ip}:26656" --skip-validate
       - alignedlayerd config set config persistent_peers "$(cat .seed_id)@${seed_ip}:26656" --skip-validate
-      - alignedlayerd config set app minimum-gas-prices "0.0025${staking_token}"
+      - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
       - alignedlayerd keys add ${random_string.random.result}
       - # Here we need to get stake tokens
       - cat > validator.json <<EOL
         {
         	"pubkey": $(alignedlayerd tendermint show-validator),
-        	"amount": "${var.staking_amount}${staking_token}",
+        	"amount": "${var.staking_amount}${var.staking_token}",
         	"moniker": "${random_string.random.result}",
         	"commission-rate": "0.1",
         	"commission-max-rate": "0.2",
