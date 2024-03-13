@@ -2,6 +2,10 @@ variable "seed_ip" {
   default = "91.107.239.79"
 }
 
+variable "staking_amount" {
+  default = 50000
+}
+
 # Create a server
 resource "hcloud_server" "alignedlayer-runner" {
   count = 1
@@ -13,6 +17,7 @@ resource "hcloud_server" "alignedlayer-runner" {
     ipv4_enabled = true
     ipv6_enabled = true
   }
+
   user_data = <<EOF
     package_update: true
     package_upgrade: true
@@ -36,7 +41,7 @@ resource "hcloud_server" "alignedlayer-runner" {
       - cat > validator.json <<EOL
         {
         	"pubkey": $(alignedlayerd tendermint show-validator),
-        	"amount": "50000stake",
+        	"amount": "${var.staking_amount}stake",
         	"moniker": "alignedlayer-${count.index}",
         	"commission-rate": "0.1",
         	"commission-max-rate": "0.2",
