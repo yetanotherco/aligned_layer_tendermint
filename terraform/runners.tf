@@ -1,5 +1,5 @@
 variable "seed_ip" {
-  deafult = "91.107.239.79"
+  default = "91.107.239.79"
 }
 
 # Create a server
