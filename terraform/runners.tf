@@ -44,8 +44,8 @@ resource "hcloud_server" "alignedlayer-runner" {
       - alignedlayerd init "${random_string.random.result}" --chain-id alignedlayer
       - curl -s ${var.seed_ip}:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
       - curl -s ${var.seed_ip}:26657/status | jq '.result.node_info.id' > .seed_id
-      - alignedlayerd config set config seeds "$(cat .seed_id)@${seed_ip}:26656" --skip-validate
-      - alignedlayerd config set config persistent_peers "$(cat .seed_id)@${seed_ip}:26656" --skip-validate
+      - alignedlayerd config set config seeds "$(cat .seed_id)@${var.seed_ip}:26656" --skip-validate
+      - alignedlayerd config set config persistent_peers "$(cat .seed_id)@${var.seed_ip}:26656" --skip-validate
       - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
       - alignedlayerd keys add ${random_string.random.result}
       - # Here we need to get stake tokens
@@ -59,7 +59,7 @@ resource "hcloud_server" "alignedlayer-runner" {
         	"commission-max-change-rate": "0.01",
         	"min-self-delegation": "1"
         }
-      - alignedlayerd tx staking create-validator validator.json --from ${random_string.random.result} --node tcp://${seed_ip}:26656
+      - alignedlayerd tx staking create-validator validator.json --from ${random_string.random.result} --node tcp://${var.seed_ip}:26656
       - alignedlayerd start
   EOF
 }
