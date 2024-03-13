@@ -1,11 +1,11 @@
 package cairo_platinum
 
 /*
-#cgo darwin LDFLAGS: misc/cairo_platinum/lib/libcairo_platinum.a
-#cgo linux LDFLAGS: misc/cairo_platinum/lib/libcairo_platinum.a -ldl -lrt -lm
+#cgo darwin LDFLAGS: lib/libcairo_platinum.a
+#cgo linux LDFLAGS: lib/libcairo_platinum.a -ldl -lrt -lm
 
 
-#include "misc/cairo_platinum/lib/cairo_platinum.h"
+#include "cairo_platinum.h"
 */
 import "C"
 

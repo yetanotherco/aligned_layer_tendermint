@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/yetanotherco/aligned_layer/operator/cairo_platinum"
+	"cairo_platinum"
 )
 
 func TestFibonacci5ProofVerifies(t *testing.T) {
