@@ -37,7 +37,7 @@ resource "hcloud_network_subnet" "private_subnet" {
 resource "hcloud_server" "alignedlayer-genesis-runner" {
   name = "alignedlayer-genesis"
   image = "debian-12"
-  server_type = "cx11"
+  server_type = "cx21"
 
   ssh_keys = ["manubilbao"]
 
@@ -77,10 +77,10 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - sed -i 's/"stake"/"${var.staking_token}"/g' /root/.alignedlayer/config/genesis.json
       - alignedlayerd config set app minimum-gas-prices 0.1${var.staking_token}
       - alignedlayerd config set app pruning "nothing"
-      - echo ${var.password} | alignedlayerd keys add victor
-      - echo "ADDRESS=$(alignedlayerd keys show victor --address)" >> /etc/environment
+      - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add victor
+      - export ADDRESS=$(printf "${var.password}\n${var.password}\n" | alignedlayerd keys show victor --address)
       - alignedlayerd genesis add-genesis-account $ADDRESS ${var.genesis_initial_balance}${var.staking_token}
-      - alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
+      - printf "${var.password}\n${var.password}\n" | alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
       - alignedlayerd genesis collect-gentxs
       - alignedlayerd start
   EOF
@@ -129,13 +129,13 @@ resource "hcloud_server" "alignedlayer-runner" {
       - export HOME=/root
       - ignite chain build --path /root/alignedlayer --output /usr/local/bin
       - alignedlayerd init "node${count.index}" --chain-id alignedlayer
-      - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; sleep 1; done  # Wait until genesis node is ready
+      - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; do sleep 1; done  # Wait until genesis node is ready
       - curl -s '10.0.1.2:26657/genesis' | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
       - curl -s '10.0.1.2:26657/status' | jq '.result.node_info.id' > .seed_id
       - alignedlayerd config set config seeds "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set config persistent_peers "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
-      - alignedlayerd keys add ${random_string.random.result}
+      - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add node${count.index}
       - # Here we need to get stake tokens
       - cat > validator.json <<EOL
         {
