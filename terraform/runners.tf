@@ -18,6 +18,10 @@ variable "instances" {
   default = 1
 }
 
+variable "password" {
+  default = "password"
+}
+
 resource "hcloud_network" "private_net" {
   name     = "alignedlayer-net"
   ip_range = "10.0.0.0/16"
@@ -73,7 +77,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - sed -i 's/"stake"/"${var.staking_token}"/g' /root/.alignedlayer/config/genesis.json
       - alignedlayerd config set app minimum-gas-prices 0.1${var.staking_token}
       - alignedlayerd config set app pruning "nothing"
-      - alignedlayerd keys add victor
+      - echo ${var.password} | alignedlayerd keys add victor
       - echo "ADDRESS=$(alignedlayerd keys show victor --address)" >> /etc/environment
       - alignedlayerd genesis add-genesis-account $ADDRESS ${var.genesis_initial_balance}${var.staking_token}
       - alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
