@@ -1,7 +1,3 @@
-variable "seed_ip" {
-  default = "91.107.239.79"
-}
-
 variable "staking_amount" {
   default = 50000
 }
@@ -22,10 +18,16 @@ variable "instances" {
   default = 1
 }
 
-resource "random_string" "random" {
-  length  = 12
-  special = false
-  upper   = false
+resource "hcloud_network" "private_net" {
+  name     = "alignedlayer-net"
+  ip_range = "10.0.0.0/16"
+}
+
+resource "hcloud_network_subnet" "private_subnet" {
+  type         = "cloud"
+  network_id   = hcloud_network.private_net.id
+  network_zone = "eu-central"
+  ip_range     = "10.0.1.0/24"
 }
 
 resource "hcloud_server" "alignedlayer-genesis-runner" {
@@ -39,6 +41,15 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
     ipv4_enabled = true
     ipv6_enabled = true
   }
+
+  network {
+    network_id = hcloud_network.private_net.id
+    ip = "10.0.1.2"
+  }
+
+  depends_on = [
+    hcloud_network_subnet.private_subnet
+  ]
 
   user_data = <<EOF
     #cloud-config
@@ -72,16 +83,22 @@ resource "hcloud_server" "alignedlayer-runner" {
 
   name        = "alignedlayer-${count.index}"
   image       = "debian-12"
-  server_type = "cx11"
+  server_type = "cx21"
   public_net {
     ipv4_enabled = true
     ipv6_enabled = true
   }
 
+  network {
+    network_id = hcloud_network.private_net.id
+    ip = "10.0.1.${count.index+3}"
+  }
+
   ssh_keys = ["manubilbao"]
 
   depends_on = [
-    hcloud_server.alignedlayer-genesis-runner
+    hcloud_server.alignedlayer-genesis-runner,
+    hcloud_network_subnet.private_subnet
   ]
 
   user_data = <<EOF
