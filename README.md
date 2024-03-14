@@ -48,7 +48,6 @@ To get the transaction result, run:
 ```sh
 alignedlayerd query tx <txhash>
 ```
-
 If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
 ```sh
@@ -62,6 +61,155 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
     $(cat proof.base64) \
     $(cat public_inputs.base64) \
     $(cat verifying_key.base64)
+```
+
+## How to join as validator
+
+### Requirements
+
+#### Hardware
+
+- CPU: 4 cores
+- Memory: 16GB
+- Disk: 160GB
+
+#### Software
+
+- jq
+
+### Steps
+To set up a validator node, you can either run the provided script setup_validator.sh, or manually run the step by step instructions (see below). The script receives three command line parameters: the name for the validator, the stake amount, and the token name. For example:
+```sh
+bash setup_validator.sh myValidator 60000000 stake
+```
+
+
+CAUTION: The script is not yet functional. The validator cannot ask for tokens automatically yet. 
+
+In order to join the blockchain, you need a known public node to first connect to. As an example, we will name it `blockchain-1`.
+
+1. Get the code and build the app:
+```sh
+git clone https://github.com/yetanotherco/aligned_layer_tendermint.git
+cd aligned_layer_tendermint
+ignite chain build --output OUTPUT_BIN 
+```
+
+To make sure the installation was successful, run the following command:
+```sh
+alignedlayerd version
+```
+
+2. To create the node, run
+```sh
+alignedlayerd init <your-node-name> --chain-id alignedlayer
+```
+If you have already run this command, you can use the -o flag to overwrite previously generated files. 
+
+3. You now need to download the blockchain genesis file and replace the one which was automatically generated for you:
+```sh
+curl -s blockchain-1:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
+```
+
+4. Obtain your NODEID by running:
+```sh
+curl -s blockchain-1:26657/status | jq -r '.result.node_info.id'
+```
+To configure persistent peers, seeds and gas prices, run the following commands:
+```sh
+alignedlayerd config set config p2p.seeds "NODEID@blockchain-1:26656" --skip-validate
+alignedlayerd config set config p2p.persistent_peers "NODEID@blockchain-1:26656" --skip-validate
+alignedlayerd config set app minimum-gas-prices 0.25stake --skip-validate
+``` 
+
+Alternatively, you can update the configuration manually:
+
+Add to $HOME/.alignedlayer/config/config.toml the following address to the [p2p] seeds and persistent_peers:
+```txt
+seeds = "NODEID@blockchain-1:26656"
+persistent_peers = "NODEID@blockchain-1:26656"
+```
+
+Choose and specify in $HOME/.alignedlayer/config/app.toml the minimum gas price the validator is willing to accept for processing a transaction:
+```txt
+minimum-gas-prices = "0.25stake"
+```
+
+5. The two most important ports are 26656 and 26657.
+
+The former is used to establish p2p communication with other nodes. This port should be open to world, in order to allow others to communicate with you. Check that the $HOME/.alignedlayer/config/config.toml file contains the right address in the p2p section:
+
+```txt
+laddr = "tcp://0.0.0.0:26656"
+```
+
+The second port is used for the RPC server. If you want to allow remote conections to your node to make queries and transactions, open this port. Note that by default the config sets the address (`rpc.laddr`) to `tcp://127.0.0.1:26657`, you should change the IP to.
+
+6. Start your node:
+```sh
+alignedlayerd start
+```
+
+7. Check if your node is already synced:
+```sh
+curl -s 127.0.0.1:26657/status |  jq '.result.sync_info.catching_up'
+```
+It should return false. 
+
+8. Make an account:
+```sh
+alignedlayerd keys add <your-validator>
+```
+This commands will return the following information:
+```txt
+address: cosmosxxxxxxxxxxxx
+ name: your-validator
+ pubkey: '{"@type":"xxxxxx","key":"xxxxxx"}'
+ type: local
+```
+You'll be encouraged to save a mnemomic in case you need to recover your account. 
+
+Afterwards, you need to request funds to the administrator. 
+
+9. Ask for tokens (complete with faucet info)
+
+10. To create the validator, you need to create a validator.json file. First, obtain your validator pubkey:
+
+```sh
+alignedlayerd tendermint show-validator
+```
+
+Now create the validator.json file:
+```json
+{
+	"pubkey": {"@type": "...", "key": "..."},
+	"amount": "xxxxxxstake",
+	"moniker": "your-validator",
+	"commission-rate": "0.1",
+	"commission-max-rate": "0.2",
+	"commission-max-change-rate": "0.01",
+	"min-self-delegation": "1"
+}
+```
+
+Now, run:
+```sh
+alignedlayerd tx staking create-validator validator.json --from <your-validator-address> --node tcp://blockchain-1:26656 --fees 20000stake
+```
+
+Your validator address is the one you obtained in step 8.
+
+11. Check whether your validator was accepted:
+```sh
+alignedlayerd query tendermint-validator-set
+```
+
+Our public nodes have the following IPs. Please be aware that they are in development stage, so expect inconsistency.
+
+```
+91.107.239.79
+116.203.81.174
+88.99.174.203
 ```
 
 ## How It Works
@@ -194,11 +342,12 @@ This is the format used by the CLI.
 
 ## Setting up multiple local nodes using docker
 
-Sets up a network of docker containers each with a validator node.
+Sets up a network of docker containers each with a validator node and a faucet account.
 
-Build docker image:
+Build docker images:
 ```sh
 docker build . -t alignedlayerd_i
+docker build . -t alignedlayerd_faucet -f node.Dockerfile
 ```
 
 After building the image we need to set up the files for each cosmos validator node.
@@ -207,12 +356,17 @@ The steps are:
 - Add users for each node with sufficient funds.
 - Create and distribute inital genesis file.
 - Set up addresses between nodes.
+- Set up faucet files.
 - Build docker compose file.
 
-Run script (replacing node names eg. `bash multi_node_setup.sh node0 node1 node2`)
+Run script (replacing node names eg. `bash multi_node_setup.sh node0 node1 node2`).
+
 ```sh
 bash multi_node_setup.sh <node1_name> [<node2_name> ...]
 ```
+
+The script retrives the password from the **PASSWORD** env_var. 
+'password' is set as the default.
 
 Start nodes:
 ```sh
@@ -220,7 +374,132 @@ docker-compose --project-name alignedlayer -f ./prod-sim/docker-compose.yml up -
 ```
 This command creates a docker container for each node. Only the first node (`<node1_name>`) has the 26657 port open to receive RPC requests.
 
+It also creates an image that runs the faucet frontend in `localhost:8088`.
+
 You can verify that it works by running (replacing `<node1_name>` by the name of the first node chosen in the bash script):
 ```sh
 docker run --rm -it --network alignedlayer_net-public alignedlayerd_i status --node "tcp://<node1_name>:26657"
+```
+
+## Tutorials
+
+### How to Create a new Address
+
+The following command shows all the possible operations regarding keys:
+
+```sh
+alignedlayerd keys --help
+```
+
+Set a new key:
+
+```sh
+alignedlayerd keys add <id_string>
+```
+
+> [!TIP]
+> If you don't remember the address, you can do the following:
+> `alignedlayerd keys show <address>` or `alignedlayerd keys list`
+
+Use the faucet in order to have some balance.
+
+To check the balance of an address using the binary: 
+
+```sh
+alignedlayerd query bank balances <address or id_string>
+```
+
+### Setup the Faucet Locally
+
+The dir `/faucet` has the files needed to setup the client.
+
+Requirements:
+
+- npm
+- node
+
+Instructions:
+
+Include the mnemonic at `faucet/.faucet/mnemonic.txt` to reconstruct the address responsible for generating transactions, ensuring that the address belongs to a validator.
+
+Change the parameters defined by the `config.js` file as needed, such as:
+- The node's endpoint with: `rpc_endpoint`
+- How much it is given per request: `tx.amount`
+
+```
+cd faucet
+npm install
+node faucet.js
+```
+
+Then the express server is started at `localhost:8088`
+Note: The Tendermint Node(Blockchain) has to be running.
+
+Now the web view can used to request tokens or curl can be used as follows:
+```sh
+curl http://localhost:8088/send/alignedlayer/:address
+```
+### Claiming Staking Rewards
+
+Validators and delegators can use the following commands to claim their rewards:
+
+#### Querying Outstanding Rewards
+The **validator-outstanding-rewards** command allows users to query all outstanding (un-withdrawn) rewards for a validator and all their delegations.
+
+```sh
+alignedlayerd query distribution validator-outstanding-rewards [validator] [flags]
+```
+
+Example:
+```sh
+alignedlayerd query distribution validator-outstanding-rewards cosmosvaloper1...
+```
+Example Output:
+```sh
+rewards:
+- amount: "1000000.000000000000000000"
+  denom: stake
+```
+
+#### Querying Validator Distribution Info
+The **validator-distribution-info** command allows users to query validator commission and self-delegation rewards for validator.
+
+Example:
+```sh
+alignedlayerd query distribution validator-distribution-info cosmosvaloper1...
+```
+Example output:
+```sh
+commission:
+- amount: "100000.000000000000000000"
+  denom: stake
+operator_address: cosmosvaloper1...
+self_bond_rewards:
+- amount: "100000.000000000000000000"
+  denom: stake
+```
+
+#### Withdraw All Rewards
+The **withdraw-rewards** command allows users to withdraw all rewards from a given delegation address, and optionally withdraw validator commission if the delegation address given is a validator operator and the user proves the **--commission** flag.
+```sh
+alignedlayerd tx distribution withdraw-rewards [validator-addr] [flags]
+```
+
+Example:
+```sh
+alignedlayerd tx distribution withdraw-rewards cosmosvaloper1... --from cosmos1... --commission
+```
+
+See the Cosmos' [documentation](https://docs.cosmos.network/main/build/modules/distribution) to learn
+about other distribution commands.
+
+### Bank
+#### Querying Account Balances
+You can use the **balances** command to query account balances by address.
+```sh
+alignedlayerd query bank balances [address] [flags]
+```
+Example:
+```sh
+alignedlayerd query bank balances cosmos1..
 ```
