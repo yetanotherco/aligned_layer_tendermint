@@ -9,4 +9,4 @@ build-lambdaworks-linux:
 	@cp lib/target/release/libcairo_platinum_ffi.a lib/libcairo_platinum.a
 
 test-ffi-lambdaworks: 
-	cd lib && go test -v
+	go test -v

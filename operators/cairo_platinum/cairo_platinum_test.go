@@ -8,7 +8,7 @@ import (
 
 func TestFibonacci5ProofVerifies(t *testing.T) {
 	fmt.Println(os.Getwd())
-	f, err := os.Open("../../../tests/testing_data/fibo_5.proof")
+	f, err := os.Open("../../tests/testing_data/fibo_5.proof")
 	if err != nil {
 		t.Errorf("could not open proof file")
 	}
