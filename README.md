@@ -58,9 +58,9 @@ This will compile the circuit and create a proof in the root folder that is read
 
 ```sh
 alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
-    $(cat proof.base64) \
-    $(cat public_inputs.base64) \
-    $(cat verifying_key.base64)
+    $(cat prover_examples/gnark_plonk/example/proof.base64.example) \
+    $(cat prover_examples/gnark_plonk/example/public_inputs.base64.example) \
+    $(cat prover_examples/gnark_plonk/example/verifying_key.base64.example)
 ```
 
 ## How to join as validator
