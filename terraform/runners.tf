@@ -59,12 +59,16 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - git
       - curl
       - jq
-      - golang
     runcmd:
       - curl https://get.ignite.com/cli! | bash
-      - git clone https://github.com/yetanotherco/aligned_layer_tendermint.git
-      - cd aligned_layer_tendermint
-      - ignite chain build --output /usr/local/bin
+      - git clone https://github.com/yetanotherco/aligned_layer_tendermint.git /root/alignedlayer
+      - curl -L -o /root/go1.21.8.tar.gz https://go.dev/dl/go1.21.8.linux-amd64.tar.gz
+      - tar -C /usr/local -xzf /root/go1.21.8.tar.gz
+      - ln -s /usr/local/go/bin/go /usr/local/bin/go
+      - mkdir -p /root/.ignite
+      - echo '{"name":"qzazvzhihf","doNotTrack":true}' > /root/.ignite/anon_identity.json  # This is a workaround for the initial ignite prompt
+      - export HOME=/root
+      - ignite chain build --path /root/alignedlayer --output /usr/local/bin
       - alignedlayerd init victor-node --chain-id ${var.chain_id}
       - sed -i 's/"stake"/"${var.staking_token}"/g' /root/.alignedlayer/config/genesis.json
       - alignedlayerd config set app minimum-gas-prices 0.1${var.staking_token}
@@ -74,6 +78,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - alignedlayerd genesis add-genesis-account $ADDRESS ${var.genesis_initial_balance}${var.staking_token}
       - alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
       - alignedlayerd genesis collect-gentxs
+      - alignedlayerd start
   EOF
 }
 
@@ -109,17 +114,22 @@ resource "hcloud_server" "alignedlayer-runner" {
       - git
       - curl
       - jq
-      - golang
     runcmd:
       - curl https://get.ignite.com/cli! | bash
-      - git clone https://github.com/yetanotherco/aligned_layer_tendermint.git
-      - cd aligned_layer_tendermint
-      - ignite chain build --output /usr/local/bin
-      - alignedlayerd init "${random_string.random.result}" --chain-id alignedlayer
-      - curl -s ${var.seed_ip}:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
-      - curl -s ${var.seed_ip}:26657/status | jq '.result.node_info.id' > .seed_id
-      - alignedlayerd config set config seeds "$(cat .seed_id)@${var.seed_ip}:26656" --skip-validate
-      - alignedlayerd config set config persistent_peers "$(cat .seed_id)@${var.seed_ip}:26656" --skip-validate
+      - git clone https://github.com/yetanotherco/aligned_layer_tendermint.git /root/alignedlayer
+      - curl -L -o /root/go1.21.8.tar.gz https://go.dev/dl/go1.21.8.linux-amd64.tar.gz
+      - tar -C /usr/local -xzf /root/go1.21.8.tar.gz
+      - ln -s /usr/local/go/bin/go /usr/local/bin/go
+      - mkdir -p /root/.ignite
+      - echo '{"name":"qzazvzhihf","doNotTrack":true}' > /root/.ignite/anon_identity.json  # This is a workaround for the initial ignite prompt
+      - export HOME=/root
+      - ignite chain build --path /root/alignedlayer --output /usr/local/bin
+      - alignedlayerd init "node${count.index}" --chain-id alignedlayer
+      - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; sleep 1; done  # Wait until genesis node is ready
+      - curl -s '10.0.1.2:26657/genesis' | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
+      - curl -s '10.0.1.2:26657/status' | jq '.result.node_info.id' > .seed_id
+      - alignedlayerd config set config seeds "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
+      - alignedlayerd config set config persistent_peers "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
       - alignedlayerd keys add ${random_string.random.result}
       - # Here we need to get stake tokens
