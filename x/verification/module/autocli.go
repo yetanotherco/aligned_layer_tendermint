@@ -34,6 +34,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a verify tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
 				},
+				{
+					RpcMethod:      "VerifySp1",
+					Use:            "verify-sp-1 [proof]",
+					Short:          "Send a verifySP1 tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

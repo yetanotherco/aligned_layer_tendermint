@@ -18,6 +18,7 @@ service Msg {
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams (MsgUpdateParams) returns (MsgUpdateParamsResponse);
   rpc Verify       (MsgVerify      ) returns (MsgVerifyResponse      );
+  rpc VerifySp1    (MsgVerifySp1   ) returns (MsgVerifySp1Response   );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -44,4 +45,12 @@ message MsgVerify {
 }
 
 message MsgVerifyResponse {}
+
+message MsgVerifySp1 {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string proof   = 2;
+}
+
+message MsgVerifySp1Response {}
 
