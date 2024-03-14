@@ -11,7 +11,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 - Go
 - Ignite
 
-## Example Application Usage 
+## Example Application Usage with Local Blockchain 
 
 To run a single node blockchain, run:
 
@@ -21,10 +21,19 @@ ignite chain serve
 
 This command installs dependencies, builds, initializes, and starts your blockchain in development.
 
-To send a verify message (transaction), run:
+To send a verify message (transaction), use the following command:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer <proof>
+alignedlayerd tx verification verify --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
+```
+
+You can try with an example proof used in the repo with the following command:
+
+```sh
+alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
+    $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
+    $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
+    $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
 ```
 
 This will output the transaction result (usually containing default values as it doesn't wait for the blockchain to execute it), and the transaction hash.
@@ -38,6 +47,21 @@ To get the transaction result, run:
 
 ```sh
 alignedlayerd query tx <txhash>
+```
+
+If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
+
+```sh
+go run ./prover_examples/gnark_plonk/gnark_plonk.go
+```
+
+This will compile the circuit and create a proof in the root folder that is ready to be sent with:
+
+```sh
+alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
+    $(cat proof.base64) \
+    $(cat public_inputs.base64) \
+    $(cat verifying_key.base64)
 ```
 
 ## How It Works
@@ -77,22 +101,18 @@ about other scaffolding commands.
 
 ### Transaction Lifecycle
 
-A transaction can be created and sent with protobuf with ignite CLI, using the following command:
-
-```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer "base64-encoded proof"
-```
-
-A JSON representation of the transaction can be obtained with the `--generate-only` flag. It contains transaction metadata and a set of messages. A **message** contains the fully-qualified type to route it correctly, and its parameters.
+A transaction can be created and sent with protobuf with ignite CLI. A JSON representation of the transaction can be obtained with the `--generate-only` flag. It contains transaction metadata and a set of messages. A **message** contains the fully-qualified type to route it correctly, and its parameters.
 
 ```json
 {
     "body": {
         "messages": [
             {
-                "@type": "/alignedlayer.verification.MsgVerify",
+                "@type": "/alignedlayer.verification.MsgName",
                 "creator": "cosmos1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
-                "proof": "base64-encoded proof"
+                "parameter1": "argument1"
+                "parameter2": "argument2"
+                ...
             }
         ],
         "memo": "",
@@ -171,3 +191,36 @@ When sending the transaction, it must be sent serialized with protobuf and encod
 ```
 
 This is the format used by the CLI.
+
+## Setting up multiple local nodes using docker
+
+Sets up a network of docker containers each with a validator node.
+
+Build docker image:
+```sh
+docker build . -t alignedlayerd_i
+```
+
+After building the image we need to set up the files for each cosmos validator node.
+The steps are:
+- Creating and initializing each node working directory with cosmos files.
+- Add users for each node with sufficient funds.
+- Create and distribute inital genesis file.
+- Set up addresses between nodes.
+- Build docker compose file.
+
+Run script (replacing node names eg. `bash multi_node_setup.sh node0 node1 node2`)
+```sh
+bash multi_node_setup.sh <node1_name> [<node2_name> ...]
+```
+
+Start nodes:
+```sh
+docker-compose --project-name alignedlayer -f ./prod-sim/docker-compose.yml up --detach
+```
+This command creates a docker container for each node. Only the first node (`<node1_name>`) has the 26657 port open to receive RPC requests.
+
+You can verify that it works by running (replacing `<node1_name>` by the name of the first node chosen in the bash script):
+```sh
+docker run --rm -it --network alignedlayer_net-public alignedlayerd_i status --node "tcp://<node1_name>:26657"
+```

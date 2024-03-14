@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName = "/alignedlayer.verification.Msg/UpdateParams"
 	Msg_Verify_FullMethodName       = "/alignedlayer.verification.Msg/Verify"
+	Msg_VerifySp1_FullMethodName    = "/alignedlayer.verification.Msg/VerifySp1"
 )
 
 // MsgClient is the client API for Msg service.
@@ -31,6 +32,7 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	Verify(ctx context.Context, in *MsgVerify, opts ...grpc.CallOption) (*MsgVerifyResponse, error)
+	VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error)
 }
 
 type msgClient struct {
@@ -59,6 +61,15 @@ func (c *msgClient) Verify(ctx context.Context, in *MsgVerify, opts ...grpc.Call
 	return out, nil
 }
 
+func (c *msgClient) VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error) {
+	out := new(MsgVerifySp1Response)
+	err := c.cc.Invoke(ctx, Msg_VerifySp1_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -67,6 +78,7 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error)
+	VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -79,6 +91,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Verify not implemented")
+}
+func (UnimplementedMsgServer) VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifySp1 not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -129,6 +144,24 @@ func _Msg_Verify_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_VerifySp1_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifySp1)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).VerifySp1(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_VerifySp1_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).VerifySp1(ctx, req.(*MsgVerifySp1))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +176,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Verify",
 			Handler:    _Msg_Verify_Handler,
+		},
+		{
+			MethodName: "VerifySp1",
+			Handler:    _Msg_VerifySp1_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
