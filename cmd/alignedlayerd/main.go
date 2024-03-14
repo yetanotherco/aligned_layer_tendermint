@@ -1,11 +1,5 @@
 package main
 
-/*
-#cgo darwin LDFLAGS: -L./lib -lsp1_verifier
-#cgo linux LDFLAGS: -L./lib -lsp1_verifier -ldl -lrt -lm
-
-#include "lib/sp1.h"
-*/
 import (
 	"fmt"
 	"os"

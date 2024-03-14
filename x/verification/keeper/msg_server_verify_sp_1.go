@@ -5,7 +5,6 @@ import (
 	"context"
 	"strconv"
 
-	//sp1 "github.com/yetanotherco/aligned_layer/operator/sp1"
 	sp1 "alignedlayer/operators/sp1"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
