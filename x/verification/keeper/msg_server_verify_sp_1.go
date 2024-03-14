@@ -1,11 +1,11 @@
 package keeper
 
 import (
+	"alignedlayer/x/verification/types"
 	"context"
 
-	"alignedlayer/x/verification/types"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sp1 "github.com/yetanotherco/aligned_layer/operator/sp1"
 )
 
 func (k msgServer) VerifySp1(goCtx context.Context, msg *types.MsgVerifySp1) (*types.MsgVerifySp1Response, error) {
@@ -20,11 +20,10 @@ func (k msgServer) VerifySp1(goCtx context.Context, msg *types.MsgVerifySp1) (*t
 }
 
 func verifySP1(proof string) bool {
-	//proofBytes := []byte(proof)
+	proofBytes := []byte(proof)
 
-	//var proofArray [sp1.MAX_PROOF_SIZE]byte
-	//copy(proofArray[:], proofBytes)
+	var proofArray [sp1.MAX_PROOF_SIZE]byte
+	copy(proofArray[:], proofBytes)
 
-	//return sp1.VerifySp1Proof(([sp1.MAX_PROOF_SIZE]byte)(proofBytes), uint(len(proofBytes)))
-	return true
+	return sp1.VerifySp1Proof(([sp1.MAX_PROOF_SIZE]byte)(proofBytes), uint(len(proofBytes)))
 }
