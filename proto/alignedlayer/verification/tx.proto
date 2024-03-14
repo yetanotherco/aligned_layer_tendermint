@@ -19,6 +19,7 @@ service Msg {
   rpc UpdateParams (MsgUpdateParams) returns (MsgUpdateParamsResponse);
   rpc Verify       (MsgVerify      ) returns (MsgVerifyResponse      );
   rpc VerifySp1    (MsgVerifySp1   ) returns (MsgVerifySp1Response   );
+  rpc Verifycairo  (MsgVerifycairo ) returns (MsgVerifycairoResponse );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -40,10 +41,10 @@ message MsgUpdateParamsResponse {}
 
 message MsgVerify {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator           = 1;
-  string proof             = 2;
-  string public_inputs     = 3;
-  string verifying_key     = 4;
+  string creator       = 1;
+  string proof         = 2;
+  string public_inputs = 3;
+  string verifying_key = 4;
 }
 
 message MsgVerifyResponse {}
@@ -55,4 +56,12 @@ message MsgVerifySp1 {
 }
 
 message MsgVerifySp1Response {}
+
+message MsgVerifycairo {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string proof   = 2;
+}
+
+message MsgVerifycairoResponse {}
 
