@@ -130,6 +130,10 @@ paths:
                 type: string
               proof:
                 type: string
+              public_inputs:
+                type: string
+              verifying_key:
+                type: string
       tags:
         - Msg
   /alignedlayer.verification.Msg/VerifySp1:
@@ -4037,6 +4041,10 @@ definitions:
       creator:
         type: string
       proof:
+        type: string
+      public_inputs:
+        type: string
+      verifying_key:
         type: string
   alignedlayer.verification.MsgVerifyResponse:
     type: object
