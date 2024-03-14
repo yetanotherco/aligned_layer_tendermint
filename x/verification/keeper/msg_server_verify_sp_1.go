@@ -3,20 +3,25 @@ package keeper
 import (
 	"alignedlayer/x/verification/types"
 	"context"
+	"strconv"
+
+	//sp1 "github.com/yetanotherco/aligned_layer/operator/sp1"
+	sp1 "alignedlayer/operators/sp1"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sp1 "github.com/yetanotherco/aligned_layer/operator/sp1"
 )
 
 func (k msgServer) VerifySp1(goCtx context.Context, msg *types.MsgVerifySp1) (*types.MsgVerifySp1Response, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	_ = ctx
 
-	if !verifySP1(msg.Proof) {
-		return nil, types.ErrSample
-	} else {
-		return &types.MsgVerifySp1Response{}, nil
-	}
+	result := verifySP1(msg.Proof)
+	event := sdk.NewEvent("SP1verification_finished",
+		sdk.NewAttribute("SP1proof_verifies", strconv.FormatBool(result)))
+
+	ctx.EventManager().EmitEvent(event)
+
+	return &types.MsgVerifySp1Response{}, nil
 }
 
 func verifySP1(proof string) bool {
