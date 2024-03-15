@@ -1,5 +1,5 @@
 variable "staking_amount" {
-  default = 50000
+  default = 1000000000
 }
 
 variable "staking_token" {
@@ -7,7 +7,7 @@ variable "staking_token" {
 }
 
 variable "genesis_initial_balance" {
-  default = 1000000000
+  default = 2000000000
 }
 
 variable "chain_id" {
@@ -39,7 +39,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
   image = "debian-12"
   server_type = "cx21"
 
-  ssh_keys = ["manubilbao"]
+  ssh_keys = ["manubilbao", "tomyrd"]
 
   public_net {
     ipv4_enabled = true
@@ -60,29 +60,22 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
     package_update: true
     package_upgrade: true
     packages:
-      - git
       - curl
       - jq
     runcmd:
-      - curl https://get.ignite.com/cli! | bash
-      - git clone https://github.com/yetanotherco/aligned_layer_tendermint.git /root/alignedlayer
-      - curl -L -o /root/go1.21.8.tar.gz https://go.dev/dl/go1.21.8.linux-amd64.tar.gz
-      - tar -C /usr/local -xzf /root/go1.21.8.tar.gz
-      - ln -s /usr/local/go/bin/go /usr/local/bin/go
-      - mkdir -p /root/.ignite
-      - echo '{"name":"qzazvzhihf","doNotTrack":true}' > /root/.ignite/anon_identity.json  # This is a workaround for the initial ignite prompt
+      - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
+      - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
       - export HOME=/root
-      - ignite chain build --path /root/alignedlayer --output /usr/local/bin
       - alignedlayerd init victor-node --chain-id ${var.chain_id}
       - sed -i 's/"stake"/"${var.staking_token}"/g' /root/.alignedlayer/config/genesis.json
       - alignedlayerd config set app minimum-gas-prices 0.1${var.staking_token}
       - alignedlayerd config set app pruning "nothing"
       - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add victor
-      - export ADDRESS=$(printf "${var.password}\n${var.password}\n" | alignedlayerd keys show victor --address)
+      - export ADDRESS=$(printf "${var.password}\n" | alignedlayerd keys show victor --address)
       - alignedlayerd genesis add-genesis-account $ADDRESS ${var.genesis_initial_balance}${var.staking_token}
-      - printf "${var.password}\n${var.password}\n" | alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
+      - printf "${var.password}\n" | alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
       - alignedlayerd genesis collect-gentxs
-      - alignedlayerd start
+      # - alignedlayerd start
   EOF
 }
 
