@@ -1,3 +1,3 @@
-libcairo_platinum.a
+libcairo_platinum.dylib
 target
 Cargo.lock

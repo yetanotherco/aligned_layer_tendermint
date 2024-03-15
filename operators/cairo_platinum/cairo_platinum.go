@@ -1,8 +1,8 @@
 package cairo_platinum
 
 /*
-#cgo darwin LDFLAGS: -L./lib/libcairo_platinum.a
-#cgo linux LDFLAGS: -L./lib/libcairo_platinum.a -ldl -lrt -lm
+#cgo darwin LDFLAGS: -L./lib/ -lcairo_platinum
+#cgo linux LDFLAGS: -L./lib/ -lcairo_platinum -ldl -lrt -lm
 
 
 #include "lib/cairo_platinum.h"
