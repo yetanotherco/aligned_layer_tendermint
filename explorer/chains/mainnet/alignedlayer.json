@@ -6,13 +6,13 @@
     "coin_type": "118",
     "min_tx_fee": "800",
     "addr_prefix": "yac",
-    "logo": "/logos/alignedlayer.jpg",
+    "logo": "/logos/alignedlayer.png",
     "theme_color": "#812cd6",
     "assets": [{
         "base": "stake",
         "symbol": "YACAL",
         "exponent": "6",
         "coingecko_id": "yacal", 
-        "logo": "/logos/alignedlayer.jpg"
+        "logo": "/logos/alignedlayer.png"
     }]
 }
