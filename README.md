@@ -1,4 +1,4 @@
-# Aligned Layer Blokchain
+# Aligned Layer Blockchain
 
 An application-specific blockchain built using [Cosmos SDK](https://docs.cosmos.network/) and created with [Ignite CLI](https://ignite.com/). The blockchain offers a variety of zkSNARK implementations to verify proofs sent over transactions, and stores their results.
 
@@ -8,8 +8,8 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 
 ## Requirements
 
-- Go (v1.22)
-- Ignite (v28.2)
+- [Go v1.22](https://go.dev/dl/)
+- [Ignite v28.2](https://docs.ignite.com/welcome/install)
 
 ## Example Local Blockchain 
 
@@ -75,14 +75,14 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
 
 #### Software
 
-- jq
+- [jq](https://jqlang.github.io/jq/download/)
 
 ### Node Setup
 
 To join our network as a full-node, you need a public node to first connect to. An initial IP address must be set on a PEER_ADDR env variable:
 
 ```sh
-export PEER_ADDR=<peer-ip-address>
+export PEER_ADDR=91.107.239.79
 ```
 
 A list of our testnet public IP addresses can be found below.
@@ -197,7 +197,7 @@ To check the balance of an address using the binary:
 alignedlayerd query bank balances <account-address-or-name>
 ```
 
-To ask for tokens, connect to our faucet at http://91.107.239.79:8088/ with your browser. You'll be asked to specify your account address `cosmosxxxxxxxxxxxx`, which you obtained in the previuos step.
+To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `cosmosxxxxxxxxxxxx`, which you obtained in the previuos step.
 
 ## Registering as a Validator
 
@@ -390,12 +390,6 @@ This is the format used by the CLI.
 
 ## Setting up multiple local nodes using docker
 
-### Additional Requirements
-
-- Sponge (only for setting slashing params)
-
-### How to
-
 Sets up a network of docker containers each with a validator node and a faucet account.
 
 Build docker images:
@@ -530,67 +524,6 @@ alignedlayerd query bank balances [address] [flags]
 Example:
 ```sh
 alignedlayerd query bank balances cosmos1..
-```
-
-### Slashing    
-You can use the slashing CLI commands to query slashing state
-```
-alignedlayerd query slashing --help
-```
-#### Querying Slashing Params
-To query genesis parameters for the slashing module:
-```
-alignedlayerd query slashing params [flags]
-```
-#### Querying Signing info
-- To query signing infos of all validators:
-    ```sh
-    alignedlayerd query slashing signing-infos [flags]
-    ```
-    Example output:
-    ```
-    info:
-    - address: cosmosvalcons15gc...
-    index_offset: "147"
-    jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons14xa...
-    index_offset: "147"
-    jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons14nz...
-    index_offset: "147"
-    jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons1a34...
-    index_offset: "147"
-    jailed_until: "1970-01-01T00:00:00Z"
-    pagination:
-    total: "4"
-    ```
-- To query signing-info of the validator using consensus public key.
-
-    Example:
-    ```sh
-    alignedlayerd query slashing signing-info cosmosvalcons15gc...
-    ```
-
-    Example output:
-    ```
-    val_signing_info:
-        address: cosmosvalcons15gc...
-        index_offset: "255"
-        jailed_until: "1970-01-01T00:00:00Z"
-        missed_blocks_counter: "16"
-    ```
-
-#### Querying Slashes
-To query all slashes for a given block range:
-```
-alignedlayerd query distribution slashes [validator-addr] [start-height] [end-height] [flags]
-```
-
-#### Sending Unjail Transaction
-To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin the validator set:
-```
-alignedlayerd tx slashing unjail --from account_name [flags]
 ```
 
 # Acknowledgements
