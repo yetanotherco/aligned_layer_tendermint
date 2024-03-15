@@ -2,7 +2,7 @@
 
 nodes=("node0" "node1" "node2")
 nodes_ips=("10.0.0.2" "10.0.0.3" "10.0.0.4")
-servers=("admin@testing-blockchain-1" "admin@testing-blockchain-2" "admin@testing-blockchain-3")
+servers=("admin@blockchain-1" "admin@blockchain-2" "admin@blockchain-3")
 
 rm -rf server-setup
 

@@ -34,9 +34,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	_ "github.com/cosmos/cosmos-sdk/x/mint"     // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/slashing" // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/slashing" // import for side-effects
-	slashingkeeper "github.com/cosmos/cosmos-sdk/x/slashing/keeper"
 	_ "github.com/cosmos/cosmos-sdk/x/staking" // import for side-effects
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
@@ -76,7 +73,7 @@ type App struct {
 	StakingKeeper         *stakingkeeper.Keeper
 	DistrKeeper           distrkeeper.Keeper
 	ConsensusParamsKeeper consensuskeeper.Keeper
-	SlashingKeeper        slashingkeeper.Keeper
+	// SlashingKeeper        slashingkeeper.Keeper
 
 	VerificationKeeper verificationmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
@@ -185,7 +182,7 @@ func New(
 		&app.StakingKeeper,
 		&app.DistrKeeper,
 		&app.ConsensusParamsKeeper,
-		&app.SlashingKeeper,
+		// &app.SlashingKeeper,
 		&app.VerificationKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
