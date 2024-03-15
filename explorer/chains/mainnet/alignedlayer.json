@@ -1,7 +1,7 @@
 {
     "chain_name": "AlignedLayer",
-    "api": ["http://testing-blockchain-1:1317"],
-    "rpc": ["http://testing-blockchain-1:26657"],
+    "api": ["http://10.0.0.2:1317"],
+    "rpc": ["http://10.0.0.2:26657"],
     "sdk_version": "0.50.3",
     "coin_type": "118",
     "min_tx_fee": "800",
