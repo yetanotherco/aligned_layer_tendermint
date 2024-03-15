@@ -11,7 +11,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 - Go (v1.22)
 - Ignite (v28.2)
 
-## Example Application Usage with Local Blockchain 
+## Example Local Blockchain 
 
 To run a single node blockchain, run:
 
@@ -63,7 +63,7 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
     $(cat verifying_key.base64)
 ```
 
-## How to join as validator
+## Joining Our Testnet
 
 ### Requirements
 
@@ -77,34 +77,36 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
 
 - jq
 
-### Run
+### Node Setup
 
-To set up a validator node, you can either run the provided script `setup_validator.sh`, or manually run the step by step instructions. 
-
-In order to join the blockchain, you need a public node to first connect to. An initial IP must be setted on a PEER_ADDR variable:
+To join our network as a full-node, you need a public node to first connect to. An initial IP address must be set on a PEER_ADDR env variable:
 
 ```sh
-export PEER_ADDR=<node ip>
+export PEER_ADDR=<peer-ip-address>
 ```
 
-A list of our testnet public IPs can be found below.
+A list of our testnet public IP addresses can be found below.
 
 #### The fast way
 
-The script receives two command line arguments: the name for the validator node and the stake amount.
+The fastest way to setup a new node is with our script. It receives the new node's moniker as argument:
 
 ```sh
-bash setup_validator.sh my-validator-node 6000000
+bash setup_node.sh <your-node-name>
+```
+
+Then we can start the node with:
+
+```sh
+alignedlayerd start
 ```
 
 #### Manual step by step
 
 If you want to do a more detailed step by step setup, follow this instructions:
 
-1. Get the code and build the app:
+First, build the app:
 ```sh
-git clone https://github.com/yetanotherco/aligned_layer_tendermint.git
-cd aligned_layer_tendermint
 ignite chain build --output OUTPUT_DIR
 ```
 
@@ -113,18 +115,18 @@ To make sure the installation was successful, run the following command:
 alignedlayerd version
 ```
 
-2. To create the node, run
+To initialize the node, run
 ```sh
 alignedlayerd init <your-node-name> --chain-id alignedlayer
 ```
 If you have already run this command, you can use the `-o` flag to overwrite previously generated files. 
 
-3. You now need to download the blockchain genesis file and replace the one which was automatically generated for you:
+You now need to download the blockchain genesis file and replace the one which was automatically generated for you.
 ```sh
 curl -s $PEER_ADDR:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
 ```
 
-4. Obtain the NODEID by running:
+Obtain the peer node id by running:
 ```sh
 curl -s $PEER_ADDR:26657/status | jq -r '.result.node_info.id'
 ```
@@ -136,48 +138,82 @@ alignedlayerd config set config p2p.persistent_peers "NODEID@blockchain-1:26656"
 alignedlayerd config set app minimum-gas-prices 0.25stake --skip-validate
 ``` 
 
-5. The two most important ports are 26656 and 26657.
+The two most important ports are 26656 and 26657.
 
 The former is used to establish P2P communication with other nodes. This port should be open to world, in order to allow others to communicate with you. Check that the `$HOME/.alignedlayer/config/config.toml` file contains the right address in the p2p section:
 
-```
+```toml
 laddr = "tcp://0.0.0.0:26656"
 ```
 
 The second port is used for the RPC server. If you want to allow remote conections to your node to make queries and transactions, open this port. Note that by default the config sets the address (`rpc.laddr`) to `tcp://127.0.0.1:26657`, you might change the IP to.
 
-6. Start your node:
+Finally, start your node:
 ```sh
 alignedlayerd start
 ```
 
 You should keep this shell session attached to this process.
 
-7. Check if your node is already synced:
+The node will start to sync up with the blockchain. To check if your node is already synced:
 ```sh
 curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 ```
 
 It should return `false`. If not, try again after a few minutes later.
 
-8. Make an account:
+## Creating an Account
+
+The following command shows all the possible operations regarding keys:
+
 ```sh
-alignedlayerd keys add <your-node-name>
+alignedlayerd keys --help
+```
+
+Set a new key:
+
+```sh
+alignedlayerd keys add <account-name>
 ```
 
 This commands will return the following information:
 ```
 address: cosmosxxxxxxxxxxxx
-name: your-node-name
+name: your-account-name
 pubkey: '{"@type":"xxxxxx","key":"xxxxxx"}'
 type: local
 ```
 
 You'll be encouraged to save a mnemomic in case you need to recover your account. 
 
-9. Ask for tokens. To do so, connect to http://91.107.239.79:8088/. You'll be asked to specify your account address `cosmosxxxxxxxxxxxx`, which you obtained in the previuos step.
+> [!TIP]
+> If you don't remember the address, you can do the following:
+> `alignedlayerd keys show <address>` or `alignedlayerd keys list`
 
-10. To create the validator, you need to create a `validator.json` file.
+
+To check the balance of an address using the binary: 
+
+```sh
+alignedlayerd query bank balances <account-address-or-name>
+```
+
+To ask for tokens, connect to our faucet at http://91.107.239.79:8088/ with your browser. You'll be asked to specify your account address `cosmosxxxxxxxxxxxx`, which you obtained in the previuos step.
+
+## Registering as a Validator
+
+### The fast way
+
+The fastest way to setup a new node is with our script. It receives the amount to stake as an argument:
+
+```sh
+bash setup_validator.sh <account-name-or-address> 1000000stake
+```
+
+This will configure your node and send a transaction for creating a validator.
+
+### Manual step by step
+
+If you want to do a more detailed step by step registering, follow this instructions:
 
 First, obtain your validator pubkey:
 
@@ -190,7 +226,7 @@ Now create the validator.json file:
 {
 	"pubkey": {"@type": "...", "key": "..."}, // <-- Replace this with your pubkey
 	"amount": "XXXXXstake", // <-- Replace the XXXXX with the amount you want to stake
-	"moniker": "your-validator-name", // <-- Replace this with your validator name
+	"moniker": "your-node-name", // <-- Replace this with your validator name
 	"commission-rate": "0.1",
 	"commission-max-rate": "0.2",
 	"commission-max-change-rate": "0.01",
@@ -200,12 +236,10 @@ Now create the validator.json file:
 
 Now, run:
 ```sh
-alignedlayerd tx staking create-validator validator.json --from <your-validator-address> --node tcp://$PEER_ADDR:26657 --fees 60000stake --chain-id alignedlayer
+alignedlayerd tx staking create-validator validator.json --from <account-name-or-address> --node tcp://$PEER_ADDR:26657 --fees 60000stake --chain-id alignedlayer
 ```
 
-Your validator address is the one you obtained in step 8.
-
-11. Check whether your validator was accepted:
+Check whether your validator was accepted with:
 ```sh
 alignedlayerd query tendermint-validator-set | grep $(alignedlayerd tendermint show-address)
 ```
@@ -356,6 +390,12 @@ This is the format used by the CLI.
 
 ## Setting up multiple local nodes using docker
 
+### Additional Requirements
+
+- Sponge (only for setting slashing params)
+
+### How to
+
 Sets up a network of docker containers each with a validator node and a faucet account.
 
 Build docker images:
@@ -396,32 +436,6 @@ docker run --rm -it --network alignedlayer_net-public alignedlayerd_i status --n
 ```
 
 ## Tutorials
-
-### How to Create a new Address
-
-The following command shows all the possible operations regarding keys:
-
-```sh
-alignedlayerd keys --help
-```
-
-Set a new key:
-
-```sh
-alignedlayerd keys add <id_string>
-```
-
-> [!TIP]
-> If you don't remember the address, you can do the following:
-> `alignedlayerd keys show <address>` or `alignedlayerd keys list`
-
-Use the faucet in order to have some balance.
-
-To check the balance of an address using the binary: 
-
-```sh
-alignedlayerd query bank balances <address or id_string>
-```
 
 ### Setup the Faucet Locally
 
@@ -516,6 +530,67 @@ alignedlayerd query bank balances [address] [flags]
 Example:
 ```sh
 alignedlayerd query bank balances cosmos1..
+```
+
+### Slashing    
+You can use the slashing CLI commands to query slashing state
+```
+alignedlayerd query slashing --help
+```
+#### Querying Slashing Params
+To query genesis parameters for the slashing module:
+```
+alignedlayerd query slashing params [flags]
+```
+#### Querying Signing info
+- To query signing infos of all validators:
+    ```sh
+    alignedlayerd query slashing signing-infos [flags]
+    ```
+    Example output:
+    ```
+    info:
+    - address: cosmosvalcons15gc...
+    index_offset: "147"
+    jailed_until: "1970-01-01T00:00:00Z"
+    - address: cosmosvalcons14xa...
+    index_offset: "147"
+    jailed_until: "1970-01-01T00:00:00Z"
+    - address: cosmosvalcons14nz...
+    index_offset: "147"
+    jailed_until: "1970-01-01T00:00:00Z"
+    - address: cosmosvalcons1a34...
+    index_offset: "147"
+    jailed_until: "1970-01-01T00:00:00Z"
+    pagination:
+    total: "4"
+    ```
+- To query signing-info of the validator using consensus public key.
+
+    Example:
+    ```sh
+    alignedlayerd query slashing signing-info cosmosvalcons15gc...
+    ```
+
+    Example output:
+    ```
+    val_signing_info:
+        address: cosmosvalcons15gc...
+        index_offset: "255"
+        jailed_until: "1970-01-01T00:00:00Z"
+        missed_blocks_counter: "16"
+    ```
+
+#### Querying Slashes
+To query all slashes for a given block range:
+```
+alignedlayerd query distribution slashes [validator-addr] [start-height] [end-height] [flags]
+```
+
+#### Sending Unjail Transaction
+To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin the validator set:
+```
+alignedlayerd tx slashing unjail --from account_name [flags]
 ```
 
 # Acknowledgements

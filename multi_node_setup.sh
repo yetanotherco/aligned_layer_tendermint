@@ -2,8 +2,9 @@
 
 : "${PASSWORD:=password}"
 token="stake"
-initial_balance=1000000000
-initial_stake=60000000
+initial_balance=3000000000
+initial_faucet_balance=1000000000
+initial_stake=1000000000
 
 
 if [ $# -lt 1 ]; then
@@ -44,7 +45,12 @@ for (( i=1; i <= "$#"; i++ )); do
     echo "val_${!i} mnemonic: $(cat ./prod-sim/${!i}/mnemonic.txt)"
 
     echo "Giving val_${!i} some tokens..."
-    docker run --rm -it -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis add-genesis-account $val_address $initial_balance$token
+    if [ $i -eq 1 ]; then
+        faucet_initial_balance=$((initial_faucet_balance + initial_stake))
+        docker run --rm -it -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis add-genesis-account $val_address $faucet_initial_balance$token
+    else
+        docker run --rm -it -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis add-genesis-account $val_address $initial_balance$token
+    fi
 
     if [ $((i+1)) -le "$#" ]; then
         j=$((i+1))
@@ -79,6 +85,15 @@ if ! docker run --rm -it -v $(pwd)/prod-sim/$1:/root/.alignedlayer alignedlayerd
     echo "Invalid genesis"
     exit 1
 fi
+
+jq '.app_state.slashing.params= {
+                        "downtime_jail_duration": "30s",
+                        "min_signed_per_window": "0.5",
+                        "signed_blocks_window": "120",
+                        "slash_fraction_double_sign": "0.050000000000000000",
+                        "slash_fraction_downtime": "0.000100000000000000"
+                }
+        ' prod-sim/$1/config/genesis.json|sponge prod-sim/$1/config/genesis.json
 
 echo "Copying genesis file to other nodes..."
 for node in "${@:2}"; do
