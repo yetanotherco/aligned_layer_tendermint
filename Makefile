@@ -19,5 +19,14 @@ __COSMOS_BLOCKCHAIN__:
 run_chain: build-sp1-ffi build-cairo-ffi
 	ignite chain serve
 
+build_chain: build-sp1-ffi build-cairo-ffi
+	ignite chain build
 
-test_cairo:
+
+__LOCAL_TEST__:
+ltest_cairo:
+	alignedlayerd tx verification verifycairo \
+		--from alice \
+		--chain-id alignedlayer \
+		--fees 3894412stake \
+		$$(cat tests/testing_data/fibonacci_10.b64) \

@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"context"
+	"encoding/base64"
+	"fmt"
 	"strconv"
 
 	"alignedlayer/x/verification/types"
@@ -16,8 +18,8 @@ func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo)
 	_ = ctx
 
 	result := verifyCairo(msg.Proof)
-	event := sdk.NewEvent("SP1verification_finished",
-		sdk.NewAttribute("SP1proof_verifies", strconv.FormatBool(result)))
+	event := sdk.NewEvent("CAIROverification_finished",
+		sdk.NewAttribute("CAIROproof_verifies", strconv.FormatBool(result)))
 
 	ctx.EventManager().EmitEvent(event)
 
@@ -25,10 +27,11 @@ func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo)
 }
 
 func verifyCairo(proof string) bool {
-	proofBytes := []byte(proof)
+	decodedBytes, err := base64.StdEncoding.DecodeString(proof)
+	if err != nil {
+		fmt.Println("Error decoding base64 string:", err)
+		return false
+	}
 
-	var proofArray [cp.MAX_PROOF_SIZE]byte
-	copy(proofArray[:], proofBytes)
-
-	return !cp.VerifyCairoProof100Bits(([cp.MAX_PROOF_SIZE]byte)(proofBytes), uint(len(proofBytes)))
+	return !cp.VerifyCairoProof100Bits(([cp.MAX_PROOF_SIZE]byte)(decodedBytes), uint(len(decodedBytes)))
 }

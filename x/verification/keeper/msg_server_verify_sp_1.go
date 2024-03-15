@@ -3,6 +3,7 @@ package keeper
 import (
 	"alignedlayer/x/verification/types"
 	"context"
+	"encoding/base64"
 	"strconv"
 
 	sp1 "alignedlayer/operators/sp1"
@@ -24,10 +25,7 @@ func (k msgServer) VerifySp1(goCtx context.Context, msg *types.MsgVerifySp1) (*t
 }
 
 func verifySP1(proof string) bool {
-	proofBytes := []byte(proof)
-
-	var proofArray [sp1.MAX_PROOF_SIZE]byte
-	copy(proofArray[:], proofBytes)
+	proofBytes, _ := base64.StdEncoding.DecodeString(proof)
 
 	return sp1.VerifySp1Proof(([sp1.MAX_PROOF_SIZE]byte)(proofBytes), uint(len(proofBytes)))
 }
