@@ -94,6 +94,10 @@ paths:
                 type: string
               proof:
                 type: string
+              public_inputs:
+                type: string
+              verifying_key:
+                type: string
       tags:
         - Msg
   /cosmos.auth.v1beta1.Msg/UpdateParams:
@@ -3617,6 +3621,10 @@ definitions:
       creator:
         type: string
       proof:
+        type: string
+      public_inputs:
+        type: string
+      verifying_key:
         type: string
   alignedlayer.verification.MsgVerifyResponse:
     type: object
