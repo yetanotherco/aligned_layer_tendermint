@@ -1,18 +1,16 @@
 {
-    "chain_name": "alignedlayer",
+    "chain_name": "AlignedLayer",
     "api": ["http://testing-blockchain-1:1317"],
     "rpc": ["http://testing-blockchain-1:26657"],
     "sdk_version": "0.50.3",
     "coin_type": "118",
     "min_tx_fee": "800",
-    "addr_prefix": "yac",
     "logo": "/logos/alignedlayer.png",
     "theme_color": "#812cd6",
     "assets": [{
         "base": "stake",
-        "symbol": "YACAL",
+        "symbol": "AL",
         "exponent": "6",
-        "coingecko_id": "yacal", 
         "logo": "/logos/alignedlayer.png"
     }]
 }
