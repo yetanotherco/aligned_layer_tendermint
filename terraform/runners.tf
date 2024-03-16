@@ -96,7 +96,7 @@ resource "hcloud_server" "alignedlayer-runner" {
     ip = "10.0.1.${count.index+3}"
   }
 
-  ssh_keys = ["manubilbao"]
+  ssh_keys = ["manubilbao", "tomyrd"]
 
   depends_on = [
     hcloud_server.alignedlayer-genesis-runner,
@@ -108,19 +108,12 @@ resource "hcloud_server" "alignedlayer-runner" {
     package_update: true
     package_upgrade: true
     packages:
-      - git
       - curl
       - jq
     runcmd:
-      - curl https://get.ignite.com/cli! | bash
-      - git clone https://github.com/yetanotherco/aligned_layer_tendermint.git /root/alignedlayer
-      - curl -L -o /root/go1.21.8.tar.gz https://go.dev/dl/go1.21.8.linux-amd64.tar.gz
-      - tar -C /usr/local -xzf /root/go1.21.8.tar.gz
-      - ln -s /usr/local/go/bin/go /usr/local/bin/go
-      - mkdir -p /root/.ignite
-      - echo '{"name":"qzazvzhihf","doNotTrack":true}' > /root/.ignite/anon_identity.json  # This is a workaround for the initial ignite prompt
+      - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
+      - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
       - export HOME=/root
-      - ignite chain build --path /root/alignedlayer --output /usr/local/bin
       - alignedlayerd init "node${count.index}" --chain-id alignedlayer
       - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; do sleep 1; done  # Wait until genesis node is ready
       - curl -s '10.0.1.2:26657/genesis' | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
