@@ -118,8 +118,8 @@ resource "hcloud_server" "alignedlayer-runner" {
       - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; do sleep 1; done  # Wait until genesis node is ready
       - curl -s '10.0.1.2:26657/genesis' | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
       - curl -s '10.0.1.2:26657/status' | jq '.result.node_info.id' > .seed_id
-      - alignedlayerd config set config seeds "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
-      - alignedlayerd config set config persistent_peers "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
+      - alignedlayerd config set config p2p.seeds "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
+      - alignedlayerd config set config p2p.persistent_peers "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
       - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add node${count.index}
       - # Here we need to get stake tokens
