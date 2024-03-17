@@ -1,8 +1,8 @@
 package sp1
 
 /*
-#cgo darwin LDFLAGS: -L./lib/ -lsp1_verifier
-#cgo linux LDFLAGS: -L./lib/ -lsp1_verifier -ldl -lrt -lm
+#cgo darwin LDFLAGS: -L${SRCDIR}/lib -lsp1_verifier
+#cgo linux LDFLAGS: -L${SRCDIR}/lib -lsp1_verifier
 
 #include "lib/sp1.h"
 */

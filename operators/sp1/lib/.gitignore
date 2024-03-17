@@ -1,2 +1,3 @@
-libsp1_verifier.a
-/target
+libsp1_verifier.*
+target
+Cargo.lock
