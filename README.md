@@ -293,6 +293,7 @@ Our public nodes have the following IPs. Please be aware that they are in develo
 91.107.239.79
 116.203.81.174
 88.99.174.203
+128.140.3.188
 ```
 
 ## How It Works
