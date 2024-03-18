@@ -165,11 +165,27 @@ resource "hcloud_server" "alignedlayer-runner" {
             "commission-max-change-rate": "0.01",
             "min-self-delegation": "1"
           }
+      - path: /etc/systemd/system/alignedlayer.service
+        content: |
+          [Unit]
+          Description=Aligned Layer
+          After=network.target
+          StartLimitIntervalSec=0
+
+          [Service]
+          Type=simple
+          Restart=always
+          RestartSec=1
+          User=root
+          ExecStart=alignedlayerd start
+
+          [Install]
+          WantedBy=multi-user.target
     runcmd:
       - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
       - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
       - export HOME=/root
-      - alignedlayerd init "node${count.index}" --chain-id alignedlayer
+      - alignedlayerd init "node${count.index}" --chain-id ${var.chain_id}
       - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; do sleep 1; done  # Wait until genesis node is ready
       - curl -s '10.0.1.2:26657/genesis' | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
       - curl -s '10.0.1.2:26657/status' | jq -r '.result.node_info.id' > .seed_id
@@ -187,5 +203,7 @@ resource "hcloud_server" "alignedlayer-runner" {
       - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
       - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
       - printf "${var.password}" | alignedlayerd tx staking create-validator /root/validator.json -y --from node${count.index} --node 'tcp://10.0.1.2:26657' --chain-id ${var.chain_id} --fees 50000${var.staking_token}
+      - systemctl enable alignedlayer
+      - systemctl start alignedlayer
   EOF
 }
