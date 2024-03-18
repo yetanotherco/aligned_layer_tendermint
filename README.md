@@ -90,7 +90,7 @@ Then you can try sending a proof for verification with:
 If you want to test it with a valid proof use:
 
 ```
-alignedlayerd tx verification verify --from <your_key_name> --chain-id alignedlayer --node tcp://rpc-node.alignedlayer.com:26657 --fees 20000stake \
+alignedlayerd tx verification verify --from <your_key_name> --chain-id alignedlayer --node tcp://rpc-node.alignedlayer.com:26657 --fees 50000stake \
                                                                   $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
                                                                   $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
                                                                   $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
