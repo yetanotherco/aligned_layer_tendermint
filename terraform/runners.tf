@@ -22,6 +22,10 @@ variable "password" {
   default = "password"
 }
 
+variable "binary_url" {
+  default = "https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz"
+}
+
 resource "hcloud_network" "private_net" {
   name     = "alignedlayer-net"
   ip_range = "10.0.0.0/16"
@@ -98,7 +102,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
           [Install]
           WantedBy=multi-user.target
     runcmd:
-      - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
+      - curl -L -o /root/alignedlayer.tar.gz ${var.binary_url}
       - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
       - git clone https://github.com/yetanotherco/aligned_layer_tendermint /root/aligned_layer_tendermint
       - cd /root/aligned_layer_tendermint/faucet
@@ -182,7 +186,7 @@ resource "hcloud_server" "alignedlayer-runner" {
           [Install]
           WantedBy=multi-user.target
     runcmd:
-      - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
+      - curl -L -o /root/alignedlayer.tar.gz ${var.binary_url}
       - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
       - export HOME=/root
       - alignedlayerd init "node${count.index}" --chain-id ${var.chain_id}
