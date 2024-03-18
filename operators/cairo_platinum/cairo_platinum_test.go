@@ -3,13 +3,14 @@ package cairo_platinum
 import (
 	"encoding/base64"
 	"fmt"
+	"log"
 	"os"
 	"testing"
 )
 
 func TestFibonacci5ProofVerifies(t *testing.T) {
 	fmt.Println(os.Getwd())
-	f, err := os.Open("../../tests/testing_data/fibonacci_10.b64")
+	f, err := os.Open("../../tests/testing_data/fibo_5.base64")
 	if err != nil {
 		t.Errorf("could not open proof file")
 	}
@@ -20,15 +21,18 @@ func TestFibonacci5ProofVerifies(t *testing.T) {
 		t.Errorf("could not read bytes from file")
 	}
 
+	// Pass contents of proof to string
+	// to simulate the blockchain's workflow
+	proofString := string(proofBytes[:nReadBytes])
+
 	// Decode base64 string back to bytes
-	fmt.Printf(string(proofBytes[379056]))
-	decodedBytes, err := base64.StdEncoding.DecodeString(string(proofBytes))
+	decodedBytes := make([]byte, MAX_PROOF_SIZE)
+	nDecoded, err := base64.StdEncoding.Decode(decodedBytes, []byte(proofString))
 	if err != nil {
-		fmt.Println("Error decoding base64 string:", err)
-		return
+		log.Fatalf("could not decode base64 string: %s\n", err)
 	}
 
-	if !VerifyCairoProof100Bits(([MAX_PROOF_SIZE]byte)(decodedBytes), uint(nReadBytes)) {
+	if !VerifyCairoProof100Bits(([MAX_PROOF_SIZE]byte)(decodedBytes), uint(nDecoded)) {
 		t.Errorf("proof did not verify")
 	}
 }

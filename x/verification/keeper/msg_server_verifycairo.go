@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
 	"strconv"
 
 	"alignedlayer/x/verification/types"
@@ -27,11 +26,11 @@ func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo)
 }
 
 func verifyCairo(proof string) bool {
-	decodedBytes, err := base64.StdEncoding.DecodeString(proof)
+	decodedBytes := make([]byte, cp.MAX_PROOF_SIZE)
+	nDecoded, err := base64.StdEncoding.Decode(decodedBytes, []byte(proof))
 	if err != nil {
-		fmt.Println("Error decoding base64 string:", err)
 		return false
 	}
 
-	return !cp.VerifyCairoProof100Bits(([cp.MAX_PROOF_SIZE]byte)(decodedBytes), uint(len(decodedBytes)))
+	return !cp.VerifyCairoProof100Bits(([cp.MAX_PROOF_SIZE]byte)(decodedBytes), uint(nDecoded))
 }
