@@ -109,6 +109,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - sed -i 's/"stake"/"${var.staking_token}"/g' /root/.alignedlayer/config/genesis.json
       - alignedlayerd config set app minimum-gas-prices 0.1${var.staking_token}
       - alignedlayerd config set app pruning "nothing"
+      - alignedlayerd config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
       - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add victor 2>&1 >/dev/null | tail -n1 > /root/aligned_layer_tendermint/faucet/.faucet/mnemonic.txt
       - export ADDRESS=$(printf "${var.password}\n" | alignedlayerd keys show victor --address)
       - alignedlayerd genesis add-genesis-account $ADDRESS ${var.genesis_initial_balance}${var.staking_token}
@@ -152,6 +153,18 @@ resource "hcloud_server" "alignedlayer-runner" {
     packages:
       - curl
       - jq
+    write_files:
+      - path: /root/.validator.json.template
+        content: |
+          {
+            "pubkey": $VALIDATOR_PUBKEY,
+            "amount": "4000000${var.staking_token}",
+            "moniker": "$NODE_NAME",
+            "commission-rate": "0.1",
+            "commission-max-rate": "0.2",
+            "commission-max-change-rate": "0.01",
+            "min-self-delegation": "1"
+          }
     runcmd:
       - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
       - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
@@ -159,23 +172,20 @@ resource "hcloud_server" "alignedlayer-runner" {
       - alignedlayerd init "node${count.index}" --chain-id alignedlayer
       - while [ ! "$(curl -s 10.0.1.2:26657/health)" ]; do sleep 1; done  # Wait until genesis node is ready
       - curl -s '10.0.1.2:26657/genesis' | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
-      - curl -s '10.0.1.2:26657/status' | jq '.result.node_info.id' > .seed_id
+      - curl -s '10.0.1.2:26657/status' | jq -r '.result.node_info.id' > .seed_id
       - alignedlayerd config set config p2p.seeds "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set config p2p.persistent_peers "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
       - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add node${count.index}
-      - # Here we need to get stake tokens
-      - cat > validator.json <<EOL
-        {
-        	"pubkey": $(alignedlayerd tendermint show-validator),
-        	"amount": "${var.staking_amount}${var.staking_token}",
-        	"moniker": "${random_string.random.result}",
-        	"commission-rate": "0.1",
-        	"commission-max-rate": "0.2",
-        	"commission-max-change-rate": "0.01",
-        	"min-self-delegation": "1"
-        }
-      - alignedlayerd tx staking create-validator validator.json --from ${random_string.random.result} --node tcp://${var.seed_ip}:26656
-      - alignedlayerd start
+      - export VALIDATOR_PUBKEY=$(alignedlayerd tendermint show-validator)
+      - export NODE_NAME=node${count.index}
+      - export ADDRESS=$(printf "${var.password}\n" | alignedlayerd keys show node${count.index} --address)
+      - cat /root/.validator.json.template | envsubst > /root/validator.json
+      - while [ ! "$(curl -s 10.0.1.2:8088)" ]; do sleep 1; done  # Wait until faucet is ready
+      - sleep 10
+      - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
+      - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
+      - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
+      - printf "${var.password}" | alignedlayerd tx staking create-validator /root/validator.json -y --from node${count.index} --node 'tcp://10.0.1.2:26657' --chain-id ${var.chain_id} --fees 50000${var.staking_token}
   EOF
 }
