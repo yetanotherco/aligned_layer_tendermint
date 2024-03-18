@@ -12,7 +12,6 @@
     "logo": "/logos/alignedlayer.png",
     "theme_color": "#812cd6",
     "addr_prefix": "aligned",
-    "consensus_prefix": "aligned",
     "assets": [
         {
             "base": "stake",
