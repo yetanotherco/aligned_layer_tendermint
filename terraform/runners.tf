@@ -3,7 +3,7 @@ variable "genesis_staking_amount" {
 }
 
 variable "staking_amount" {
-  default = 40000000
+  default = 4000000
 }
 
 variable "staking_token" {
