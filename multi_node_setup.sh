@@ -86,14 +86,14 @@ if ! docker run --rm -it -v $(pwd)/prod-sim/$1:/root/.alignedlayer alignedlayerd
     exit 1
 fi
 
-# jq '.app_state.slashing.params= {
-#                         "downtime_jail_duration": "30s",
-#                         "min_signed_per_window": "0.5",
-#                         "signed_blocks_window": "120",
-#                         "slash_fraction_double_sign": "0.050000000000000000",
-#                         "slash_fraction_downtime": "0.000100000000000000"
-#                 }
-#         ' prod-sim/$1/config/genesis.json|sponge prod-sim/$1/config/genesis.json
+cat prod-sim/$1/config/genesis.json \
+    | jq '.app_state.slashing.params = {
+                        "downtime_jail_duration": "30s",
+                        "min_signed_per_window": "0.5",
+                        "signed_blocks_window": "120",
+                        "slash_fraction_double_sign": "0.050000000000000000",
+                        "slash_fraction_downtime": "0.000100000000000000" }' \
+    | sponge prod-sim/$1/config/genesis.json
 
 echo "Copying genesis file to other nodes..."
 for node in "${@:2}"; do
