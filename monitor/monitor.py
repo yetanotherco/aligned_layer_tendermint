@@ -2,6 +2,8 @@ import os
 import requests
 import time
 from slack_sdk import WebhookClient
+from dotenv import load_dotenv
+load_dotenv()
 
 SLACK_URL = os.environ["SLACK_URL"]
 
@@ -37,7 +39,3 @@ if __name__ == "__main__":
         else:
             alive = True
         last_height = current_height
-        
-
-
-        
