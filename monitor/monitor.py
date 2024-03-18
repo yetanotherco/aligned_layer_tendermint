@@ -2,8 +2,6 @@ import os
 import requests
 import time
 from slack_sdk import WebhookClient
-from dotenv import load_dotenv
-load_dotenv()
 
 SLACK_URL = os.environ["SLACK_URL"]
 

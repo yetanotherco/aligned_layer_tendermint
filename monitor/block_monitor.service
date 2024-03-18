@@ -1,0 +1,17 @@
+[Unit]
+Description=aligned_layer_monitor
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+WorkingDirectory=~/monitor
+Restart=on-failure
+ExecStart=.venv/bin/python monitor.py
+ExecReload=/bin/kill -HUP
+KillSignal=SIGTERM
+EnvironmentFile=.env
+StandardOutput=syslog+console
+
+[Install]
+WantedBy=multi-user.target
