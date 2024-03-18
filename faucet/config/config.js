@@ -30,7 +30,7 @@ export default {
             sender: {
                 mnemonic,
                 option: {
-                    "prefix": "cosmos",  //address prefix
+                    "prefix": "aligned",  //address prefix
                     "hdPaths": [path],
                 }
             },
@@ -38,7 +38,7 @@ export default {
                 amount: [
                     {
                         denom: "stake",
-                        amount: "10000"
+                        amount: "2000000"
                     },
                 ],
                 fee: {
