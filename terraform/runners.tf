@@ -61,7 +61,6 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
     package_upgrade: true
     packages:
       - curl
-      - jq
       - git
       - npm
     write_files:
