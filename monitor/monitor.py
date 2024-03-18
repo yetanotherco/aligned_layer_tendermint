@@ -23,7 +23,7 @@ def get_block_of(url):
                 return (height,timestamp)
             except:
                 print("Waiting to check again...")
-                time.sleep(60)
+                time.sleep(5)
                 continue
         
 
@@ -36,10 +36,11 @@ def send_blockchain_halted_alert():
     webhook.send(text="The chain is halted. There aren't enough nodes validating blocks for consensus")
 
 if __name__ == "__main__":
-    last_height = []
-    current_height = []
+    last_height = [""] * 4
+    current_height = [""] * 4
     alive = [True for i in range(NUMBER_OF_NODES)]
     for i in range(NUMBER_OF_NODES):
+        print(i)
         last_height[i], _ = get_block_of(urls[i])
     
     while True:
