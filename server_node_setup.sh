@@ -25,12 +25,12 @@ bash ../multi_node_setup.sh ${nodes[@]}
 echo "Setting node addresses in config..."
 for (( i=0; i<4; i++ )); do
     echo $(pwd)
-    seeds=$(docker run -v $(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer -it alignedlayerd_i config get config p2p.seeds)
-        for ((j=0; j<4; j++)); do
+    seeds=$(docker run -v $(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer -it alignedlayerd_i config get config p2p.persistent_peers)
+        for ((j=0; j<3; j++)); do
         seeds=${seeds//${nodes[$j]}/${nodes_ips[$j]}}
     done
     
-    docker run -v $(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.seeds $seeds --skip-validate    
+    docker run -v $(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers $seeds --skip-validate    
 done
 
 echo "Sending directories to servers..."
