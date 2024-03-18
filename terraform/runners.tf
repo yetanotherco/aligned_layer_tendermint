@@ -64,6 +64,40 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - jq
       - git
       - npm
+    write_files:
+      - path: /etc/systemd/system/faucet.service
+        content: |
+          [Unit]
+          Description=Faucet
+          After=network.target
+          StartLimitIntervalSec=0
+
+          [Service]
+          Type=simple
+          Restart=always
+          RestartSec=1
+          User=root
+          WorkingDirectory=/root/aligned_layer_tendermint/faucet
+          ExecStart=node faucet.js
+
+          [Install]
+          WantedBy=multi-user.target
+      - path: /etc/systemd/system/alignedlayer.service
+        content: |
+          [Unit]
+          Description=Aligned Layer
+          After=network.target
+          StartLimitIntervalSec=0
+
+          [Service]
+          Type=simple
+          Restart=always
+          RestartSec=1
+          User=root
+          ExecStart=alignedlayerd start
+
+          [Install]
+          WantedBy=multi-user.target
     runcmd:
       - curl -L -o /root/alignedlayer.tar.gz https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz
       - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
@@ -81,7 +115,10 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - alignedlayerd genesis add-genesis-account $ADDRESS ${var.genesis_initial_balance}${var.staking_token}
       - printf "${var.password}\n" | alignedlayerd genesis gentx victor ${var.staking_amount}${var.staking_token} --account-number 0 --sequence 0 --chain-id ${var.chain_id} --gas 1000000 --gas-prices 0.1${var.staking_token}
       - alignedlayerd genesis collect-gentxs
-      # - alignedlayerd start
+      - systemctl enable faucet
+      - systemctl start faucet
+      - systemctl enable alignedlayer
+      - systemctl start alignedlayer
   EOF
 }
 
