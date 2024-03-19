@@ -5,10 +5,11 @@ from slack_sdk import WebhookClient
 
 SLACK_URL = os.environ["SLACK_URL"]
 
-#urls = ["http://91.107.239.79:26657/",
-#        "http://116.203.81.174:26657/",
-#        "http://88.99.174.203:26657/",
-#        "http://128.140.3.188:26657/"]
+urls = ["http://91.107.239.79:26657/",
+        "http://116.203.81.174:26657/",
+        "http://88.99.174.203:26657/",
+        "http://128.140.3.188:26657/"]
+
 #urls = ["http://localhost:26657/",
 #        "http://localhost:27000/",
 #        "http://localhost:27001/",
@@ -21,7 +22,7 @@ NUMBER_OF_NODES = len(urls)
 #url = "http:/100.76.93.84:26657/"
 
 def get_block_of(url):
-    for _ in range(1):
+    for _ in range(2):
         try: 
             height = requests.get(url+"abci_info?", timeout=5).json()["result"]["response"]["last_block_height"]
             timestamp =  requests.get(url+"block?", params={"height": height}, timeout=5).json()["result"]["block"]["header"]["time"]
@@ -60,11 +61,11 @@ if __name__ == "__main__":
     total_failure = False
 
     for i in range(NUMBER_OF_NODES):
-        print(i)
+        print("Starting node " + str(i))
         last_height[i], timestamp = get_block_of(urls[i])
         
     while True:
-        time.sleep(7)
+        time.sleep(120)
         amount_of_failures = 0
         for i in range(NUMBER_OF_NODES):
             current_height[i], timestamp = get_block_of(urls[i])
