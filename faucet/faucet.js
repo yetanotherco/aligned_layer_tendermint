@@ -61,6 +61,9 @@ app.get('/balance/:chain', async (req, res) => {
 })
 
 app.get('/send/:chain/:address', async (req, res) => {
+  if (mutex.isLocked()) {
+    return res.status(500).send({ result: 'Faucet is busy, Please try again later.' })
+  }
   const { chain, address } = req.params;
   const ip = req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.headers['X-Forwarded-For'] || req.ip
   console.log('request tokens from', address, ip)
