@@ -8,7 +8,6 @@ if [ $# -ne 1 ]; then
 	exit 1
 else
 	ACCOUNT=$1
-  echo $ACCOUNT
 fi
 
 CHAIN_ID=alignedlayer
@@ -24,12 +23,12 @@ alignedlayerd tx verification verify \
   --fees $FEES \
   --yes
 
-sleep 1
+sleep 6
 
 alignedlayerd tx verification verify \
-  $(cat ./prover_examples/gnark_plonk/example/proof_2.base64.example) \
-  $(cat ./prover_examples/gnark_plonk/example/public_inputs_2.base64.example) \
-  $(cat ./prover_examples/gnark_plonk/example/verifying_key_2.base64.example) \
+  $(cat ./prover_examples/gnark_plonk/example/bad_proof.base64.example) \
+  $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
+  $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example) \
   --keyring-backend test \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
