@@ -241,7 +241,7 @@ To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with
 The fastest way to setup a new node is with our script. It receives the amount to stake as an argument:
 
 ```sh
-bash setup_validator.sh <account-name-or-address> 90000stake
+bash setup_validator.sh <account-name-or-address> 1050000stake
 ```
 
 This will configure your node and send a transaction for creating a validator.
