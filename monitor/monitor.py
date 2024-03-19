@@ -9,10 +9,10 @@ SLACK_URL = os.environ["SLACK_URL"]
 #        "http://116.203.81.174:26657/",
 #        "http://88.99.174.203:26657/",
 #        "http://128.140.3.188:26657/"]
-urls = ["http://localhost:26657/",
-        "http://localhost:27000/",
-        "http://localhost:27001/",
-        "http://localhost:27002/"]
+#urls = ["http://localhost:26657/",
+#        "http://localhost:27000/",
+#        "http://localhost:27001/",
+#        "http://localhost:27002/"]
         
 
 NUMBER_OF_NODES = len(urls)
