@@ -11,7 +11,6 @@ else
 fi
 
 CHAIN_ID=alignedlayer
-FEES=50000stake
 
 alignedlayerd tx verification verify \
   $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
@@ -20,7 +19,9 @@ alignedlayerd tx verification verify \
   --keyring-backend test \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
-  --fees $FEES \
+  --gas auto \
+	--gas-prices 0.25stake \
+	--gas-adjustment 1.5 \
   --yes
 
 sleep 6
@@ -32,5 +33,7 @@ alignedlayerd tx verification verify \
   --keyring-backend test \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
-  --fees $FEES \
+  --gas auto \
+	--gas-prices 0.25stake \
+	--gas-adjustment 1.5 \
   --yes
