@@ -6,7 +6,7 @@ git clone -b block_monitor https://github.com/yetanotherco/aligned_layer_tenderm
 # Move the desired folder to the current directory
 mv aligned_layer_tendermint/monitor .
 
-echo "SLACK_URL=$SLACK_URL" > monitor/.env
+sudo echo "SLACK_URL=$SLACK_URL" > monitor/.env
 
 # Clean up (optional)
 rm -rf aligned_layer_tendermint
