@@ -45,9 +45,13 @@ def send_back_up_alert(node_url, height, timestamp):
     webhook = WebhookClient(SLACK_URL)
     webhook.send(text="Node with ip: " + node_url + " is back up. The last block height is "+ height + " at "+ timestamp)
 
-def send_unreachable_alert(node_url, height, timestamp):
+def send_unreachable_alert(node_url, height):
     webhook = WebhookClient(SLACK_URL)
-    webhook.send(text="Not able to reach node with ip: " + node_url + ". The last block height is "+ height + " at "+ timestamp)
+    webhook.send(text="Not able to reach node with ip: " + node_url + ". The last block height is "+ height)
+
+def send_blockchain_back_up():
+    webhook = WebhookClient(SLACK_URL)
+    webhook.send(text="The blockchain is back up.")
 
 if __name__ == "__main__":
     last_height = [0] * NUMBER_OF_NODES
@@ -57,33 +61,34 @@ if __name__ == "__main__":
 
     for i in range(NUMBER_OF_NODES):
         print(i)
-        last_height[i], previous_timestamp = get_block_of(urls[i])
-    
+        last_height[i], timestamp = get_block_of(urls[i])
+        
     while True:
         time.sleep(7)
         amount_of_failures = 0
         for i in range(NUMBER_OF_NODES):
-            current_height[i], current_timestamp = get_block_of(urls[i])
+            current_height[i], timestamp = get_block_of(urls[i])
 
-            if current_timestamp=="ERROR" and alive[i]:
-                send_unreachable_alert(urls[i],last_height[i],previous_timestamp)
-                alive[i] = False
-            
-            elif current_height[i]==last_height[i] and alive[i]:
+            if timestamp=="ERROR": 
+                if alive[i]:
+                    send_unreachable_alert(urls[i],last_height[i])
+                    alive[i] = False
+                amount_of_failures += 1
+            elif current_height[i]==last_height[i] and timestamp!="ERROR" and alive[i]:
                 amount_of_failures = amount_of_failures + 1
-                send_alert(urls[i],current_height[i],current_timestamp)
+                send_alert(urls[i],current_height[i],timestamp)
                 alive[i] = False
             
             elif current_height[i]!=last_height[i] and last_height[i]!="ERROR" and not alive[i]:
-                send_back_up_alert(urls[i],current_height[i],current_timestamp)
+                send_back_up_alert(urls[i],current_height[i],timestamp)
                 alive[i] = True
 
-            print("Node number "+ str(i)+ " is at height " + current_height[i]+ " at time "+ previous_timestamp)
+            print("Node number "+ str(i)+ " is at height " + current_height[i]+ " at time "+ timestamp)
             last_height[i] = current_height[i]
-            previous_timestamp = current_timestamp
 
         if amount_of_failures > 1 and not total_failure: 
             send_blockchain_halted_alert()
             total_failure = True
         elif amount_of_failures <=1 and total_failure:
             total_failure = False
+            send_blockchain_back_up()
