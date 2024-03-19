@@ -11,7 +11,7 @@ import { Mutex, withTimeout } from 'async-mutex';
 // load config
 console.log("loaded config: ", conf)
 
-const mutex = withTimeout(new Mutex(), 10000);
+const mutex = new Mutex();
 
 const app = express()
 
@@ -71,7 +71,7 @@ app.get('/send/:chain/:address', async (req, res) => {
         if (await checker.checkAddress(address, chain) && await checker.checkIp(`${chain}${ip}`, chain)) {
           checker.update(`${chain}${ip}`) // get ::1 on localhost
           console.log('send tokens to ', address)
-          await mutex.runExclusive(async (value) => {
+          await mutex.runExclusive(async () => {
             await sendTx(address, chain).then(ret => {
               console.log(ret)
               checker.update(address)
