@@ -44,7 +44,7 @@ export default {
                 fee: {
                     amount: [
                         {
-                            amount: "2000",
+                            amount: "100",
                             denom: "stake"
                         }
                     ],
