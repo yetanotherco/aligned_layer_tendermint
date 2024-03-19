@@ -26,7 +26,7 @@ ignite chain build --release -t linux:amd64
 cd release
 tar -xzf alignedlayer_linux_amd64.tar.gz
 for server in "${servers[@]}"; do
-    scp alignedlayerd $server:/usr/local/bin
+    scp alignedlayerd $server:/home/admin
 done
 cd ..
 
@@ -54,7 +54,7 @@ for i in "${!servers[@]}"; do
 done
 
 
-ssh ${servers[0]} "rm -rf /home/admin/faucet/.faucet"
-scp -p -r "prod-sim/faucet/.faucet" "${servers[0]}:/home/admin/faucet/.faucet"
+ssh ${servers[0]} "rm -rf /home/admin/aligned_layer_tendermint/faucet/.faucet"
+scp -p -r "prod-sim/faucet/.faucet" "${servers[0]}:/home/admin/aligned_layer_tendermint/faucet/.faucet"
 
 cd ..
