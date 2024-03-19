@@ -6,7 +6,7 @@ const HOME = ".faucet";
 const mnemonic_path= `${HOME}/mnemonic.txt`
 
 const path = stringToPath("m/44'/118'/0'/0/0")
-const mnemonic = fs.readFileSync(mnemonic_path, "utf8")
+const mnemonic = fs.readFileSync(mnemonic_path, "utf8").trim()
 console.log("======================== faucet mnemonic =========================")
 console.log(mnemonic)
 console.log("==================================================================")
@@ -30,7 +30,7 @@ export default {
             sender: {
                 mnemonic,
                 option: {
-                    "prefix": "cosmos",  //address prefix
+                    "prefix": "aligned",  //address prefix
                     "hdPaths": [path],
                 }
             },
@@ -38,7 +38,7 @@ export default {
                 amount: [
                     {
                         denom: "stake",
-                        amount: "10000"
+                        amount: "2000000"
                     },
                 ],
                 fee: {

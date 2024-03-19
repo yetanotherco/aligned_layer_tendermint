@@ -2,7 +2,7 @@
 
 : "${PASSWORD:=password}"
 token="stake"
-initial_balance=3000000000
+initial_balance=10000000000
 initial_faucet_balance=1000000000
 initial_stake=1000000000
 
@@ -86,14 +86,14 @@ if ! docker run --rm -it -v $(pwd)/prod-sim/$1:/root/.alignedlayer alignedlayerd
     exit 1
 fi
 
-jq '.app_state.slashing.params= {
+cat prod-sim/$1/config/genesis.json \
+    | jq '.app_state.slashing.params = {
                         "downtime_jail_duration": "30s",
-                        "min_signed_per_window": "0.5",
+                        "min_signed_per_window": "0.2",
                         "signed_blocks_window": "120",
                         "slash_fraction_double_sign": "0.050000000000000000",
-                        "slash_fraction_downtime": "0.000100000000000000"
-                }
-        ' prod-sim/$1/config/genesis.json|sponge prod-sim/$1/config/genesis.json
+                        "slash_fraction_downtime": "0.000100000000000000" }' \
+    | sponge prod-sim/$1/config/genesis.json
 
 echo "Copying genesis file to other nodes..."
 for node in "${@:2}"; do
@@ -109,10 +109,10 @@ for (( i=1; i <= "$#"; i++ )); do
         fi
     done
     other_addresses=$(IFS=,; echo "${other_addresses[*]}")
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.seeds "$other_addresses" --skip-validate
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers "$other_addresses" --skip-validate
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
 done
 
-docker run -v $(pwd)/prod-sim/$1:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
 
 echo "Setting up faucet files..."
 mkdir -p prod-sim/faucet/.faucet
