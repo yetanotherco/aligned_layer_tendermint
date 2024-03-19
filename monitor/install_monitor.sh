@@ -15,7 +15,7 @@ rm -rf aligned_layer_tendermint
 cd monitor && make setup
 
 # Setup systemd
-sudo cp monitor/block_monitor.service /etc/systemd/system/monitor.service
+sudo cp block_monitor.service /etc/systemd/system/monitor.service
 sudo systemctl daemon-reload
 sudo systemctl start monitor
 sudo systemctl enable monitor
