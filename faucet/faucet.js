@@ -6,7 +6,7 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import conf from './config/config.js'
 import { FrequencyChecker } from './checker.js';
 
-import { Mutex, withTimeout } from 'async-mutex';
+import { Mutex } from 'async-mutex';
 
 // load config
 console.log("loaded config: ", conf)
