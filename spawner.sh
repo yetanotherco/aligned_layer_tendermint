@@ -1,6 +1,6 @@
 # !/bin/sh
 #
-# This script send a dummy transaction from an <account> with a test keyring. It should be run from the repository root.
+# This script send two dummy transactions from an <account> with a test keyring. It should be run from the repository root.
 
 if [ $# -ne 1 ]; then
 	echo "Usage: $0 <account>"
