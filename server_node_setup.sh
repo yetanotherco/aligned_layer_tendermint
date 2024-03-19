@@ -1,8 +1,22 @@
 #!/bin/bash
 
-nodes=("node0" "node1" "node2" "node3")
-nodes_ips=("10.0.0.2" "10.0.0.3" "10.0.0.4" "10.0.0.6")
-servers=("admin@blockchain-1" "admin@blockchain-2" "admin@blockchain-3" "admin@blockchain-4")
+if [ "$1" = "prod" ]; then
+    nodes=("node0" "node1" "node2" "node3")
+    nodes_ips=("10.0.0.2" "10.0.0.3" "10.0.0.4" "10.0.0.6")
+    servers=("admin@blockchain-1" "admin@blockchain-2" "admin@blockchain-3" "admin@blockchain-4")
+
+    read -p "Are you sure you want to deploy in production? (y/n): " answer
+    if [ "$answer" != "y" ]; then
+        exit 0
+    fi
+elif [ "$1" = "test" ]; then
+    nodes=("node0" "node1" "node2")
+    nodes_ips=("10.0.0.2" "10.0.0.3" "10.0.0.4")
+    servers=("admin@testing-blockchain-1" "admin@testing-blockchain-2" "admin@testing-blockchain-3")
+else
+    echo "Usage: $0 [prod|test]"
+    exit 1
+fi
 
 rm -rf server-setup
 
