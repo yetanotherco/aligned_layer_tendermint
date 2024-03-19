@@ -65,7 +65,7 @@ if __name__ == "__main__":
         last_height[i], timestamp = get_block_of(urls[i])
         
     while True:
-        time.sleep(120)
+        time.sleep(5)
         amount_of_failures = 0
         for i in range(NUMBER_OF_NODES):
             current_height[i], timestamp = get_block_of(urls[i])
