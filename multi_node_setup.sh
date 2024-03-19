@@ -87,14 +87,14 @@ if ! docker run --rm -it -v $(pwd)/prod-sim/$1:/root/.alignedlayer alignedlayerd
     exit 1
 fi
 
-# jq '.app_state.slashing.params= {
-#                         "downtime_jail_duration": "30s",
-#                         "min_signed_per_window": "0.5",
-#                         "signed_blocks_window": "120",
-#                         "slash_fraction_double_sign": "0.050000000000000000",
-#                         "slash_fraction_downtime": "0.000100000000000000"
-#                 }
-#         ' prod-sim/$1/config/genesis.json|sponge prod-sim/$1/config/genesis.json
+cat prod-sim/$1/config/genesis.json \
+    | jq '.app_state.slashing.params = {
+                        "downtime_jail_duration": "30s",
+                        "min_signed_per_window": "0.2",
+                        "signed_blocks_window": "120",
+                        "slash_fraction_double_sign": "0.050000000000000000",
+                        "slash_fraction_downtime": "0.000100000000000000" }' \
+    | sponge prod-sim/$1/config/genesis.json
 
 echo "Copying genesis file to other nodes..."
 for node in "${@:2}"; do
@@ -110,8 +110,15 @@ for (( i=1; i <= "$#"; i++ )); do
         fi
     done
     other_addresses=$(IFS=,; echo "${other_addresses[*]}")
+    #Peer configuration
     docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers "$other_addresses" --skip-validate
+    #RPC configuration
     docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
+    #Explorer configuration
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.cors_allowed_origins '["*"]' --skip-validate 
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enable true --skip-validate 
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enabled-unsafe-cors true --skip-validate 
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.address "tcp://0.0.0.0:1317" --skip-validate
 done
 
 
