@@ -74,11 +74,12 @@ if __name__ == "__main__":
                 if alive[i]:
                     send_unreachable_alert(urls[i],last_height[i])
                     alive[i] = False
-            elif current_height[i]==last_height[i] and timestamp!="ERROR" and alive[i]:
+                    
+            elif current_height[i]==last_height[i] and alive[i]:
                 send_alert(urls[i],current_height[i],timestamp)
                 alive[i] = False
             
-            elif current_height[i]!=last_height[i] and last_height[i]!="ERROR" and not alive[i]:
+            elif current_height[i]!=last_height[i] and not alive[i]:
                 send_back_up_alert(urls[i],current_height[i],timestamp)
                 alive[i] = True
 
