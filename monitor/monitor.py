@@ -59,7 +59,6 @@ if __name__ == "__main__":
     last_height = [0] * NUMBER_OF_NODES
     current_height = [0] * NUMBER_OF_NODES
     alive = [True for i in range(NUMBER_OF_NODES)]
-    total_failure = False
 
     for i in range(NUMBER_OF_NODES):
         print("Starting node " + str(i))
@@ -68,7 +67,6 @@ if __name__ == "__main__":
         
     while True:
         time.sleep(60)
-        amount_of_failures = 0
         for i in range(NUMBER_OF_NODES):
             current_height[i], timestamp = get_block_of(urls[i])
 
@@ -76,9 +74,7 @@ if __name__ == "__main__":
                 if alive[i]:
                     send_unreachable_alert(urls[i],last_height[i])
                     alive[i] = False
-                amount_of_failures += 1
             elif current_height[i]==last_height[i] and timestamp!="ERROR" and alive[i]:
-                amount_of_failures = amount_of_failures + 1
                 send_alert(urls[i],current_height[i],timestamp)
                 alive[i] = False
             
@@ -90,9 +86,3 @@ if __name__ == "__main__":
             sys.stdout.flush()
             last_height[i] = current_height[i]
 
-        if amount_of_failures > 1 and not total_failure: 
-            send_blockchain_halted_alert()
-            total_failure = True
-        elif amount_of_failures <=1 and total_failure:
-            total_failure = False
-            send_blockchain_back_up()
