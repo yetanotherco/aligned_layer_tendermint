@@ -45,7 +45,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "cosmos"
+	AccountAddressPrefix = "aligned"
 	Name                 = "alignedlayer"
 )
 

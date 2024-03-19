@@ -109,10 +109,10 @@ for (( i=1; i <= "$#"; i++ )); do
         fi
     done
     other_addresses=$(IFS=,; echo "${other_addresses[*]}")
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.seeds "$other_addresses" --skip-validate
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers "$other_addresses" --skip-validate
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
 done
 
-docker run -v $(pwd)/prod-sim/$1:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
 
 echo "Setting up faucet files..."
 mkdir -p prod-sim/faucet/.faucet
