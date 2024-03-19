@@ -19,9 +19,7 @@ alignedlayerd tx verification verify \
   --keyring-backend test \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
-  --gas auto \
-  --gas-prices 0.25stake \
-  --gas-adjustment 1.5 \
+  --fees 20stake \
   --yes
 
 sleep 6
@@ -33,7 +31,5 @@ alignedlayerd tx verification verify \
   --keyring-backend test \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
-  --gas auto \
-  --gas-prices 0.25stake \
-  --gas-adjustment 1.5 \
+  --fees 20stake \
   --yes
