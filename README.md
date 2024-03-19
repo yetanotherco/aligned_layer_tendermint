@@ -90,7 +90,7 @@ Then you can try sending a proof for verification with:
 If you want to test it with a valid proof use:
 
 ```
-alignedlayerd tx verification verify --from <your_key_name> --chain-id alignedlayer --node tcp://rpc-node.alignedlayer.com:26657 --fees 50000stake \
+alignedlayerd tx verification verify --from <your_key_name> --chain-id alignedlayer --node tcp://rpc-node.alignedlayer.com:26657 --fees 50stake \
                                                                   $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
                                                                   $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
                                                                   $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
@@ -170,7 +170,7 @@ To configure persistent peers, seeds and gas prices, run the following commands:
 ```sh
 alignedlayerd config set config p2p.seeds "NODEID@blockchain-1:26656" --skip-validate
 alignedlayerd config set config p2p.persistent_peers "NODEID@blockchain-1:26656" --skip-validate
-alignedlayerd config set app minimum-gas-prices 0.25stake --skip-validate
+alignedlayerd config set app minimum-gas-prices 0.0001stake --skip-validate
 ``` 
 
 The two most important ports are 26656 and 26657.
@@ -241,7 +241,7 @@ To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with
 The fastest way to setup a new node is with our script. It receives the amount to stake as an argument:
 
 ```sh
-bash setup_validator.sh <account-name-or-address> 1000000stake
+bash setup_validator.sh <account-name-or-address> 90000stake
 ```
 
 This will configure your node and send a transaction for creating a validator.
@@ -271,7 +271,7 @@ Now create the validator.json file:
 
 Now, run:
 ```sh
-alignedlayerd tx staking create-validator validator.json --from <account-name-or-address> --node tcp://$PEER_ADDR:26657 --fees 60000stake --chain-id alignedlayer
+alignedlayerd tx staking create-validator validator.json --from <account-name-or-address> --node tcp://$PEER_ADDR:26657 --fees 50stake --chain-id alignedlayer
 ```
 
 Check whether your validator was accepted with:
