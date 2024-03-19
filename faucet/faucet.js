@@ -6,9 +6,12 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import conf from './config/config.js'
 import { FrequencyChecker } from './checker.js';
 
+import { Mutex, withTimeout } from 'async-mutex';
 
 // load config
 console.log("loaded config: ", conf)
+
+const mutex = withTimeout(new Mutex(), 10000);
 
 const app = express()
 
@@ -68,12 +71,14 @@ app.get('/send/:chain/:address', async (req, res) => {
         if (await checker.checkAddress(address, chain) && await checker.checkIp(`${chain}${ip}`, chain)) {
           checker.update(`${chain}${ip}`) // get ::1 on localhost
           console.log('send tokens to ', address)
-          await sendTx(address, chain).then(ret => {
-            console.log(ret)
-            checker.update(address)
-            res.send({ result: {code: ret.code, tx_hash: ret.transactionHash, height: ret.height} })
-          }).catch(err => {
-            res.send({ result: `err: ${err}` })
+          await mutex.runExclusive(async (value) => {
+            await sendTx(address, chain).then(ret => {
+              console.log(ret)
+              checker.update(address)
+              res.send({ result: { code: ret.code, tx_hash: ret.transactionHash, height: ret.height } })
+            }).catch(err => {
+              res.send({ result: `err: ${err}` })
+            });
           });
         } else {
           res.send({ result: "You requested too often" })
