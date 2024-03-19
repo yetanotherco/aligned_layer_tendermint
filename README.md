@@ -170,7 +170,7 @@ To configure persistent peers, seeds and gas prices, run the following commands:
 ```sh
 alignedlayerd config set config p2p.seeds "NODEID@blockchain-1:26656" --skip-validate
 alignedlayerd config set config p2p.persistent_peers "NODEID@blockchain-1:26656" --skip-validate
-alignedlayerd config set app minimum-gas-prices 0.25stake --skip-validate
+alignedlayerd config set app minimum-gas-prices 0.0001stake --skip-validate
 ``` 
 
 The two most important ports are 26656 and 26657.

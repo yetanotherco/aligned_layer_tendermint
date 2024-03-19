@@ -16,7 +16,7 @@ CHAIN_ID=alignedlayer
 : ${PEER_ADDR2:="116.203.81.174"}
 : ${PEER_ADDR3:="88.99.174.203"}
 : ${PEER_ADDR4:="128.140.3.188"}
-: ${MINIMUM_GAS_PRICES="0.25stake"}
+: ${MINIMUM_GAS_PRICES="0.0001stake"}
 
 ignite chain build
 

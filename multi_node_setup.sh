@@ -5,6 +5,7 @@ token="stake"
 initial_balance=10000000000
 initial_faucet_balance=1000000000
 initial_stake=1000000000
+minimum_gas_price=0.0001
 
 
 if [ $# -lt 1 ]; then
@@ -25,7 +26,7 @@ for node in "$@"; do
     docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i init alignedlayer_$node --chain-id alignedlayer > /dev/null
     
     docker run --rm -it -v $(pwd)/prod-sim/$node:/root/.alignedlayer --entrypoint sed alignedlayerd_i -i 's/"stake"/"'$token'"/g' /root/.alignedlayer/config/genesis.json 
-    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app minimum-gas-prices "0.1$token"
+    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app minimum-gas-prices "$minimum_gas_price$token"
     docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app pruning "nothing" 
 
 
