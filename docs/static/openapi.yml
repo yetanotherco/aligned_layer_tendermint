@@ -1603,6 +1603,135 @@ paths:
               Since: cosmos-sdk 0.47
       tags:
         - Msg
+  /cosmos.slashing.v1beta1.Msg/Unjail:
+    post:
+      summary: >-
+        Unjail defines a method for unjailing a jailed validator, thus returning
+
+        them into the bonded validator set, so they can begin receiving
+        provisions
+
+        and rewards again.
+      operationId: CosmosSlashingV1Beta1Msg_Unjail
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            title: MsgUnjailResponse defines the Msg/Unjail response type
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              validator_addr:
+                type: string
+            title: MsgUnjail defines the Msg/Unjail request type
+      tags:
+        - Msg
+  /cosmos.slashing.v1beta1.Msg/UpdateParams:
+    post:
+      summary: >-
+        UpdateParams defines a governance operation for updating the x/slashing
+        module
+
+        parameters. The authority defaults to the x/gov module account.
+      description: 'Since: cosmos-sdk 0.47'
+      operationId: CosmosSlashingV1Beta1Msg_UpdateParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            description: >-
+              MsgUpdateParamsResponse defines the response structure for
+              executing a
+
+              MsgUpdateParams message.
+
+
+              Since: cosmos-sdk 0.47
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          description: |-
+            MsgUpdateParams is the Msg/UpdateParams request type.
+
+            Since: cosmos-sdk 0.47
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              authority:
+                type: string
+                description: >-
+                  authority is the address that controls the module (defaults to
+                  x/gov unless overwritten).
+              params:
+                description: |-
+                  params defines the x/slashing parameters to update.
+
+                  NOTE: All parameters must be supplied.
+                type: object
+                properties:
+                  signed_blocks_window:
+                    type: string
+                    format: int64
+                  min_signed_per_window:
+                    type: string
+                    format: byte
+                  downtime_jail_duration:
+                    type: string
+                  slash_fraction_double_sign:
+                    type: string
+                    format: byte
+                  slash_fraction_downtime:
+                    type: string
+                    format: byte
+            description: |-
+              MsgUpdateParams is the Msg/UpdateParams request type.
+
+              Since: cosmos-sdk 0.47
+      tags:
+        - Msg
   /cosmos.staking.v1beta1.Msg/BeginRedelegate:
     post:
       summary: >-
@@ -4869,6 +4998,73 @@ definitions:
         format: uint64
         title: expected blocks per year
     description: Params defines the parameters for the x/mint module.
+  cosmos.slashing.v1beta1.MsgUnjail:
+    type: object
+    properties:
+      validator_addr:
+        type: string
+    title: MsgUnjail defines the Msg/Unjail request type
+  cosmos.slashing.v1beta1.MsgUnjailResponse:
+    type: object
+    title: MsgUnjailResponse defines the Msg/Unjail response type
+  cosmos.slashing.v1beta1.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: |-
+          params defines the x/slashing parameters to update.
+
+          NOTE: All parameters must be supplied.
+        type: object
+        properties:
+          signed_blocks_window:
+            type: string
+            format: int64
+          min_signed_per_window:
+            type: string
+            format: byte
+          downtime_jail_duration:
+            type: string
+          slash_fraction_double_sign:
+            type: string
+            format: byte
+          slash_fraction_downtime:
+            type: string
+            format: byte
+    description: |-
+      MsgUpdateParams is the Msg/UpdateParams request type.
+
+      Since: cosmos-sdk 0.47
+  cosmos.slashing.v1beta1.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
+
+      Since: cosmos-sdk 0.47
+  cosmos.slashing.v1beta1.Params:
+    type: object
+    properties:
+      signed_blocks_window:
+        type: string
+        format: int64
+      min_signed_per_window:
+        type: string
+        format: byte
+      downtime_jail_duration:
+        type: string
+      slash_fraction_double_sign:
+        type: string
+        format: byte
+      slash_fraction_downtime:
+        type: string
+        format: byte
+    description: Params represents the parameters used for by the slashing module.
   cosmos.staking.v1beta1.CommissionRates:
     type: object
     properties:
