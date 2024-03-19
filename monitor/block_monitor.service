@@ -11,7 +11,6 @@ ExecStart=/home/admin/monitor/.venv/bin/python monitor.py
 ExecReload=/bin/kill -HUP
 KillSignal=SIGTERM
 EnvironmentFile=/home/admin/monitor/.env
-StandardOutput=syslog+console
 
 [Install]
 WantedBy=multi-user.target
