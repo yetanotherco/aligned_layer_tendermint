@@ -3,11 +3,11 @@
 # This script send two dummy transactions from an <account> with a test keyring. It should be run from the repository root.
 
 if [ $# -ne 1 ]; then
-	echo "Usage: $0 <account>"
+  echo "Usage: $0 <account>"
   echo "accepts 1 arg(s), received $#"
-	exit 1
+  exit 1
 else
-	ACCOUNT=$1
+  ACCOUNT=$1
 fi
 
 CHAIN_ID=alignedlayer
@@ -20,8 +20,8 @@ alignedlayerd tx verification verify \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
   --gas auto \
-	--gas-prices 0.25stake \
-	--gas-adjustment 1.5 \
+  --gas-prices 0.25stake \
+  --gas-adjustment 1.5 \
   --yes
 
 sleep 6
@@ -34,6 +34,6 @@ alignedlayerd tx verification verify \
   --from $ACCOUNT \
   --chain-id $CHAIN_ID \
   --gas auto \
-	--gas-prices 0.25stake \
-	--gas-adjustment 1.5 \
+  --gas-prices 0.25stake \
+  --gas-adjustment 1.5 \
   --yes
