@@ -20,26 +20,27 @@ mkdir -p server-setup
 cd server-setup
 
 echo "Calling setup script..."
-bash ../multi_node_setup.sh ${nodes[@]}
+bash ../multi_node_setup.sh "${nodes[@]}"
 
 echo "Setting node addresses in config..."
-for (( i=0; i<4; i++ )); do
+for i in "${!nodes[@]}"; do  # Dynamically iterating over the nodes array
     echo $(pwd)
-    seeds=$(docker run -v $(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer -it alignedlayerd_i config get config p2p.persistent_peers)
-        for ((j=0; j<3; j++)); do
+    seeds=$(docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config get config p2p.persistent_peers)
+    for j in "${!nodes[@]}"; do  # Dynamically iterating over the nodes array for seeds replacement
         seeds=${seeds//${nodes[$j]}/${nodes_ips[$j]}}
     done
     
-    docker run -v $(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers $seeds --skip-validate    
+    docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config set config p2p.persistent_peers $seeds --skip-validate    
 done
 
 echo "Sending directories to servers..."
-for ((i=0; i<4; i++)); do
-    ssh ${servers[i]} "rm -rf /home/admin/.alignedlayer"
-    scp -r prod-sim/${nodes[i]} ${servers[i]}:/home/admin/.alignedlayer
+for i in "${!servers[@]}"; do  # Dynamically iterating over the servers array
+    ssh ${servers[$i]} "rm -rf /home/admin/.alignedlayer"
+    scp -r "prod-sim/${nodes[$i]}" "${servers[$i]}:/home/admin/.alignedlayer"
 done
 
+# Handle the faucet files for the first server only
 ssh ${servers[0]} "rm -rf /home/admin/faucet/.faucet"
-scp -p -r prod-sim/faucet/.faucet ${servers[0]}:/home/admin/faucet/.faucet
+scp -p -r "prod-sim/faucet/.faucet" "${servers[0]}:/home/admin/faucet/.faucet"
 
 cd ..
