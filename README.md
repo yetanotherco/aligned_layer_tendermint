@@ -241,7 +241,7 @@ To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with
 The fastest way to setup a new node is with our script. It receives the amount to stake as an argument:
 
 ```sh
-bash setup_validator.sh <account-name-or-address> 1000000stake
+bash setup_validator.sh <account-name-or-address> 90000stake
 ```
 
 This will configure your node and send a transaction for creating a validator.
@@ -271,7 +271,7 @@ Now create the validator.json file:
 
 Now, run:
 ```sh
-alignedlayerd tx staking create-validator validator.json --from <account-name-or-address> --node tcp://$PEER_ADDR:26657 --fees 60000stake --chain-id alignedlayer
+alignedlayerd tx staking create-validator validator.json --from <account-name-or-address> --node tcp://$PEER_ADDR:26657 --fees 5000stake --chain-id alignedlayer
 ```
 
 Check whether your validator was accepted with:
