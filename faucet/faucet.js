@@ -77,18 +77,18 @@ app.get('/send/:chain/:address', async (req, res) => {
               checker.update(address)
               res.send({ result: { code: ret.code, tx_hash: ret.transactionHash, height: ret.height } })
             }).catch(err => {
-              res.send({ result: `err: ${err}` })
+              res.status(500).send({ result: `err: ${err}` })
             });
           });
         } else {
-          res.send({ result: "You requested too often" })
+          res.status(429).send({ result: "You requested too often" })
         }
       } else {
-        res.send({ result: `Address [${address}] is not supported.` })
+        res.status(400).send({ result: `Address [${address}] is not supported.` })
       }
     } catch (err) {
       console.error(err);
-      res.send({ result: 'Failed, Please contact to admin.' })
+      res.status(500).send({ result: 'Failed, Please contact to admin.' })
     }
 
   } else {
