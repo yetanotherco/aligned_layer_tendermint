@@ -89,7 +89,7 @@ fi
 cat prod-sim/$1/config/genesis.json \
     | jq '.app_state.slashing.params = {
                         "downtime_jail_duration": "30s",
-                        "min_signed_per_window": "0.5",
+                        "min_signed_per_window": "0.2",
                         "signed_blocks_window": "120",
                         "slash_fraction_double_sign": "0.050000000000000000",
                         "slash_fraction_downtime": "0.000100000000000000" }' \
