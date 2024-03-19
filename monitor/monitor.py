@@ -1,6 +1,7 @@
 import os
 import requests
 import time
+import sys
 from slack_sdk import WebhookClient
 
 SLACK_URL = os.environ["SLACK_URL"]
@@ -62,6 +63,7 @@ if __name__ == "__main__":
 
     for i in range(NUMBER_OF_NODES):
         print("Starting node " + str(i))
+        sys.stdout.flush()
         last_height[i], timestamp = get_block_of(urls[i])
         
     while True:
@@ -85,6 +87,7 @@ if __name__ == "__main__":
                 alive[i] = True
 
             print("Node number "+ str(i)+ " is at height " + current_height[i]+ " at time "+ timestamp)
+            sys.stdout.flush()
             last_height[i] = current_height[i]
 
         if amount_of_failures > 1 and not total_failure: 
