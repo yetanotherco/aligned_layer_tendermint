@@ -113,7 +113,7 @@
               document.getElementById("button-loading").style.display = 'none';
               this.message = `
                   <div class="alert alert-${data.result.code === 0 ? 'success' : 'danger'} alert-dismissible show fade mt-2" role="alert">
-                      <li>${data.result.code === 0 ? 'Token sent' : 'Request failed'}</li>
+                      <li>${data.result.code === 0 ? 'Tokens sent' : 'Request failed'}</li>
                       <textarea class="form-control mt-1" rows="5" style="background-color:transparent">${JSON.stringify(data, null, 2)}</textarea>
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
