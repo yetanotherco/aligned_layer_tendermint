@@ -23,10 +23,10 @@ echo "Calling setup script..."
 bash ../multi_node_setup.sh "${nodes[@]}"
 
 echo "Setting node addresses in config..."
-for i in "${!nodes[@]}"; do  # Dynamically iterating over the nodes array
+for i in "${!nodes[@]}"; do 
     echo $(pwd)
     seeds=$(docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config get config p2p.persistent_peers)
-    for j in "${!nodes[@]}"; do  # Dynamically iterating over the nodes array for seeds replacement
+    for j in "${!nodes[@]}"; do  
         seeds=${seeds//${nodes[$j]}/${nodes_ips[$j]}}
     done
     
@@ -34,12 +34,12 @@ for i in "${!nodes[@]}"; do  # Dynamically iterating over the nodes array
 done
 
 echo "Sending directories to servers..."
-for i in "${!servers[@]}"; do  # Dynamically iterating over the servers array
+for i in "${!servers[@]}"; do  
     ssh ${servers[$i]} "rm -rf /home/admin/.alignedlayer"
     scp -r "prod-sim/${nodes[$i]}" "${servers[$i]}:/home/admin/.alignedlayer"
 done
 
-# Handle the faucet files for the first server only
+
 ssh ${servers[0]} "rm -rf /home/admin/faucet/.faucet"
 scp -p -r "prod-sim/faucet/.faucet" "${servers[0]}:/home/admin/faucet/.faucet"
 
