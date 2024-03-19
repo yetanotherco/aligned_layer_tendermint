@@ -10,5 +10,5 @@ export SLACK_URL=your_url
 
 Step2:
 ```sh
-curl https://raw.githubusercontent.com/yetanotherco/aligned_layer_tendermint/block_monitor_async/monitor/install_monitor.sh | bash
+curl https://raw.githubusercontent.com/yetanotherco/aligned_layer_tendermint/block_monitor/monitor/install_monitor.sh | bash
 ```
