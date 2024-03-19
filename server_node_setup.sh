@@ -26,7 +26,7 @@ ignite chain build --release -t linux:amd64
 cd release
 tar -xzf alignedlayer_linux_amd64.tar.gz
 for server in "${servers[@]}"; do
-    scp alignedlayerd $server:/usr/local/bin
+    scp alignedlayerd $server:/home/admin
 done
 cd ..
 
