@@ -3,17 +3,16 @@ variable "genesis_initial_balance" {
 }
 
 variable "genesis_staking_amount" {
-  default = 30000000
+  default = 10000000
 }
 
 variable "staking_amount" {
-  default = 10000000
+  default = 1001000
 }
 
 variable "staking_token" {
   default = "stake"
 }
-
 
 variable "min_gas_price" {
   default = 0.0001
