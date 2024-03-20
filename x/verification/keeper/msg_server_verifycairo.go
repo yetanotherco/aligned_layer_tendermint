@@ -16,8 +16,9 @@ func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	result := verifyCairo(msg.Proof)
-	event := sdk.NewEvent("CAIROverification_finished",
-		sdk.NewAttribute("CAIROproof_verifies", strconv.FormatBool(result)))
+	event := sdk.NewEvent("verification_finished",
+		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)),
+		sdk.NewAttribute("prover", "CAIRO"))
 
 	ctx.EventManager().EmitEvent(event)
 

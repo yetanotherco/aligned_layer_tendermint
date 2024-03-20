@@ -15,8 +15,9 @@ func (k msgServer) VerifySp1(goCtx context.Context, msg *types.MsgVerifySp1) (*t
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	result := verifySP1(msg.Proof)
-	event := sdk.NewEvent("SP1verification_finished",
-		sdk.NewAttribute("SP1proof_verifies", strconv.FormatBool(result)))
+	event := sdk.NewEvent("verification_finished",
+		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)),
+		sdk.NewAttribute("prover", "SP1"))
 
 	ctx.EventManager().EmitEvent(event)
 

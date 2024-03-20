@@ -20,7 +20,8 @@ func (k msgServer) Verify(goCtx context.Context, msg *types.MsgVerify) (*types.M
 
 	result := verify(msg)
 	event := sdk.NewEvent("verification_finished",
-		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)))
+		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)),
+		sdk.NewAttribute("prover", "PLONK"))
 
 	ctx.EventManager().EmitEvent(event)
 
