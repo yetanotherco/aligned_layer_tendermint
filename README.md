@@ -677,4 +677,4 @@ alignedlayerd keys show <account_name> --bech val --address
 ```
 
 ## Acknowledgements <a name="acknowledgements"></a>
-We are most grateful to [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), [Ignite CLI](https://github.com/ignite/cli), [CometBFT](https://github.com/cometbft/cometbft) and [Ping.pub](https://github.com/ping-pub/faucet).
+We are most grateful to [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), [Ignite CLI](https://github.com/ignite/cli), [CometBFT](https://github.com/cometbft/cometbft) and Ping.pub for their [faucet](https://github.com/ping-pub/faucet) and [explorer](https://github.com/ping-pub/explorer).
