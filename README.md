@@ -151,6 +151,11 @@ value: "true"
 > [!NOTE]
 > The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
 
+To create your own proofs:
+- [CairoVM](https://github.com/lambdaclass/cairo-vm)
+- [SP1 Book](https://succinctlabs.github.io/sp1/getting-started/install.html)
+
+
 ## Trying our testnet <a name="tryingtestnet"></a>
 
 
