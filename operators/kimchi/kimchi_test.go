@@ -1,11 +1,9 @@
-package kimchi_test
+package kimchi
 
 import (
 	"fmt"
 	"os"
 	"testing"
-
-	"github.com/yetanotherco/aligned_layer/operator/kimchi"
 )
 
 func TestEcAddKimchiProofVerifies(t *testing.T) {
@@ -15,7 +13,7 @@ func TestEcAddKimchiProofVerifies(t *testing.T) {
 		t.Errorf("could not open kimchi proof file")
 	}
 
-	proofBuffer := make([]byte, kimchi.MAX_PROOF_SIZE)
+	proofBuffer := make([]byte, MAX_PROOF_SIZE)
 	proofLen, err := proofFile.Read(proofBuffer)
 	if err != nil {
 		t.Errorf("could not read bytes from kimchi proof file")
@@ -25,13 +23,13 @@ func TestEcAddKimchiProofVerifies(t *testing.T) {
 	if err != nil {
 		t.Errorf("could not open kimchi aggregated public input file")
 	}
-	pubInputBuffer := make([]byte, kimchi.MAX_PUB_INPUT_SIZE)
+	pubInputBuffer := make([]byte, MAX_PUB_INPUT_SIZE)
 	pubInputLen, err := pubInputFile.Read(pubInputBuffer)
 	if err != nil {
 		t.Errorf("could not read bytes from kimchi aggregated public input")
 	}
 
-	if !kimchi.VerifyKimchiProof(([kimchi.MAX_PROOF_SIZE]byte)(proofBuffer), uint(proofLen), ([kimchi.MAX_PUB_INPUT_SIZE]byte)(pubInputBuffer), uint(pubInputLen)) {
+	if !VerifyKimchiProof(([MAX_PROOF_SIZE]byte)(proofBuffer), uint(proofLen), ([MAX_PUB_INPUT_SIZE]byte)(pubInputBuffer), uint(pubInputLen)) {
 		t.Errorf("proof did not verify")
 	}
 }
