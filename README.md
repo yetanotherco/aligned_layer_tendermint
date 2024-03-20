@@ -26,6 +26,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
     - [Claiming Staking Rewards](#claimstake)
     - [Bank](#bank)
     - [Slashing](#slashing)
+    - [Staking](#staking)
 11. [Acknowledgements](#acknowledgements)
 
 ## Requirements <a name="requirements"></a>
@@ -661,6 +662,12 @@ alignedlayerd query distribution slashes [validator-addr] [start-height] [end-he
 To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin the validator set:
 ```
 alignedlayerd tx slashing unjail --from account_name --chain-id alignedlayer --fees 20stake
+```
+
+### Staking <a name="staking"></a>
+You may stake additional tokens after registering your validator with the following command: 
+```
+alignedlayerd tx staking delegate <valoperaddr> <amount> --from <user> --chain-id alignedlayer --fees 30stake
 ```
 
 ## Acknowledgements <a name="acknowledgements"></a>
