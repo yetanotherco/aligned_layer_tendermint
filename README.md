@@ -9,24 +9,25 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [Example Local Blockchain](#example)
-3. [Trying our testnet](#tryingtestnet)
-4. [Joining our testnet](#joiningtestnet)
+3. [Cairo and SP1](#cairo&sp1)
+4. [Trying our testnet](#tryingtestnet)
+5. [Joining our testnet](#joiningtestnet)
     - [Requirements](#joinrequirements)
     - [Node Setup](#nodesetup)
-5. [Creating an Account](#account)
-6. [Registering as a Validator](#validator)
-7. [Testnet Public IPs](#publicips)
-8. [How it Works](#howitworks)
+6. [Creating an Account](#account)
+7. [Registering as a Validator](#validator)
+8. [Testnet Public IPs](#publicips)
+9. [How it Works](#howitworks)
     - [Project Anatomy](#anatomy)
     - [Transaction Lifecycle](#lifecycle)
     - [Interacting with a Node](#interactwithnode)
-9. [Setting up multiple local nodes using docker](#multiplelocalnodes)
-10. [Tutorials](#tutorials)
+10. [Setting up multiple local nodes using docker](#multiplelocalnodes)
+11. [Tutorials](#tutorials)
     - [Setup the Faucet Locally](#setupfaucet)
     - [Claiming Staking Rewards](#claimstake)
     - [Bank](#bank)
     - [Slashing](#slashing)
-11. [Acknowledgements](#acknowledgements)
+12. [Acknowledgements](#acknowledgements)
 
 ## Requirements <a name="requirements"></a>
 
@@ -85,7 +86,7 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
     $(cat verifying_key.base64)
 ```
 
-## How to run Cairo and SP1 proof verifications
+## How to run Cairo and SP1 proof verifications <a name="cairo&sp1"></a>
 
 FFIs are being used to implement Cairo and SP1 verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
@@ -118,8 +119,6 @@ The transaction (tx) is stored in a YAML file to facilitate better inspection of
 
 > [!NOTE]
 > The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
-
-## How to join as validator
 
 ## Trying our testnet <a name="tryingtestnet"></a>
 
