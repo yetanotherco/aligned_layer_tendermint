@@ -49,7 +49,7 @@ ltest-cairo-true:
 		--from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
-		$$(cat prover_examples/cairo_platinum/fibonacci_10.base64.example)
+		$$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
 
 ltest-cairo-false:
 	alignedlayerd tx verification verifycairo \
