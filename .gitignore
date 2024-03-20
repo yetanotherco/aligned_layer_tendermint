@@ -8,4 +8,5 @@ release/
 *.log
 *.ign
 prod-sim/
+server-setup/
 *.base64

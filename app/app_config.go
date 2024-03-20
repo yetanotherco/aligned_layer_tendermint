@@ -12,6 +12,7 @@ import (
 	consensusmodulev1 "cosmossdk.io/api/cosmos/consensus/module/v1"
 	distrmodulev1 "cosmossdk.io/api/cosmos/distribution/module/v1"
 	genutilmodulev1 "cosmossdk.io/api/cosmos/genutil/module/v1"
+	slashingmodulev1 "cosmossdk.io/api/cosmos/slashing/module/v1"
 	stakingmodulev1 "cosmossdk.io/api/cosmos/staking/module/v1"
 	txconfigv1 "cosmossdk.io/api/cosmos/tx/config/v1"
 	"cosmossdk.io/core/appconfig"
@@ -23,6 +24,7 @@ import (
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
+	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
@@ -41,6 +43,7 @@ var (
 		banktypes.ModuleName,
 		distrtypes.ModuleName,
 		stakingtypes.ModuleName,
+		slashingtypes.ModuleName,
 		genutiltypes.ModuleName,
 		// chain modules
 		verificationmoduletypes.ModuleName,
@@ -54,6 +57,7 @@ var (
 	beginBlockers = []string{
 		// cosmos sdk modules
 		distrtypes.ModuleName,
+		slashingtypes.ModuleName,
 		stakingtypes.ModuleName,
 		// chain modules
 		verificationmoduletypes.ModuleName,
@@ -151,6 +155,10 @@ var (
 					Bech32PrefixValidator: AccountAddressPrefix + "valoper",
 					Bech32PrefixConsensus: AccountAddressPrefix + "valcons",
 				}),
+			},
+			{
+				Name:   slashingtypes.ModuleName,
+				Config: appconfig.WrapAny(&slashingmodulev1.Module{}),
 			},
 			{
 				Name:   genutiltypes.ModuleName,
