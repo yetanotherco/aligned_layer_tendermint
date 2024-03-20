@@ -137,7 +137,8 @@ alignedlayerd start
 ```
 
 #### Manual step by step
-
+<details>
+ <summary>Steps</summary>
 If you want to do a more detailed step by step setup, follow this instructions:
 
 First, build the app:
@@ -196,6 +197,7 @@ curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 ```
 
 It should return `false`. If not, try again after a few minutes later.
+</details>
 
 ## Creating an Account
 
