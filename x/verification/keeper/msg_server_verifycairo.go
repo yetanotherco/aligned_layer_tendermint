@@ -26,11 +26,14 @@ func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo)
 }
 
 func verifyCairo(proof string) bool {
+	if len(proof)%3 != 0 {
+		return false
+	}
 	decodedBytes := make([]byte, cp.MAX_PROOF_SIZE)
 	nDecoded, err := base64.StdEncoding.Decode(decodedBytes, []byte(proof))
 	if err != nil {
 		return false
 	}
 
-	return !cp.VerifyCairoProof100Bits(([cp.MAX_PROOF_SIZE]byte)(decodedBytes), uint(nDecoded))
+	return cp.VerifyCairoProof100Bits(([cp.MAX_PROOF_SIZE]byte)(decodedBytes), uint(nDecoded))
 }
