@@ -110,21 +110,22 @@ app.listen(conf.port, () => {
 
 async function sendTx(recipient, chain) {
   const chainConf = conf.blockchains.find(x => x.name === chain)
-  if (chainConf) {
-    const wallet = await DirectSecp256k1HdWallet.fromMnemonic(chainConf.sender.mnemonic, chainConf.sender.option);
-    const [firstAccount] = await wallet.getAccounts();
-    console.log("sender", firstAccount);
-
-    const rpcEndpoint = chainConf.endpoint.rpc_endpoint;
-    const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, wallet);
-
-    const amount = chainConf.tx.amount;
-    const fee = chainConf.tx.fee;
-    console.log("recipient", recipient, amount, fee);
-
-    let response = client.sendTokens(firstAccount.address, recipient, amount, fee)
-    console.log(response)
-    return response;
+  if (!chainConf) {
+    throw new Error(`Blockchain Config [${chain}] not found`)
   }
-  throw new Error(`Blockchain Config [${chain}] not found`)
+
+  const wallet = await DirectSecp256k1HdWallet.fromMnemonic(chainConf.sender.mnemonic, chainConf.sender.option);
+  const [firstAccount] = await wallet.getAccounts();
+  console.log("sender", firstAccount);
+
+  const rpcEndpoint = chainConf.endpoint.rpc_endpoint;
+  const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, wallet);
+
+  const amount = chainConf.tx.amount;
+  const fee = chainConf.tx.fee;
+  console.log("recipient", recipient, amount, fee);
+
+  let response = client.sendTokens(firstAccount.address, recipient, amount, fee)
+  console.log(response)
+  return response;
 }
