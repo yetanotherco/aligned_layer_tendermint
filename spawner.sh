@@ -24,7 +24,7 @@ PROOFS=(
 )
 
 ADDRESS=$(
-  alignedlayerd keys show julian-2-s \
+  alignedlayerd keys show $ACCOUNT \
     --keyring-backend test --output json \
     | jq .address | tr -d \"
 )
