@@ -60,7 +60,7 @@ app.get('/balance/:chain', async (req, res) => {
 app.get('/send/:chain/:address', async (req, res) => {
   const { chain, address } = req.params;
   const ip = req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.headers['X-Forwarded-For'] || req.ip
-  //console.log('request tokens to ', address, ip)
+  console.log('request tokens from', address, ip)
   if (chain || address) {
     try {
       const chainConf = conf.blockchains.find(x => x.name === chain)
@@ -71,7 +71,7 @@ app.get('/send/:chain/:address', async (req, res) => {
           await sendTx(address, chain).then(ret => {
             console.log(ret)
             checker.update(address)
-            res.send({ result: ret })
+            res.send({ result: {code: ret.code, tx_hash: ret.transactionHash, height: ret.height} })
           }).catch(err => {
             res.send({ result: `err: ${err}` })
           });
