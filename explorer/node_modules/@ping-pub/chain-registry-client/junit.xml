@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="4" failures="0" errors="0" time="2.206">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2023-01-15T04:36:18" time="2.112" tests="4">
+    <testcase classname=" Test Fetch Chain Names" name=" Test Fetch Chain Names" time="0.042">
+    </testcase>
+    <testcase classname=" Test Fetch Chain Info" name=" Test Fetch Chain Info" time="0.002">
+    </testcase>
+    <testcase classname=" Test IBC Paths" name=" Test IBC Paths" time="0.002">
+    </testcase>
+    <testcase classname=" Test IBC Path Info" name=" Test IBC Path Info" time="0.542">
+    </testcase>
+  </testsuite>
+</testsuites>

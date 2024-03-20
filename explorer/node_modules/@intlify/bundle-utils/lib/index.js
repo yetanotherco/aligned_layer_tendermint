@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkVueI18nBridgeInstallPackage = exports.checkInstallPackage = exports.getVueI18nVersion = exports.generateYAML = exports.generateJSON = void 0;
+var json_1 = require("./json");
+Object.defineProperty(exports, "generateJSON", { enumerable: true, get: function () { return json_1.generate; } });
+var yaml_1 = require("./yaml");
+Object.defineProperty(exports, "generateYAML", { enumerable: true, get: function () { return yaml_1.generate; } });
+var deps_1 = require("./deps");
+Object.defineProperty(exports, "getVueI18nVersion", { enumerable: true, get: function () { return deps_1.getVueI18nVersion; } });
+Object.defineProperty(exports, "checkInstallPackage", { enumerable: true, get: function () { return deps_1.checkInstallPackage; } });
+Object.defineProperty(exports, "checkVueI18nBridgeInstallPackage", { enumerable: true, get: function () { return deps_1.checkVueI18nBridgeInstallPackage; } });

@@ -1,0 +1,83 @@
+{
+  "name": "extract-comments",
+  "description": "Uses esprima to extract line and block comments from a string of JavaScript. Also optionally parses code context (the next line of code after a comment).",
+  "version": "1.1.0",
+  "homepage": "https://github.com/jonschlinkert/extract-comments",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "contributors": [
+    "Caleb (https://github.com/cazzer)",
+    "Jon Schlinkert (http://twitter.com/jonschlinkert)",
+    "Tomek Wiszniewski (http://tomek.wiszniewski.cc)"
+  ],
+  "repository": "jonschlinkert/extract-comments",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/extract-comments/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "esprima-extract-comments": "^1.1.0",
+    "parse-code-context": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-extract-comments": "^1.0.0",
+    "espree-extract-comments": "^0.1.0",
+    "gulp-format-md": "^2.0.0",
+    "mocha": "^5.2.0",
+    "time-diff": "^0.3.1"
+  },
+  "keywords": [
+    "ast",
+    "block",
+    "code",
+    "comment",
+    "comments",
+    "context",
+    "esprima",
+    "extract",
+    "glob",
+    "javascript",
+    "line",
+    "parse",
+    "tokenize",
+    "tokens"
+  ],
+  "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "babel-extract-comments",
+        "code-context",
+        "espree-extract-comments",
+        "esprima-extract-comments",
+        "parse-comments"
+      ]
+    },
+    "reflinks": [
+      "babel-extract-comments",
+      "espree-extract-comments",
+      "esprima",
+      "esprima-extract-comments"
+    ],
+    "lint": {
+      "reflinks": true
+    }
+  }
+}
