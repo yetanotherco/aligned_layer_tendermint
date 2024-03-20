@@ -13,7 +13,7 @@ NODE_HOME=$HOME/.alignedlayer
 CHAIN_BINARY=alignedlayerd
 CHAIN_ID=alignedlayer
 
-: ${FEES:="20000stake"}
+: ${FEES:="50stake"}
 : ${PEER_ADDR:="91.107.239.79"}
 
 VALIDATOR_KEY=$($CHAIN_BINARY tendermint show-validator)
