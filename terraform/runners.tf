@@ -34,6 +34,10 @@ variable "binary_url" {
   default = "https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz"
 }
 
+variable "server_type" {
+  default = "cx11"
+}
+
 resource "hcloud_network" "private_net" {
   name     = "alignedlayer-net"
   ip_range = "10.0.0.0/16"
@@ -49,7 +53,7 @@ resource "hcloud_network_subnet" "private_subnet" {
 resource "hcloud_server" "alignedlayer-genesis-runner" {
   name = "alignedlayer-genesis"
   image = "debian-12"
-  server_type = "cx21"
+  server_type = var.server_type
 
   ssh_keys = ["manubilbao", "tomyrd"]
 
@@ -140,7 +144,7 @@ resource "hcloud_server" "alignedlayer-runner" {
 
   name        = "alignedlayer-${count.index}"
   image       = "debian-12"
-  server_type = "cx21"
+  server_type = var.server_type
   public_net {
     ipv4_enabled = true
     ipv6_enabled = true

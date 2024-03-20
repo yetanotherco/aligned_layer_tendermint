@@ -520,6 +520,7 @@ On the `terraform` directory, there are the required files to launch a blockchai
 Inside that directory, create a terraform.tfvars file where you can customize the variables used by Terraform. Available variables are:
 
 - `hcloud_token`: Your Hetzner token. **REQUIRED**
+- `server_type`: Type of the servers to deploy. Default: "cx11".
 - `instances`: Total number of nodes to deploy. One of this will be who generates the genesis. Default: 1.
 - `password`: The password to use for the keyring. Default: "password"
 - `genesis_initial_balance`: Initial balance for the account on the genesis. Take in consideration that this account is used for the faucet too. Default: 10000000000.
