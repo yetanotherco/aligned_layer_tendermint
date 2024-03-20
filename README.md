@@ -250,6 +250,8 @@ This will configure your node and send a transaction for creating a validator.
 
 ### Manual step by step
 
+<details>
+  <summary>Steps</summary>
 If you want to do a more detailed step by step registering, follow this instructions:
 
 First, obtain your validator pubkey:
@@ -286,7 +288,7 @@ It should return something like:
 ```
 - address: cosmosvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
 ```
-
+</details>
 ### Testenet public IPs
 
 Our public nodes have the following IPs. Please be aware that they are in development stage, so expect inconsistency.
