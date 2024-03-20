@@ -14,12 +14,13 @@ CHAIN_ID=alignedlayer
 
 # New elements can be added to the array to send more transactions
 PROOFS=(
-  "$(echo $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
-    $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
-    $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example))" 
-  "$(echo $(cat ./prover_examples/gnark_plonk/example/bad_proof.base64.example) \
-    $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
-    $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example))" 
+  "$(cat ./prover_examples/gnark_plonk/example/proof.base64.example)
+  $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example)
+  $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)" 
+
+  "$(cat ./prover_examples/gnark_plonk/example/bad_proof.base64.example)
+  $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example)
+  $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)" 
 )
 
 ADDRESS=$(
