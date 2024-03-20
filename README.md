@@ -647,7 +647,7 @@ alignedlayerd query distribution slashes [validator-addr] [start-height] [end-he
 #### Sending Unjail Transaction
 To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin the validator set:
 ```
-alignedlayerd tx slashing unjail --from account_name [flags]
+alignedlayerd tx slashing unjail --from account_name --chain-id alignedlayer --fees 20stake
 ```
 
 ## Acknowledgements <a name="acknowledgements"></a>
