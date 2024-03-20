@@ -193,6 +193,14 @@ resource "hcloud_server" "alignedlayer-runner" {
 
           [Install]
           WantedBy=multi-user.target
+      - path: /root/request_faucet.sh
+        content: |
+          AMOUNT=0
+          while [ $AMOUNT -lt $((${var.staking_amount} + 100)) ]
+          do
+            curl -s -w '\n' 10.0.1.2:8088/send/alignedlayer/$1
+            AMOUNT=$((alignedlayerd q bank balance $1 ${var.staking_token} --node tcp://10.0.1.2:26657 || echo 'amount "0"') | grep amount | cut -d\" -f2)
+          done
     runcmd:
       - curl -L -o /root/alignedlayer.tar.gz ${var.binary_url}
       - tar -C /usr/local/bin -xzf /root/alignedlayer.tar.gz
@@ -210,11 +218,9 @@ resource "hcloud_server" "alignedlayer-runner" {
       - export ADDRESS=$(printf "${var.password}\n" | alignedlayerd keys show node${count.index} --address)
       - cat /root/.validator.json.template | envsubst > /root/validator.json
       - while [ ! "$(curl -s 10.0.1.2:8088)" ]; do sleep 1; done  # Wait until faucet is ready
-      - sleep 10
-      - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
-      - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
-      - curl -s 10.0.1.2:8088/send/alignedlayer/$ADDRESS
-      - printf "${var.password}" | alignedlayerd tx staking create-validator /root/validator.json -y --from node${count.index} --node 'tcp://10.0.1.2:26657' --chain-id ${var.chain_id} --fees 50000${var.staking_token}
+      - sleep 5
+      - bash /root/request_faucet.sh $ADDRESS
+      - printf "${var.password}" | alignedlayerd tx staking create-validator /root/validator.json -y --from node${count.index} --node 'tcp://10.0.1.2:26657' --chain-id ${var.chain_id} --fees 50${var.staking_token}
       - systemctl enable alignedlayer
       - systemctl start alignedlayer
   EOF
