@@ -1,4 +1,3 @@
-
 __LAMBDAWORKS_FFI_LINUX__:
 build-cairo-ffi-macos:
 	@cd operators/cairo_platinum/lib \
@@ -67,3 +66,6 @@ clean_ffi:
 	rm -rf operators/cairo_platinum/lib/libcairo_platinum*
 	rm -rf operators/sp1/lib/target/release/libsp1_verifier*
 	rm -rf operators/cairo_platinum/lib/target/release/libcairo_platinum*
+
+clean:
+	rm -rf ~/.alignedlayer
