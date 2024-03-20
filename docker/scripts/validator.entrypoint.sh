@@ -14,15 +14,13 @@ apt update && apt install -y jq
 NODE_HOME=/root/.alignedlayer
 CHAIN_BINARY=alignedlayerd
 CHAIN_ID=alignedlayer
-PEER_ADDRESSES=("91.107.239.79" "116.203.81.174" "88.99.174.203" "128.140.3.188")
 
-: ${MINIMUM_GAS_PRICES="0.0001stake"}
 : ${PASSWORD:="password"}
 : ${FEES:="50stake"}
 : ${PEER_ADDR:="91.107.239.79"}
 
-(echo $PASSWORD; echo $PASSWORD) | alignedlayerd keys add $VALIDATOR
-ADDRESS=$(echo $PASSWORD | alignedlayerd keys show $VALIDATOR --address)
+(echo $PASSWORD; echo $PASSWORD) | $CHAIN_BINARY keys add $VALIDATOR
+ADDRESS=$(echo $PASSWORD | $CHAIN_BINARY keys show $VALIDATOR --address)
 
 until $(curl --output /dev/null --silent --head --fail https://faucet.alignedlayer.com/send/alignedlayer/$ADDRESS); do
     printf '.'
