@@ -26,6 +26,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
     - [Claiming Staking Rewards](#claimstake)
     - [Bank](#bank)
     - [Slashing](#slashing)
+    - [Staking](#staking)
 11. [Acknowledgements](#acknowledgements)
 
 ## Requirements <a name="requirements"></a>
@@ -250,7 +251,7 @@ alignedlayerd keys add <account-name>
 
 This commands will return the following information:
 ```
-address: cosmosxxxxxxxxxxxx
+address: alignedxxxxxxxxxxxx
 name: your-account-name
 pubkey: '{"@type":"xxxxxx","key":"xxxxxx"}'
 type: local
@@ -269,7 +270,7 @@ To check the balance of an address using the binary:
 alignedlayerd query bank balances <account-address-or-name>
 ```
 
-To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `cosmosxxxxxxxxxxxx`, which you obtained in the previuos step.
+To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `alignedxxxxxxxxxxxx`, which you obtained in the previuos step.
 
 ## Registering as a Validator <a name="validator"></a>
 
@@ -321,7 +322,7 @@ alignedlayerd query tendermint-validator-set | grep $(alignedlayerd tendermint s
 It should return something like:
 
 ```
-- address: cosmosvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
+- address: alignedvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
 ```
 </details>
 
@@ -381,7 +382,7 @@ A transaction can be created and sent with protobuf with ignite CLI. A JSON repr
         "messages": [
             {
                 "@type": "/alignedlayer.verification.MsgName",
-                "creator": "cosmos1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
+                "creator": "aligned1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
                 "parameter1": "argument1"
                 "parameter2": "argument2"
                 ...
@@ -550,7 +551,7 @@ alignedlayerd query distribution validator-outstanding-rewards [validator] [flag
 
 Example:
 ```sh
-alignedlayerd query distribution validator-outstanding-rewards cosmosvaloper1...
+alignedlayerd query distribution validator-outstanding-rewards alignedvaloper1...
 ```
 Example Output:
 ```sh
@@ -564,14 +565,14 @@ The **validator-distribution-info** command allows users to query validator comm
 
 Example:
 ```sh
-alignedlayerd query distribution validator-distribution-info cosmosvaloper1...
+alignedlayerd query distribution validator-distribution-info alignedvaloper1...
 ```
 Example output:
 ```sh
 commission:
 - amount: "100000.000000000000000000"
   denom: stake
-operator_address: cosmosvaloper1...
+operator_address: alignedvaloper1...
 self_bond_rewards:
 - amount: "100000.000000000000000000"
   denom: stake
@@ -585,7 +586,7 @@ alignedlayerd tx distribution withdraw-rewards [validator-addr] [flags]
 
 Example:
 ```sh
-alignedlayerd tx distribution withdraw-rewards cosmosvaloper1... --from cosmos1... --commission
+alignedlayerd tx distribution withdraw-rewards alignedvaloper1... --from aligned1... --commission
 ```
 
 See the Cosmos' [documentation](https://docs.cosmos.network/main/build/modules/distribution) to learn
@@ -599,7 +600,7 @@ alignedlayerd query bank balances [address] [flags]
 ```
 Example:
 ```sh
-alignedlayerd query bank balances cosmos1..
+alignedlayerd query bank balances aligned1..
 ```
 
 ### Slashing    <a name="slashing"></a>
@@ -620,16 +621,16 @@ alignedlayerd query slashing params [flags]
     Example output:
     ```
     info:
-    - address: cosmosvalcons15gc...
+    - address: alignedvalcons15gc...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons14xa...
+    - address: alignedvalcons14xa...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons14nz...
+    - address: alignedvalcons14nz...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons1a34...
+    - address: alignedvalcons1a34...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
     pagination:
@@ -639,13 +640,13 @@ alignedlayerd query slashing params [flags]
 
     Example:
     ```sh
-    alignedlayerd query slashing signing-info cosmosvalcons15gc...
+    alignedlayerd query slashing signing-info alignedvalcons15gc...
     ```
 
     Example output:
     ```
     val_signing_info:
-        address: cosmosvalcons15gc...
+        address: alignedvalcons15gc...
         index_offset: "255"
         jailed_until: "1970-01-01T00:00:00Z"
         missed_blocks_counter: "16"
@@ -660,7 +661,19 @@ alignedlayerd query distribution slashes [validator-addr] [start-height] [end-he
 #### Sending Unjail Transaction
 To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin the validator set:
 ```
-alignedlayerd tx slashing unjail --from account_name --chain-id alignedlayer --fees 20stake
+alignedlayerd tx slashing unjail --from <account_name> --chain-id alignedlayer --fees 20stake
+```
+
+### Staking <a name="staking"></a>
+You may stake additional tokens after registering your validator with the following command: 
+```
+alignedlayerd tx staking delegate <valoperaddr> <amount> --from <account_name> --chain-id alignedlayer --fees 20stake
+```
+
+You can obtain your validator `valoperaddr` by doing:
+
+```
+alignedlayerd keys show <account_name> --bech val --address
 ```
 
 ## Acknowledgements <a name="acknowledgements"></a>
