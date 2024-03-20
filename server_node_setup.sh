@@ -21,8 +21,20 @@ fi
 rm -rf server-setup
 
 echo "Building binary..."
-ignite chain build --release -t linux:amd64
 
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    make build-cairo-ffi-linux
+    make build-sp1-ffi-linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    make build-sp1-ffi-from_macos-to_linux
+    make build-cairo-ffi-from_macos-to_linux
+else
+    echo "Unsupported OS"
+    exit 0
+fi
+
+ignite chain build --release -t linux:amd64
+## TODO change ignite with makefile
 cd release
 tar -xzf alignedlayer_linux_amd64.tar.gz
 for server in "${servers[@]}"; do

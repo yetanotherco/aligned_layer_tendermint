@@ -11,6 +11,12 @@ build-cairo-ffi-linux:
 		&& cp target/release/libcairo_platinum_ffi.so ./libcairo_platinum.so \
 		&& cp target/release/libcairo_platinum_ffi.a ./libcairo_platinum.a 
 
+build-cairo-ffi-from_macos-to_linux:
+	@cd operators/cairo_platinum/lib \
+		&& cargo build --release --target=x86_64-unknown-linux-gnu \
+		&& cp target/release/libcairo_platinum_ffi.so ./libcairo_platinum.so \
+		&& cp target/release/libcairo_platinum_ffi.a ./libcairo_platinum.a
+
 test-ffi-cairo: 
 	go test -v ./operators/cairo_platinum 
 
@@ -24,6 +30,12 @@ build-sp1-ffi-macos:
 build-sp1-ffi-linux:
 	@cd operators/sp1/lib \
 		&& cargo build --release \
+		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
+		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
+
+build-sp1-ffi-from_macos-to_linux:
+	@cd operators/sp1/lib \
+		&& cargo build --release --target=x86_64-unknown-linux-gnu\
 		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
 		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
 
