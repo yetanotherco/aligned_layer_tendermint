@@ -31,37 +31,33 @@ test-ffi-sp1:
 	go test -v ./operators/sp1 
 
 __COSMOS_BLOCKCHAIN__:
-run_macos: build-sp1-ffi-macos build-cairo-ffi-macos
+run-macos: build-sp1-ffi-macos build-cairo-ffi-macos
 	ignite chain serve
 
-build_macos: build-sp1-ffi-macos build-cairo-ffi-macos
+build-macos: build-sp1-ffi-macos build-cairo-ffi-macos
 	ignite chain build
 
-run_linux: build-sp1-ffi-linux build-cairo-ffi-linux
+run-linux: build-sp1-ffi-linux build-cairo-ffi-linux
 	ignite chain serve
 
-build_linux: build-sp1-ffi-linux build-cairo-ffi-linux
+build-linux: build-sp1-ffi-linux build-cairo-ffi-linux
 	ignite chain build
 
 __LOCAL_TEST__:
-ltest_cairo_true: proof_to_base64
+ltest-cairo-true: 
 	alignedlayerd tx verification verifycairo \
 		--from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
-		$$(cat tests/testing_data/fibonacci_10.base64)
+		$$(cat prover_examples/cairo_platinum/fibonacci_10.base64.example)
 
-ltest_cairo_false:
+ltest-cairo-false:
 	alignedlayerd tx verification verifycairo \
 		--from alice \
 		--chain-id alignedlayer \
 		SHOULDFAIL
 
-proof_to_base64:
-	@cd tests && \
-	go run proof_to_base64.go
-
-clean_ffi:
+clean-ffi:
 	rm -rf operators/sp1/lib/target/release/libsp1_verifier*
 	rm -rf operators/cairo_platinum/lib/libcairo_platinum*
 	rm -rf operators/sp1/lib/target/release/libsp1_verifier*

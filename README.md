@@ -90,6 +90,12 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
 
 FFIs are being used to implement Cairo and SP1 verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
+Tip, `base64` can be used as follows to encode the proofs:
+
+```sh
+base64 -i tests/testing_data/fibo_5.proof > prover_examples/cairo_platinum/examples/fibonacci_5.base64
+```
+
 To run the Blockchain locally:
 
 ```sh
@@ -107,15 +113,34 @@ Then, in other terminal run:
 ```sh
 make ltest_cairo_true
 ```
+
+#### Manual step by step
+
+<details>
+
+```sh
+	alignedlayerd tx verification verifycairo \
+		--from <account> \
+		--gas 4000000 \
+		--chain-id alignedlayer \
+		$(cat prover_examples/cairo_platinum/fibonacci_10.base64.example)
+```
+</details>
+
 This will send a cairo proof to the blockchain. The CLI will ask for a signature and then it will print the transaction's information. 
 
 To check the output of the transaction:
 
 ```sh
-alignedlayerd q tx <txhash> > tx.yaml
+alignedlayerd q tx <txhash> | grep proof_verifies -A1
 ```
 
-The transaction (tx) is stored in a YAML file to facilitate better inspection of its contents. In this file, you can search for `CAIROproof_verifies`, and below it, the outcome of the verification should be `true`.
+The output should be:
+
+```
+key: proof_verifies
+value: "true"
+```
 
 > [!NOTE]
 > The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
