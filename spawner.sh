@@ -1,4 +1,4 @@
-# !/usr/bin/bash
+#!/usr/bin/bash
 #
 # This script sends dummy transactions from an <account> with a test keyring. It should be run from the repository root.
 
