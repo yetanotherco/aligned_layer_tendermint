@@ -6,7 +6,7 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import conf from './config/config.js'
 import { FrequencyChecker } from './checker.js';
 
-import { Mutex } from 'async-mutex';
+import { Mutex, withTimeout } from 'async-mutex';
 
 // load config
 console.log("loaded config: ", conf)
@@ -64,39 +64,43 @@ app.get('/send/:chain/:address', async (req, res) => {
   if (mutex.isLocked()) {
     return res.status(500).send({ result: 'Faucet is busy, Please try again later.' })
   }
+
   const { chain, address } = req.params;
   const ip = req.headers['cf-connecting-ip'] || req.headers['x-real-ip'] || req.headers['X-Forwarded-For'] || req.ip
   console.log('request tokens from', address, ip)
-  if (chain || address) {
-    try {
-      const chainConf = conf.blockchains.find(x => x.name === chain)
-      if (chainConf && address.startsWith(chainConf.sender.option.prefix)) {
-        if (await checker.checkAddress(address, chain) && await checker.checkIp(`${chain}${ip}`, chain)) {
-          checker.update(`${chain}${ip}`) // get ::1 on localhost
-          console.log('send tokens to ', address)
-          await mutex.runExclusive(async () => {
-            await sendTx(address, chain).then(ret => {
-              console.log(ret)
-              checker.update(address)
-              res.send({ result: { code: ret.code, tx_hash: ret.transactionHash, height: ret.height } })
-            }).catch(err => {
-              res.status(500).send({ result: `err: ${err}` })
-            });
-          });
-        } else {
-          res.status(429).send({ result: "You requested too often" })
-        }
-      } else {
-        res.status(400).send({ result: `Address [${address}] is not supported.` })
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({ result: 'Failed, Please contact to admin.' })
+
+  if (!chain && !address) {
+    res.send({ result: 'address is required' })
+    return
+  }
+
+  try {
+    const chainConf = conf.blockchains.find(x => x.name === chain)
+    if (!chainConf || !address.startsWith(chainConf.sender.option.prefix)) {
+      res.status(400).send({ result: `Address [${address}] is not supported.` })
+      return
     }
 
-  } else {
-    // send result
-    res.send({ result: 'address is required' });
+    if (!await checker.checkAddress(address, chain) || !await checker.checkIp(`${chain}${ip}`, chain)) {
+      res.status(429).send({ result: "You requested too often" })
+      return
+    }
+
+    checker.update(`${chain}${ip}`) // get ::1 on localhost
+    console.log('send tokens to ', address)
+
+    await mutex.runExclusive(async () => {
+      await sendTx(address, chain).then(ret => {
+        console.log(ret)
+        checker.update(address)
+        res.send({ result: { code: ret.code, tx_hash: ret.transactionHash, height: ret.height } })
+      }).catch(err => {
+        res.status(500).send({ result: `err: ${err}` })
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ result: 'Failed, Please contact to admin.' })
   }
 })
 
