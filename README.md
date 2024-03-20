@@ -289,6 +289,7 @@ It should return something like:
 - address: cosmosvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
 ```
 </details>
+
 ### Testenet public IPs
 
 Our public nodes have the following IPs. Please be aware that they are in development stage, so expect inconsistency.
