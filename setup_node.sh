@@ -31,16 +31,16 @@ for ADDR in "${PEER_ARRAY[@]}"; do
     fi
 done
 
-PEERS=()
+PERSISTENT_PEERS=()
 
 for ADDR in "${PEER_ARRAY[@]}"; do
     PEER_ID=$(curl -s "$ADDR:26657/status" | jq -r '.result.node_info.id')
     if [ -n "$PEER_ID" ]; then
-        PEERS+=("$PEER_ID@$ADDR:26656")
+        PERSISTENT_PEERS+=("$PEER_ID@$ADDR:26656")
     fi
 done
 
-PEER_LIST=$(IFS=,; echo "${PEERS[*]}")
+CONFIG_STRING=$(IFS=,; echo "${PERSISTENT_PEERS[*]}")
 
-$CHAIN_BINARY config set config p2p.persistent_peers "$PEER_LIST" --skip-validate
+$CHAIN_BINARY config set config p2p.persistent_peers "$CONFIG_STRING" --skip-validate
 $CHAIN_BINARY config set app minimum-gas-prices "$MINIMUM_GAS_PRICES" --skip-validate
