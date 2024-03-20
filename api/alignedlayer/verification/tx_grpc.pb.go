@@ -8,6 +8,7 @@ package verification
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -21,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName = "/alignedlayer.verification.Msg/UpdateParams"
 	Msg_Verify_FullMethodName       = "/alignedlayer.verification.Msg/Verify"
+	Msg_Verifykimchi_FullMethodName = "/alignedlayer.verification.Msg/Verifykimchi"
 )
 
 // MsgClient is the client API for Msg service.
@@ -31,6 +33,7 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	Verify(ctx context.Context, in *MsgVerify, opts ...grpc.CallOption) (*MsgVerifyResponse, error)
+	Verifykimchi(ctx context.Context, in *MsgVerifykimchi, opts ...grpc.CallOption) (*MsgVerifykimchiResponse, error)
 }
 
 type msgClient struct {
@@ -59,6 +62,15 @@ func (c *msgClient) Verify(ctx context.Context, in *MsgVerify, opts ...grpc.Call
 	return out, nil
 }
 
+func (c *msgClient) Verifykimchi(ctx context.Context, in *MsgVerifykimchi, opts ...grpc.CallOption) (*MsgVerifykimchiResponse, error) {
+	out := new(MsgVerifykimchiResponse)
+	err := c.cc.Invoke(ctx, Msg_Verifykimchi_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -67,6 +79,7 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error)
+	Verifykimchi(context.Context, *MsgVerifykimchi) (*MsgVerifykimchiResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -79,6 +92,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Verify not implemented")
+}
+func (UnimplementedMsgServer) Verifykimchi(context.Context, *MsgVerifykimchi) (*MsgVerifykimchiResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Verifykimchi not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -129,6 +145,24 @@ func _Msg_Verify_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_Verifykimchi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifykimchi)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).Verifykimchi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_Verifykimchi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).Verifykimchi(ctx, req.(*MsgVerifykimchi))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +177,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Verify",
 			Handler:    _Msg_Verify_Handler,
+		},
+		{
+			MethodName: "Verifykimchi",
+			Handler:    _Msg_Verifykimchi_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -34,6 +34,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a verify tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}, {ProtoField: "public_inputs"}, {ProtoField: "verifying_key"}},
 				},
+				{
+					RpcMethod:      "Verifykimchi",
+					Use:            "verifykimchi [proof]",
+					Short:          "Send a verifykimchi tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
