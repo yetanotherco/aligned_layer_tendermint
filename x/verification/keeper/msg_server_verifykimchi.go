@@ -31,7 +31,7 @@ func verifykim(proof string) bool {
 	if err != nil {
 		return false
 	}
-	pubInputFile, err := os.Open("lib/kimchi_verifier_index.bin")
+	pubInputFile, err := os.Open("../../../operators/kimchi/lib/kimchi_verifier_index")
 	if err != nil {
 		return false
 	}
