@@ -39,7 +39,13 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 To run a single node blockchain, run:
 
 ```sh
-ignite chain serve
+make run-macos
+```
+
+or 
+
+```sh
+make run-linux
 ```
 
 This command installs dependencies, builds, initializes, and starts your blockchain in development.
@@ -99,19 +105,19 @@ base64 -i tests/testing_data/fibo_5.proof > prover_examples/cairo_platinum/examp
 To run the Blockchain locally:
 
 ```sh
-make run_macos
+make run-macos
 ```
 
 or 
 
 ```sh
-make run_linux
+make run-linux
 ```
 
 Then, in other terminal run:
 
 ```sh
-make ltest_cairo_true
+make ltest-cairo-true
 ```
 
 #### Manual step by step
@@ -151,7 +157,13 @@ value: "true"
 Compile with:
 
 ```sh
-ignite chain build
+make build-macos
+```
+
+or 
+
+```sh
+make build-linux
 ```
 
 Create some keys:
@@ -237,7 +249,7 @@ If you want to do a more detailed step by step setup, follow this instructions:
 
 First, build the app:
 ```sh
-ignite chain build --output OUTPUT_DIR
+make build_<macos or linux>
 ```
 
 To make sure the installation was successful, run the following command:
