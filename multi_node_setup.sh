@@ -4,7 +4,8 @@
 token="stake"
 initial_balance=10000000000
 initial_faucet_balance=1000000000
-initial_stake=1000000000
+initial_stake=10000000
+minimum_gas_price=0.0001
 
 
 if [ $# -lt 1 ]; then
@@ -25,7 +26,7 @@ for node in "$@"; do
     docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i init alignedlayer_$node --chain-id alignedlayer > /dev/null
     
     docker run --rm -it -v $(pwd)/prod-sim/$node:/root/.alignedlayer --entrypoint sed alignedlayerd_i -i 's/"stake"/"'$token'"/g' /root/.alignedlayer/config/genesis.json 
-    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app minimum-gas-prices "0.1$token"
+    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app minimum-gas-prices "$minimum_gas_price$token"
     docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app pruning "nothing" 
 
 
@@ -64,7 +65,7 @@ done
 
 for (( i=1; i <= "$#"; i++ )); do
     echo "Giving val_${!i} some stake..."
-    echo $PASSWORD | docker run --rm -i -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis gentx val_${!i} $initial_stake$token --keyring-backend file --keyring-dir /root/.alignedlayer/keys --account-number 0 --sequence 0 --chain-id alignedlayer --gas 1000000 --gas-prices 0.1$token
+    echo $PASSWORD | docker run --rm -i -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis gentx val_${!i} $initial_stake$token --keyring-backend file --keyring-dir /root/.alignedlayer/keys --account-number 0 --sequence 0 --chain-id alignedlayer --gas 1000000 --gas-prices $minimum_gas_prices$token
 
     if [ $i -gt 1 ]; then
         cp prod-sim/${!i}/config/gentx/* prod-sim/$1/config/gentx/
@@ -86,14 +87,14 @@ if ! docker run --rm -it -v $(pwd)/prod-sim/$1:/root/.alignedlayer alignedlayerd
     exit 1
 fi
 
-# jq '.app_state.slashing.params= {
-#                         "downtime_jail_duration": "30s",
-#                         "min_signed_per_window": "0.5",
-#                         "signed_blocks_window": "120",
-#                         "slash_fraction_double_sign": "0.050000000000000000",
-#                         "slash_fraction_downtime": "0.000100000000000000"
-#                 }
-#         ' prod-sim/$1/config/genesis.json|sponge prod-sim/$1/config/genesis.json
+cat prod-sim/$1/config/genesis.json \
+    | jq '.app_state.slashing.params = {
+                        "downtime_jail_duration": "30s",
+                        "min_signed_per_window": "0.2",
+                        "signed_blocks_window": "120",
+                        "slash_fraction_double_sign": "0.050000000000000000",
+                        "slash_fraction_downtime": "0.000100000000000000" }' \
+    | sponge prod-sim/$1/config/genesis.json
 
 echo "Copying genesis file to other nodes..."
 for node in "${@:2}"; do
@@ -109,8 +110,15 @@ for (( i=1; i <= "$#"; i++ )); do
         fi
     done
     other_addresses=$(IFS=,; echo "${other_addresses[*]}")
+    #Peer configuration
     docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers "$other_addresses" --skip-validate
+    #RPC configuration
     docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
+    #Explorer configuration
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.cors_allowed_origins '["*"]' --skip-validate 
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enable true --skip-validate 
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enabled-unsafe-cors true --skip-validate 
+    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.address "tcp://0.0.0.0:1317" --skip-validate
 done
 
 

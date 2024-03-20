@@ -1,2 +1,2 @@
 clean:
-  rm -rf ~/.alignedlayer
+	rm -rf ~/.alignedlayer
