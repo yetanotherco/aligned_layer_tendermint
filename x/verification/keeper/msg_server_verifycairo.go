@@ -14,7 +14,6 @@ import (
 
 func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo) (*types.MsgVerifycairoResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	_ = ctx
 
 	result := verifyCairo(msg.Proof)
 	event := sdk.NewEvent("CAIROverification_finished",
