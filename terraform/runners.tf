@@ -1,17 +1,22 @@
+variable "genesis_initial_balance" {
+  default = 10000000000
+}
+
 variable "genesis_staking_amount" {
-  default = 1000000000
+  default = 30000000
 }
 
 variable "staking_amount" {
-  default = 4000000
+  default = 10000000
 }
 
 variable "staking_token" {
   default = "stake"
 }
 
-variable "genesis_initial_balance" {
-  default = 2000000000
+
+variable "min_gas_price" {
+  default = 0.0001
 }
 
 variable "chain_id" {
@@ -115,7 +120,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
       - export HOME=/root
       - alignedlayerd init victor-node --chain-id ${var.chain_id}
       - sed -i 's/"stake"/"${var.staking_token}"/g' /root/.alignedlayer/config/genesis.json
-      - alignedlayerd config set app minimum-gas-prices 0.1${var.staking_token}
+      - alignedlayerd config set app minimum-gas-prices ${var.min_gas_price}${var.staking_token}
       - alignedlayerd config set app pruning "nothing"
       - alignedlayerd config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
       - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add victor 2>&1 >/dev/null | tail -n1 > /root/aligned_layer_tendermint/faucet/.faucet/mnemonic.txt
@@ -199,7 +204,7 @@ resource "hcloud_server" "alignedlayer-runner" {
       - curl -s '10.0.1.2:26657/status' | jq -r '.result.node_info.id' > .seed_id
       - alignedlayerd config set config p2p.seeds "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
       - alignedlayerd config set config p2p.persistent_peers "$(cat .seed_id)@10.0.1.2:26656" --skip-validate
-      - alignedlayerd config set app minimum-gas-prices "0.0025${var.staking_token}"
+      - alignedlayerd config set app minimum-gas-prices "${var.min_gas_price}${var.staking_token}"
       - printf "${var.password}\n${var.password}\n" | alignedlayerd keys add node${count.index}
       - export VALIDATOR_PUBKEY=$(alignedlayerd tendermint show-validator)
       - export NODE_NAME=node${count.index}
