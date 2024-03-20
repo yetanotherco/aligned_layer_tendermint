@@ -1,6 +1,7 @@
 #!/bin/bash
 
 : "${PASSWORD:=password}"
+: "${FAUCET_DIR:=./faucet}"
 token="stake"
 initial_balance=10000000000
 initial_faucet_balance=1000000000
@@ -125,7 +126,7 @@ done
 echo "Setting up faucet files..."
 mkdir -p prod-sim/faucet/.faucet
 mkdir -p prod-sim/faucet/config
-cp faucet/config/config.js prod-sim/faucet/config/config.js
+cp $FAUCET_DIR/config/config.js prod-sim/faucet/config/config.js
 sed -n '6p' ./prod-sim/$1/mnemonic.txt | tr -d '\n' > temp.txt && mv temp.txt ./prod-sim/faucet/.faucet/mnemonic.txt
 sed -i '' 's|\(rpc_endpoint: \).*"|\1"http://'$1':26657"|' prod-sim/faucet/config/config.js
 

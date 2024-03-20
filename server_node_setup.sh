@@ -33,6 +33,7 @@ cd ..
 mkdir -p server-setup
 cd server-setup
 
+export FAUCET_DIR="../faucet"
 echo "Calling setup script..."
 bash ../multi_node_setup.sh "${nodes[@]}"
 
@@ -54,7 +55,7 @@ for i in "${!servers[@]}"; do
 done
 
 
-ssh ${servers[0]} "rm -rf /home/admin/faucet/.faucet"
-scp -p -r "prod-sim/faucet/.faucet" "${servers[0]}:/home/admin/faucet/.faucet"
+ssh ${servers[0]} "rm -rf /home/admin/aligned_layer_tendermint/faucet/.faucet"
+scp -p -r "prod-sim/faucet/.faucet" "${servers[0]}:/home/admin/aligned_layer_tendermint/faucet/.faucet"
 
 cd ..
