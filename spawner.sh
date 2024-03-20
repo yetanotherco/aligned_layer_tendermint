@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 #
 # This script sends dummy transactions from an <account> with a test keyring. It should be run from the repository root.
+#
+# To create the account, run: alignedlayerd keys add <account> --keyring-backend test
 
 if [ $# -ne 1 ]; then
   echo "Usage: $0 <account>"
