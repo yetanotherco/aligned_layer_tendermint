@@ -31,12 +31,12 @@ func verifykim(proof string) bool {
 	if err != nil {
 		return false
 	}
-	pubInputFile, err := os.Open("../../../operators/kimchi/lib/kimchi_verifier_index")
+	pubInputFile, err := os.ReadFile("../../../operators/kimchi/lib/verifier_base64")
 	if err != nil {
 		return false
 	}
 	pubInputBuffer := make([]byte, kim.MAX_PUB_INPUT_SIZE)
-	pubInputLen, err := pubInputFile.Read(pubInputBuffer)
+	pubInputLen, err := base64.StdEncoding.Decode(pubInputBuffer, []byte(pubInputFile))
 	if err != nil {
 		return false
 	}
