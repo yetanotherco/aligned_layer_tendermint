@@ -56,16 +56,14 @@ for (( i=1; i <= "$#"; i++ )); do
     if [ $((i+1)) -le "$#" ]; then
         j=$((i+1))
         cp prod-sim/${!i}/config/genesis.json prod-sim/${!j}/config/genesis.json
-    else
-        cp prod-sim/${!i}/config/genesis.json prod-sim/$1/config/genesis.json
-    fi      
+    fi
 done
 
 
 
 for (( i=1; i <= "$#"; i++ )); do
     echo "Giving val_${!i} some stake..."
-    echo $PASSWORD | docker run --rm -i -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis gentx val_${!i} $initial_stake$token --keyring-backend file --keyring-dir /root/.alignedlayer/keys --account-number 0 --sequence 0 --chain-id alignedlayer --gas 1000000 --gas-prices $minimum_gas_prices$token
+    echo $PASSWORD | docker run --rm -i -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer alignedlayerd_i genesis gentx val_${!i} $initial_stake$token --keyring-backend file --keyring-dir /root/.alignedlayer/keys --account-number 0 --sequence 0 --chain-id alignedlayer --gas 1000000 --gas-prices $minimum_gas_price$token
 
     if [ $i -gt 1 ]; then
         cp prod-sim/${!i}/config/gentx/* prod-sim/$1/config/gentx/
@@ -74,9 +72,7 @@ for (( i=1; i <= "$#"; i++ )); do
     if [ $((i+1)) -le "$#" ]; then
         j=$((i+1))
         cp prod-sim/${!i}/config/genesis.json prod-sim/${!j}/config/genesis.json
-    else
-        cp prod-sim/${!i}/config/genesis.json prod-sim/$1/config/genesis.json
-    fi   
+    fi
 done
 
 echo "Collecting genesis transactions..."

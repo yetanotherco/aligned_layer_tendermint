@@ -1,0 +1,24 @@
+version: "3.2"
+
+services:
+  node-setup:
+    image: alignedlayerd_i
+    build:
+      context: ../../
+      dockerfile: ./Dockerfile
+    volumes:
+      - ../../prod-sim/${NODE_NAME}:/root/.alignedlayer
+      - ../scripts/node.entrypoint.sh:/entrypoint.sh
+    entrypoint: /entrypoint.sh ${NODE_NAME}
+
+  node-runner:
+    image: alignedlayerd_i
+    build:
+      context: ../../
+      dockerfile: ./Dockerfile
+    volumes:
+      - ../../prod-sim/${NODE_NAME}:/root/.alignedlayer
+    command: start
+    depends_on:
+      node-setup:
+        condition: service_completed_successfully
