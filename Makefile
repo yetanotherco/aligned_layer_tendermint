@@ -15,8 +15,7 @@ build-cairo-ffi-linux:
 test-ffi-cairo: 
 	go test -v ./operators/cairo_platinum 
 
-
-__SP1_FFI__: ## 
+__SP1_FFI__: 
 build-sp1-ffi-macos:
 	@cd operators/sp1/lib \
 		&& cargo build --release \
@@ -32,7 +31,6 @@ build-sp1-ffi-linux:
 test-ffi-sp1:
 	go test -v ./operators/sp1 
 
-
 __COSMOS_BLOCKCHAIN__:
 run_macos: build-sp1-ffi-macos build-cairo-ffi-macos
 	ignite chain serve
@@ -47,11 +45,18 @@ build_linux: build-sp1-ffi-linux build-cairo-ffi-linux
 	ignite chain build
 
 __LOCAL_TEST__:
-ltest_cairo: proof_to_base64
+ltest_cairo_true: proof_to_base64
 	alignedlayerd tx verification verifycairo \
-		--from alice\
+		--from alice \
+		--gas 4000000 \
 		--chain-id alignedlayer \
-		$$(cat tests/testing_data/fibo_5.base64)
+		$$(cat tests/testing_data/fibonacci_10.base64)
+
+ltest_cairo_false:
+	alignedlayerd tx verification verifycairo \
+		--from alice \
+		--chain-id alignedlayer \
+		SHOULDFAIL
 
 proof_to_base64:
 	@cd tests && \

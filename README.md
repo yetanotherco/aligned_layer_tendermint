@@ -63,6 +63,40 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
     $(cat verifying_key.base64)
 ```
 
+## How to run Cairo and SP1 proof verifications
+
+FFIs are being used to implement Cairo and SP1 verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
+
+To run the Blockchain locally:
+
+```sh
+make run_macos
+```
+
+or 
+
+```sh
+make run_linux
+```
+
+Then, in other terminal run:
+
+```sh
+make ltest_cairo_true
+```
+This will send a cairo proof to the blockchain. The CLI will ask for a signature and then it will print the transaction's information. 
+
+To check the output of the transaction:
+
+```sh
+alignedlayerd q tx <txhash> > tx.yaml
+```
+
+The transaction (tx) is stored in a YAML file to facilitate better inspection of its contents. In this file, you can search for `CAIROproof_verifies`, and below it, the outcome of the verification should be `true`.
+
+> [!NOTE]
+> The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
+
 ## How to join as validator
 
 ### Requirements
