@@ -40,8 +40,6 @@ cat << EOF > $NODE_HOME/config/validator.json
 	"commission-max-rate": "0.2",
 	"commission-max-change-rate": "0.01",
 	"min-self-delegation": "1",
-    "website": "https://droak.sh",
-    "security": "me+aligned@droak.sh"
 }
 EOF
 
