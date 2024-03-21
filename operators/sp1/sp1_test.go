@@ -1,6 +1,7 @@
-package sp1
+package sp1_test
 
 import (
+	"alignedlayer/operators/sp1"
 	"fmt"
 	"os"
 	"testing"
@@ -8,18 +9,18 @@ import (
 
 func TestFibonacciSp1ProofVerifies(t *testing.T) {
 	fmt.Println(os.Getwd())
-	f, err := os.Open("../../tests/testing_data/sp1_fibonacci.proof")
+	f, err := os.Open("example/fibonacci.proof.example")
 	if err != nil {
 		t.Errorf("could not open proof file")
 	}
 
-	proofBytes := make([]byte, MAX_PROOF_SIZE)
+	proofBytes := make([]byte, sp1.MAX_PROOF_SIZE)
 	nReadBytes, err := f.Read(proofBytes)
 	if err != nil {
 		t.Errorf("could not read bytes from file")
 	}
 
-	if !VerifySp1Proof(([MAX_PROOF_SIZE]byte)(proofBytes), uint(nReadBytes)) {
+	if !sp1.VerifySp1Proof(([sp1.MAX_PROOF_SIZE]byte)(proofBytes), uint(nReadBytes)) {
 		t.Errorf("proof did not verify")
 	}
 }
