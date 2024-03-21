@@ -20,9 +20,6 @@ services:
       - ../../prod-sim/${NODE_NAME}:/root/.alignedlayer
       - ../scripts/validator.entrypoint.sh:/entrypoint.sh
     entrypoint: /entrypoint.sh ${NODE_NAME} 1050000stake
-    depends_on:
-      node-setup:
-        condition: service_completed_successfully
 
   validator-runner:
     image: alignedlayerd_i
@@ -32,6 +29,3 @@ services:
     volumes:
       - ../../prod-sim/${NODE_NAME}:/root/.alignedlayer
     command: start
-    depends_on:
-      validator-setup:
-        condition: service_completed_successfully
