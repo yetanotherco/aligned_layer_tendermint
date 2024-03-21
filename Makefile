@@ -20,14 +20,36 @@ build-cairo-ffi-from_macos-to_linux:
 test-ffi-cairo: 
 	go test -v ./operators/cairo_platinum 
 
+__SP1_FFI__:
+build-sp1-ffi-macos:
+	@cd operators/sp1/lib \
+		&& cargo build --release \
+		&& cp target/release/libsp1_verifier_wrapper.dylib ./libsp1_verifier.dylib \
+		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
+
+build-sp1-ffi-linux:
+	@cd operators/sp1/lib \
+		&& cargo build --release \
+		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
+		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
+
+build-sp1-ffi-from_macos-to_linux:
+	@cd operators/sp1/lib \
+		&& cargo build --release --target=x86_64-unknown-linux-gnu\
+		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
+		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
+
+test-ffi-sp1:
+	go test -v ./operators/sp1
+
 __COSMOS_BLOCKCHAIN__:
-build-macos: build-cairo-ffi-macos
+build-macos: build-sp1-ffi-macos build-cairo-ffi-macos
 	ignite chain build
 
 run-macos: build-macos
 	ignite chain serve
 
-build-linux: build-cairo-ffi-linux
+build-linux: build-sp1-ffi-linux build-cairo-ffi-linux
 	ignite chain build
 
 run-linux: build-linux
@@ -48,7 +70,9 @@ ltest-cairo-false:
 		SHOULDFAIL
 
 clean-ffi:
+	rm -rf operators/sp1/lib/target/release/libsp1_verifier*
 	rm -rf operators/cairo_platinum/lib/libcairo_platinum*
+	rm -rf operators/sp1/lib/target/release/libsp1_verifier*
 	rm -rf operators/cairo_platinum/lib/target/release/libcairo_platinum*
 
 clean:
