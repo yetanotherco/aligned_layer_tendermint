@@ -17,8 +17,8 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Install Ignite
         run: curl https://get.ignite.com/cli! | bash
-      # - name: Build binary
-      #   run: ignite chain build
+      - name: Build binary
+        run: ignite chain build
       - name: List files in the repository
         run: ls
       - run: echo "🍏 This job's status is ${{ job.status }}."
