@@ -21,13 +21,14 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
     - [Transaction Lifecycle](#lifecycle)
     - [Interacting with a Node](#interactwithnode)
 9. [Setting up multiple local nodes using docker](#multiplelocalnodes)
-10. [Tutorials](#tutorials)
+10. [Deploying a Blockchain with Terraform](#terraform)
+11. [Tutorials](#tutorials)
     - [Setup the Faucet Locally](#setupfaucet)
     - [Claiming Staking Rewards](#claimstake)
     - [Bank](#bank)
     - [Slashing](#slashing)
     - [Staking](#staking)
-11. [Acknowledgements](#acknowledgements)
+12. [Acknowledgements](#acknowledgements)
 
 ## Requirements <a name="requirements"></a>
 
@@ -506,6 +507,54 @@ You can verify that it works by running (replacing `<node1_name>` by the name of
 ```sh
 docker run --rm -it --network alignedlayer_net-public alignedlayerd_i status --node "tcp://<node1_name>:26657"
 ```
+
+## Deploying a Blockchain with Terraform <a name="terraform"></a>
+
+On the `terraform` directory, there are the required files to launch a blockchain of a custom number of servers with Terraform.
+
+### Requirements
+
+- [Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform)
+
+### Setup and run
+
+Inside that directory, create a terraform.tfvars file where you can customize the variables used by Terraform. Available variables are:
+
+- `hcloud_token`: Your Hetzner token. **REQUIRED**
+- `server_type`: Type of the servers to deploy. Default: "cx11".
+- `instances`: Total number of nodes to deploy. One of this will be who generates the genesis. Default: 1.
+- `password`: The password to use for the keyring. Default: "password"
+- `genesis_initial_balance`: Initial balance for the account on the genesis. Take in consideration that this account is used for the faucet too. Default: 10000000000.
+- `genesis_staking_amount`: Amount the account on the genesis will stake. Default: 10000000.
+- `staking_amount`: Amount the other accounts will stake. Default: 1001000.
+- `staking_token`:  Name of the token. Default: "stake".
+- `min_gas_price`: Minimum gas price the nodes accept to accept a transaction. Default: 0.0001.
+- `chain_id`: Name of the Chain ID. Default: "alignedlayer-1".
+- `binary_url`: The URL of where the nodes will download the full-node app binary. Default: "https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz"
+- `ssh_keys`: A list of SSH keys authorized to connect to the servers. Default: [].
+
+To deploy the blockchain, simply setup the variables you want and then run:
+
+```sh
+terraform init
+terraform apply
+```
+
+You can see the nodes IPs with:
+
+```sh
+terraform show | grep ipv4_addr
+```
+
+If you want to remove the servers, run:
+
+```sh
+terraform destroy
+```
+
+### What it does
+
+When the Terraform plan is applied, it will create the number of instances you setup on the cloud. On the first node, it will execute a routine to generate a new genesis with itself as the unique validator and serve a faucet. Meanwhile, the rest of the nodes will start their proceses of creating their accounts. Once the first node is ready and up, they will request for tokens to the faucet and set themselves as validators too.
 
 ## Tutorials <a name="tutorials"></a>
 
