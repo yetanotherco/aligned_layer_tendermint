@@ -11,7 +11,7 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 )
 
-func SimulateMsgVerifycairo(
+func SimulateMsgVerifyPlonk(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -19,12 +19,12 @@ func SimulateMsgVerifycairo(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgVerifycairo{
+		msg := &types.MsgVerifyPlonk{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the Verifycairo simulation
+		// TODO: Handling the VerifyPlonk simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "Verifycairo simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "VerifyPlonk simulation not implemented"), nil, nil
 	}
 }

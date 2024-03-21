@@ -12,7 +12,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo) (*types.MsgVerifycairoResponse, error) {
+func (k msgServer) VerifyCairo(goCtx context.Context, msg *types.MsgVerifyCairo) (*types.MsgVerifyCairoResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	result := verifyCairo(msg.Proof)
@@ -22,7 +22,7 @@ func (k msgServer) Verifycairo(goCtx context.Context, msg *types.MsgVerifycairo)
 
 	ctx.EventManager().EmitEvent(event)
 
-	return &types.MsgVerifycairoResponse{}, nil
+	return &types.MsgVerifyCairoResponse{}, nil
 }
 
 func verifyCairo(proof string) bool {
