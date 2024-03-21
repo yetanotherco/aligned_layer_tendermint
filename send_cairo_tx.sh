@@ -16,25 +16,21 @@ METHOD=cosmos.tx.v1beta1.Service/BroadcastTx
 : ${FROM:="alice"}
 : ${NODE:="tcp://localhost:26657"}
 : ${NODE_RPC:="localhost:9090"}
+: ${GAS:=5000000}
 
-TRANSACTION=$(mktemp)
+
 TRIMMED_PROOF_FILE=$(mktemp)
-
 cat $PROOF_FILE | tr -d '\n' > $TRIMMED_PROOF_FILE
 
+TRANSACTION=$(mktemp)
 alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
-  --from $FROM --chain-id $CHAIN_ID --generate-only --gas 5000000\
+  --from $FROM --chain-id $CHAIN_ID --generate-only --gas $GAS \
   | jq '.body.messages.[0].proof=$proof' --rawfile proof $TRIMMED_PROOF_FILE \
   > $TRANSACTION
 
 SIGNED=$(mktemp)
-alignedlayerd tx sign $TRANSACTION --chain-id $CHAIN_ID --from $FROM --node $NODE \
-  --overwrite > $SIGNED
+alignedlayerd tx sign $TRANSACTION \
+  --from $FROM --node $NODE \
+  > $SIGNED
 
-ENCODED=$(mktemp)
-alignedlayerd tx encode $SIGNED > $ENCODED
-
-echo '{"tx_bytes": "", "mode": "BROADCAST_MODE_SYNC"}' \
-  | jq '.tx_bytes=$bytes' --rawfile bytes $ENCODED \
-  | grpcurl -plaintext -d "@" $NODE_RPC $METHOD \
-  | jq .txResponse
+alignedlayerd tx broadcast $SIGNED --node $NODE
