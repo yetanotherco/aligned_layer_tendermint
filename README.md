@@ -9,7 +9,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [Example Local Blockchain](#example)
-3. [Cairo and SP1](#cairo&sp1)
+3. [Cairo](#cairo)
 4. [Trying our testnet](#tryingtestnet)
 5. [Joining our testnet](#joiningtestnet)
     - [Requirements](#joinrequirements)
@@ -92,9 +92,9 @@ alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer 
     $(cat verifying_key.base64)
 ```
 
-## How to run Cairo and SP1 proof verifications <a name="cairo&sp1"></a>
+## How to run Cairo proof verifications <a name="cairo"></a>
 
-FFIs are being used to implement Cairo and SP1 verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
+FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
 Tip, `base64` can be used as follows to encode the proofs:
 
@@ -163,8 +163,6 @@ The output should be:
 
 To create your own proofs:
 - [CairoVM](https://github.com/lambdaclass/cairo-vm)
-- [SP1 Book](https://succinctlabs.github.io/sp1/getting-started/install.html)
-
 
 ## Trying our testnet <a name="tryingtestnet"></a>
 
