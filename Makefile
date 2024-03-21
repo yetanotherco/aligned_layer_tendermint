@@ -35,14 +35,14 @@ run-linux: build-linux
 
 __LOCAL_TEST__:
 ltest-cairo-true: 
-	alignedlayerd tx verification verifycairo \
+	alignedlayerd tx verification verify-cairo \
 		--from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
 		$$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
 
 ltest-cairo-false:
-	alignedlayerd tx verification verifycairo \
+	alignedlayerd tx verification verify-cairo \
 		--from alice \
 		--chain-id alignedlayer \
 		SHOULDFAIL
