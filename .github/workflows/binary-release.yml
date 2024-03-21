@@ -1,0 +1,24 @@
+name: Ignite Binary Build
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build-binary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install Ignite
+        run: curl https://get.ignite.com/cli! | bash
+      - name: Build binary
+        run: ignite chain build
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
