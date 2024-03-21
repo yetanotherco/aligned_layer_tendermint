@@ -29,7 +29,7 @@ then
 		rm -r prod-sim/$NODE_NAME
 		mkdir prod-sim/$NODE_NAME
 	fi
-	
+
 	NODE_NAME=$NODE_NAME docker compose -f docker/compose/validator.docker-compose.yml up node-setup
 fi
 
@@ -47,6 +47,10 @@ then
 	ls prod-sim/$NODE_NAME/config/validator.json >/dev/null 2>&1
 	if [ $? != 0 ]  # The validator is not initialized yet
 	then
+		while $(curl -s localhost:26657/status | jq .result.sync_info.catching_up); do
+			printf '.'
+			sleep 1
+		done
 		NODE_NAME=$NODE_NAME docker compose -f docker/compose/validator.docker-compose.yml up validator-setup
 	fi
 fi

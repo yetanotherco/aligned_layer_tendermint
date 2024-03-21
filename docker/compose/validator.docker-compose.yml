@@ -26,6 +26,9 @@ services:
     build:
       context: ../../
       dockerfile: ./Dockerfile
+    ports:
+      - 26656:26656
+      - 26657:26657
     volumes:
       - ../../prod-sim/${NODE_NAME}:/root/.alignedlayer
     command: start
