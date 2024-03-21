@@ -530,6 +530,7 @@ Inside that directory, create a terraform.tfvars file where you can customize th
 - `min_gas_price`: Minimum gas price the nodes accept to accept a transaction. Default: 0.0001.
 - `chain_id`: Name of the Chain ID. Default: "alignedlayer-1".
 - `binary_url`: The URL of where the nodes will download the full-node app binary. Default: "https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/v0.1/alignedlayer_linux_amd64.tar.gz"
+- `ssh_keys`: A list of SSH keys authorized to connect to the servers. Default: [].
 
 To deploy the blockchain, simply setup the variables you want and then run:
 

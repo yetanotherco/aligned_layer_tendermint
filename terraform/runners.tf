@@ -38,6 +38,10 @@ variable "server_type" {
   default = "cx11"
 }
 
+variable "ssh_keys" {
+	default = []
+}
+
 resource "hcloud_network" "private_net" {
   name     = "alignedlayer-net"
   ip_range = "10.0.0.0/16"
@@ -55,7 +59,7 @@ resource "hcloud_server" "alignedlayer-genesis-runner" {
   image = "debian-12"
   server_type = var.server_type
 
-  ssh_keys = ["manubilbao", "tomyrd"]
+  ssh_keys = var.ssh_keys
 
   public_net {
     ipv4_enabled = true
@@ -155,7 +159,7 @@ resource "hcloud_server" "alignedlayer-runner" {
     ip = "10.0.1.${count.index+3}"
   }
 
-  ssh_keys = ["manubilbao", "tomyrd"]
+  ssh_keys = var.ssh_keys
 
   depends_on = [
     hcloud_server.alignedlayer-genesis-runner,
