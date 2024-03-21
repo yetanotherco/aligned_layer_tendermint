@@ -20,9 +20,8 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Msg_UpdateParams_FullMethodName = "/alignedlayer.verification.Msg/UpdateParams"
-	Msg_Verify_FullMethodName       = "/alignedlayer.verification.Msg/Verify"
-	Msg_VerifySp1_FullMethodName    = "/alignedlayer.verification.Msg/VerifySp1"
-	Msg_Verifycairo_FullMethodName  = "/alignedlayer.verification.Msg/Verifycairo"
+	Msg_VerifyPlonk_FullMethodName  = "/alignedlayer.verification.Msg/VerifyPlonk"
+	Msg_VerifyCairo_FullMethodName  = "/alignedlayer.verification.Msg/VerifyCairo"
 )
 
 // MsgClient is the client API for Msg service.
@@ -32,9 +31,8 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
-	Verify(ctx context.Context, in *MsgVerify, opts ...grpc.CallOption) (*MsgVerifyResponse, error)
-	VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error)
-	Verifycairo(ctx context.Context, in *MsgVerifycairo, opts ...grpc.CallOption) (*MsgVerifycairoResponse, error)
+	VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ...grpc.CallOption) (*MsgVerifyPlonkResponse, error)
+	VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error)
 }
 
 type msgClient struct {
@@ -54,27 +52,18 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
-func (c *msgClient) Verify(ctx context.Context, in *MsgVerify, opts ...grpc.CallOption) (*MsgVerifyResponse, error) {
-	out := new(MsgVerifyResponse)
-	err := c.cc.Invoke(ctx, Msg_Verify_FullMethodName, in, out, opts...)
+func (c *msgClient) VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ...grpc.CallOption) (*MsgVerifyPlonkResponse, error) {
+	out := new(MsgVerifyPlonkResponse)
+	err := c.cc.Invoke(ctx, Msg_VerifyPlonk_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error) {
-	out := new(MsgVerifySp1Response)
-	err := c.cc.Invoke(ctx, Msg_VerifySp1_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) Verifycairo(ctx context.Context, in *MsgVerifycairo, opts ...grpc.CallOption) (*MsgVerifycairoResponse, error) {
-	out := new(MsgVerifycairoResponse)
-	err := c.cc.Invoke(ctx, Msg_Verifycairo_FullMethodName, in, out, opts...)
+func (c *msgClient) VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error) {
+	out := new(MsgVerifyCairoResponse)
+	err := c.cc.Invoke(ctx, Msg_VerifyCairo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,9 +77,8 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
-	Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error)
-	VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error)
-	Verifycairo(context.Context, *MsgVerifycairo) (*MsgVerifycairoResponse, error)
+	VerifyPlonk(context.Context, *MsgVerifyPlonk) (*MsgVerifyPlonkResponse, error)
+	VerifyCairo(context.Context, *MsgVerifyCairo) (*MsgVerifyCairoResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -101,14 +89,11 @@ type UnimplementedMsgServer struct {
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
 }
-func (UnimplementedMsgServer) Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Verify not implemented")
+func (UnimplementedMsgServer) VerifyPlonk(context.Context, *MsgVerifyPlonk) (*MsgVerifyPlonkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyPlonk not implemented")
 }
-func (UnimplementedMsgServer) VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method VerifySp1 not implemented")
-}
-func (UnimplementedMsgServer) Verifycairo(context.Context, *MsgVerifycairo) (*MsgVerifycairoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Verifycairo not implemented")
+func (UnimplementedMsgServer) VerifyCairo(context.Context, *MsgVerifyCairo) (*MsgVerifyCairoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCairo not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -141,56 +126,38 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_Verify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerify)
+func _Msg_VerifyPlonk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifyPlonk)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).Verify(ctx, in)
+		return srv.(MsgServer).VerifyPlonk(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_Verify_FullMethodName,
+		FullMethod: Msg_VerifyPlonk_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).Verify(ctx, req.(*MsgVerify))
+		return srv.(MsgServer).VerifyPlonk(ctx, req.(*MsgVerifyPlonk))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_VerifySp1_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerifySp1)
+func _Msg_VerifyCairo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifyCairo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).VerifySp1(ctx, in)
+		return srv.(MsgServer).VerifyCairo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_VerifySp1_FullMethodName,
+		FullMethod: Msg_VerifyCairo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).VerifySp1(ctx, req.(*MsgVerifySp1))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_Verifycairo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerifycairo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).Verifycairo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Msg_Verifycairo_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).Verifycairo(ctx, req.(*MsgVerifycairo))
+		return srv.(MsgServer).VerifyCairo(ctx, req.(*MsgVerifyCairo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -207,16 +174,12 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_UpdateParams_Handler,
 		},
 		{
-			MethodName: "Verify",
-			Handler:    _Msg_Verify_Handler,
+			MethodName: "VerifyPlonk",
+			Handler:    _Msg_VerifyPlonk_Handler,
 		},
 		{
-			MethodName: "VerifySp1",
-			Handler:    _Msg_VerifySp1_Handler,
-		},
-		{
-			MethodName: "Verifycairo",
-			Handler:    _Msg_Verifycairo_Handler,
+			MethodName: "VerifyCairo",
+			Handler:    _Msg_VerifyCairo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

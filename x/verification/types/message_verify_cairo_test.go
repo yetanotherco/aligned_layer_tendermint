@@ -9,21 +9,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgVerifycairo_ValidateBasic(t *testing.T) {
+func TestMsgVerifyCairo_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgVerifycairo
+		msg  MsgVerifyCairo
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgVerifycairo{
+			msg: MsgVerifyCairo{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgVerifycairo{
+			msg: MsgVerifyCairo{
 				Creator: sample.AccAddress(),
 			},
 		},

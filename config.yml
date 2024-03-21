@@ -25,5 +25,3 @@ validators:
   bonded: 100000000stake
 build:
   main: cmd/alignedlayerd
-  ldflags:
-    - "-r operators/sp1/lib"

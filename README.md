@@ -9,7 +9,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [Example Local Blockchain](#example)
-3. [Cairo and SP1](#cairo&sp1)
+3. [Cairo](#cairo)
 4. [Trying our testnet](#tryingtestnet)
 5. [Joining our testnet](#joiningtestnet)
     - [Requirements](#joinrequirements)
@@ -53,13 +53,13 @@ This command installs dependencies, builds, initializes, and starts your blockch
 To send a verify message (transaction), use the following command:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
+alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
 ```
 
 You can try with an example proof used in the repo with the following command:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
+alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
     $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
@@ -75,7 +75,7 @@ txhash: F105EAD99F96289914EF16CB164CE43A330AEDB93CAE2A1CFA5FAE013B5CC515
 To get the transaction result, run:
 
 ```sh
-alignedlayerd query tx <txhash>
+alignedlayerd query tx <txhash> | grep verification_finished -B 10
 ```
 If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
@@ -86,20 +86,21 @@ go run ./prover_examples/gnark_plonk/gnark_plonk.go
 This will compile the circuit and create a proof in the root folder that is ready to be sent with:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
+alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
     $(cat proof.base64) \
     $(cat public_inputs.base64) \
     $(cat verifying_key.base64)
 ```
 
-## How to run Cairo and SP1 proof verifications <a name="cairo&sp1"></a>
+## How to run Cairo proof verifications <a name="cairo"></a>
 
-FFIs are being used to implement Cairo and SP1 verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
+FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
 Tip, `base64` can be used as follows to encode the proofs:
 
 ```sh
-base64 -i tests/testing_data/fibo_5.proof > prover_examples/cairo_platinum/examples/fibonacci_5.base64
+base64 -i operators/cairo_platinum/example/fibonacci_5.proof.example \
+    > operators/cairo_platinum/example/fibonacci_5.base64.exampl
 ```
 
 To run the Blockchain locally:
@@ -125,8 +126,8 @@ make ltest-cairo-true
 <details>
 
 ```sh
-	alignedlayerd tx verification verifycairo \
-		--from <account> \
+alignedlayerd tx verification verify-cairo \
+    --from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
 		$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
@@ -138,14 +139,23 @@ This will send a cairo proof to the blockchain. The CLI will ask for a signature
 To check the output of the transaction:
 
 ```sh
-alignedlayerd q tx <txhash> | grep proof_verifies -A1
+alignedlayerd q tx <txhash> | grep verification_finished -B 10
 ```
 
 The output should be:
 
 ```
-key: proof_verifies
-value: "true"
+- attributes:
+  - index: true
+    key: proof_verifies
+    value: "true"
+  - index: true
+    key: prover
+    value: CAIRO
+  - index: true
+    key: msg_index
+    value: "0"
+  type: verification_finished
 ```
 
 > [!NOTE]
@@ -153,8 +163,6 @@ value: "true"
 
 To create your own proofs:
 - [CairoVM](https://github.com/lambdaclass/cairo-vm)
-- [SP1 Book](https://succinctlabs.github.io/sp1/getting-started/install.html)
-
 
 ## Trying our testnet <a name="tryingtestnet"></a>
 

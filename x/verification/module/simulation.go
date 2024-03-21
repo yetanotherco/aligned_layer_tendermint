@@ -23,17 +23,13 @@ var (
 )
 
 const (
-	opWeightMsgVerify = "op_weight_msg_verify"
+	opWeightMsgVerifyPlonk = "op_weight_msg_verify_plonk"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgVerify int = 100
+	defaultWeightMsgVerifyPlonk int = 100
 
-	opWeightMsgVerifySp1 = "op_weight_msg_verify_sp_1"
+	opWeightMsgVerifyCairo = "op_weight_msg_verify_cairo"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgVerifySp1 int = 100
-
-	opWeightMsgVerifycairo = "op_weight_msg_verifycairo"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgVerifycairo int = 100
+	defaultWeightMsgVerifyCairo int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -63,37 +59,26 @@ func (AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedP
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
 
-	var weightMsgVerify int
-	simState.AppParams.GetOrGenerate(opWeightMsgVerify, &weightMsgVerify, nil,
+	var weightMsgVerifyPlonk int
+	simState.AppParams.GetOrGenerate(opWeightMsgVerifyPlonk, &weightMsgVerifyPlonk, nil,
 		func(_ *rand.Rand) {
-			weightMsgVerify = defaultWeightMsgVerify
+			weightMsgVerifyPlonk = defaultWeightMsgVerifyPlonk
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgVerify,
-		verificationsimulation.SimulateMsgVerify(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgVerifyPlonk,
+		verificationsimulation.SimulateMsgVerifyPlonk(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgVerifySp1 int
-	simState.AppParams.GetOrGenerate(opWeightMsgVerifySp1, &weightMsgVerifySp1, nil,
+	var weightMsgVerifyCairo int
+	simState.AppParams.GetOrGenerate(opWeightMsgVerifyCairo, &weightMsgVerifyCairo, nil,
 		func(_ *rand.Rand) {
-			weightMsgVerifySp1 = defaultWeightMsgVerifySp1
+			weightMsgVerifyCairo = defaultWeightMsgVerifyCairo
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgVerifySp1,
-		verificationsimulation.SimulateMsgVerifySp1(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgVerifycairo int
-	simState.AppParams.GetOrGenerate(opWeightMsgVerifycairo, &weightMsgVerifycairo, nil,
-		func(_ *rand.Rand) {
-			weightMsgVerifycairo = defaultWeightMsgVerifycairo
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgVerifycairo,
-		verificationsimulation.SimulateMsgVerifycairo(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgVerifyCairo,
+		verificationsimulation.SimulateMsgVerifyCairo(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
@@ -105,26 +90,18 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
 	return []simtypes.WeightedProposalMsg{
 		simulation.NewWeightedProposalMsg(
-			opWeightMsgVerify,
-			defaultWeightMsgVerify,
+			opWeightMsgVerifyPlonk,
+			defaultWeightMsgVerifyPlonk,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				verificationsimulation.SimulateMsgVerify(am.accountKeeper, am.bankKeeper, am.keeper)
+				verificationsimulation.SimulateMsgVerifyPlonk(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),
 		simulation.NewWeightedProposalMsg(
-			opWeightMsgVerifySp1,
-			defaultWeightMsgVerifySp1,
+			opWeightMsgVerifyCairo,
+			defaultWeightMsgVerifyCairo,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				verificationsimulation.SimulateMsgVerifySp1(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgVerifycairo,
-			defaultWeightMsgVerifycairo,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				verificationsimulation.SimulateMsgVerifycairo(am.accountKeeper, am.bankKeeper, am.keeper)
+				verificationsimulation.SimulateMsgVerifyCairo(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

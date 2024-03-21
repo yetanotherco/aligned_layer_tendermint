@@ -20,59 +20,35 @@ build-cairo-ffi-from_macos-to_linux:
 test-ffi-cairo: 
 	go test -v ./operators/cairo_platinum 
 
-__SP1_FFI__: 
-build-sp1-ffi-macos:
-	@cd operators/sp1/lib \
-		&& cargo build --release \
-		&& cp target/release/libsp1_verifier_wrapper.dylib ./libsp1_verifier.dylib \
-		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
-
-build-sp1-ffi-linux:
-	@cd operators/sp1/lib \
-		&& cargo build --release \
-		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
-		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
-
-build-sp1-ffi-from_macos-to_linux:
-	@cd operators/sp1/lib \
-		&& cargo build --release --target=x86_64-unknown-linux-gnu\
-		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
-		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
-
-test-ffi-sp1:
-	go test -v ./operators/sp1 
-
 __COSMOS_BLOCKCHAIN__:
-run-macos: build-sp1-ffi-macos build-cairo-ffi-macos
-	ignite chain serve
-
-build-macos: build-sp1-ffi-macos build-cairo-ffi-macos
+build-macos: build-cairo-ffi-macos
 	ignite chain build
 
-run-linux: build-sp1-ffi-linux build-cairo-ffi-linux
+run-macos: build-macos
 	ignite chain serve
 
-build-linux: build-sp1-ffi-linux build-cairo-ffi-linux
+build-linux: build-cairo-ffi-linux
 	ignite chain build
+
+run-linux: build-linux
+	ignite chain serve
 
 __LOCAL_TEST__:
 ltest-cairo-true: 
-	alignedlayerd tx verification verifycairo \
+	alignedlayerd tx verification verify-cairo \
 		--from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
 		$$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
 
 ltest-cairo-false:
-	alignedlayerd tx verification verifycairo \
+	alignedlayerd tx verification verify-cairo \
 		--from alice \
 		--chain-id alignedlayer \
 		SHOULDFAIL
 
 clean-ffi:
-	rm -rf operators/sp1/lib/target/release/libsp1_verifier*
 	rm -rf operators/cairo_platinum/lib/libcairo_platinum*
-	rm -rf operators/sp1/lib/target/release/libsp1_verifier*
 	rm -rf operators/cairo_platinum/lib/target/release/libcairo_platinum*
 
 clean:

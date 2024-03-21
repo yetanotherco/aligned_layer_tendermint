@@ -124,25 +124,25 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
-type MsgVerify struct {
+type MsgVerifyPlonk struct {
 	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Proof        string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
 	PublicInputs string `protobuf:"bytes,3,opt,name=public_inputs,json=publicInputs,proto3" json:"public_inputs,omitempty"`
 	VerifyingKey string `protobuf:"bytes,4,opt,name=verifying_key,json=verifyingKey,proto3" json:"verifying_key,omitempty"`
 }
 
-func (m *MsgVerify) Reset()         { *m = MsgVerify{} }
-func (m *MsgVerify) String() string { return proto.CompactTextString(m) }
-func (*MsgVerify) ProtoMessage()    {}
-func (*MsgVerify) Descriptor() ([]byte, []int) {
+func (m *MsgVerifyPlonk) Reset()         { *m = MsgVerifyPlonk{} }
+func (m *MsgVerifyPlonk) String() string { return proto.CompactTextString(m) }
+func (*MsgVerifyPlonk) ProtoMessage()    {}
+func (*MsgVerifyPlonk) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e08763aa79a4f210, []int{2}
 }
-func (m *MsgVerify) XXX_Unmarshal(b []byte) error {
+func (m *MsgVerifyPlonk) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgVerify) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgVerifyPlonk) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgVerify.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgVerifyPlonk.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -152,61 +152,61 @@ func (m *MsgVerify) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *MsgVerify) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgVerify.Merge(m, src)
+func (m *MsgVerifyPlonk) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgVerifyPlonk.Merge(m, src)
 }
-func (m *MsgVerify) XXX_Size() int {
+func (m *MsgVerifyPlonk) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgVerify) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgVerify.DiscardUnknown(m)
+func (m *MsgVerifyPlonk) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgVerifyPlonk.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgVerify proto.InternalMessageInfo
+var xxx_messageInfo_MsgVerifyPlonk proto.InternalMessageInfo
 
-func (m *MsgVerify) GetCreator() string {
+func (m *MsgVerifyPlonk) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgVerify) GetProof() string {
+func (m *MsgVerifyPlonk) GetProof() string {
 	if m != nil {
 		return m.Proof
 	}
 	return ""
 }
 
-func (m *MsgVerify) GetPublicInputs() string {
+func (m *MsgVerifyPlonk) GetPublicInputs() string {
 	if m != nil {
 		return m.PublicInputs
 	}
 	return ""
 }
 
-func (m *MsgVerify) GetVerifyingKey() string {
+func (m *MsgVerifyPlonk) GetVerifyingKey() string {
 	if m != nil {
 		return m.VerifyingKey
 	}
 	return ""
 }
 
-type MsgVerifyResponse struct {
+type MsgVerifyPlonkResponse struct {
 }
 
-func (m *MsgVerifyResponse) Reset()         { *m = MsgVerifyResponse{} }
-func (m *MsgVerifyResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgVerifyResponse) ProtoMessage()    {}
-func (*MsgVerifyResponse) Descriptor() ([]byte, []int) {
+func (m *MsgVerifyPlonkResponse) Reset()         { *m = MsgVerifyPlonkResponse{} }
+func (m *MsgVerifyPlonkResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgVerifyPlonkResponse) ProtoMessage()    {}
+func (*MsgVerifyPlonkResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e08763aa79a4f210, []int{3}
 }
-func (m *MsgVerifyResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgVerifyPlonkResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgVerifyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgVerifyPlonkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgVerifyResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgVerifyPlonkResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -216,35 +216,35 @@ func (m *MsgVerifyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (m *MsgVerifyResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgVerifyResponse.Merge(m, src)
+func (m *MsgVerifyPlonkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgVerifyPlonkResponse.Merge(m, src)
 }
-func (m *MsgVerifyResponse) XXX_Size() int {
+func (m *MsgVerifyPlonkResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgVerifyResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgVerifyResponse.DiscardUnknown(m)
+func (m *MsgVerifyPlonkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgVerifyPlonkResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgVerifyResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgVerifyPlonkResponse proto.InternalMessageInfo
 
-type MsgVerifySp1 struct {
+type MsgVerifyCairo struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Proof   string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
 }
 
-func (m *MsgVerifySp1) Reset()         { *m = MsgVerifySp1{} }
-func (m *MsgVerifySp1) String() string { return proto.CompactTextString(m) }
-func (*MsgVerifySp1) ProtoMessage()    {}
-func (*MsgVerifySp1) Descriptor() ([]byte, []int) {
+func (m *MsgVerifyCairo) Reset()         { *m = MsgVerifyCairo{} }
+func (m *MsgVerifyCairo) String() string { return proto.CompactTextString(m) }
+func (*MsgVerifyCairo) ProtoMessage()    {}
+func (*MsgVerifyCairo) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e08763aa79a4f210, []int{4}
 }
-func (m *MsgVerifySp1) XXX_Unmarshal(b []byte) error {
+func (m *MsgVerifyCairo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgVerifySp1) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgVerifyCairo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgVerifySp1.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgVerifyCairo.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -254,47 +254,47 @@ func (m *MsgVerifySp1) XXX_Marshal(b []byte, deterministic bool) ([]byte, error)
 		return b[:n], nil
 	}
 }
-func (m *MsgVerifySp1) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgVerifySp1.Merge(m, src)
+func (m *MsgVerifyCairo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgVerifyCairo.Merge(m, src)
 }
-func (m *MsgVerifySp1) XXX_Size() int {
+func (m *MsgVerifyCairo) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgVerifySp1) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgVerifySp1.DiscardUnknown(m)
+func (m *MsgVerifyCairo) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgVerifyCairo.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgVerifySp1 proto.InternalMessageInfo
+var xxx_messageInfo_MsgVerifyCairo proto.InternalMessageInfo
 
-func (m *MsgVerifySp1) GetCreator() string {
+func (m *MsgVerifyCairo) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgVerifySp1) GetProof() string {
+func (m *MsgVerifyCairo) GetProof() string {
 	if m != nil {
 		return m.Proof
 	}
 	return ""
 }
 
-type MsgVerifySp1Response struct {
+type MsgVerifyCairoResponse struct {
 }
 
-func (m *MsgVerifySp1Response) Reset()         { *m = MsgVerifySp1Response{} }
-func (m *MsgVerifySp1Response) String() string { return proto.CompactTextString(m) }
-func (*MsgVerifySp1Response) ProtoMessage()    {}
-func (*MsgVerifySp1Response) Descriptor() ([]byte, []int) {
+func (m *MsgVerifyCairoResponse) Reset()         { *m = MsgVerifyCairoResponse{} }
+func (m *MsgVerifyCairoResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgVerifyCairoResponse) ProtoMessage()    {}
+func (*MsgVerifyCairoResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e08763aa79a4f210, []int{5}
 }
-func (m *MsgVerifySp1Response) XXX_Unmarshal(b []byte) error {
+func (m *MsgVerifyCairoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgVerifySp1Response) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgVerifyCairoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgVerifySp1Response.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgVerifyCairoResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -304,115 +304,25 @@ func (m *MsgVerifySp1Response) XXX_Marshal(b []byte, deterministic bool) ([]byte
 		return b[:n], nil
 	}
 }
-func (m *MsgVerifySp1Response) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgVerifySp1Response.Merge(m, src)
+func (m *MsgVerifyCairoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgVerifyCairoResponse.Merge(m, src)
 }
-func (m *MsgVerifySp1Response) XXX_Size() int {
+func (m *MsgVerifyCairoResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgVerifySp1Response) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgVerifySp1Response.DiscardUnknown(m)
+func (m *MsgVerifyCairoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgVerifyCairoResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgVerifySp1Response proto.InternalMessageInfo
-
-type MsgVerifycairo struct {
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Proof   string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
-}
-
-func (m *MsgVerifycairo) Reset()         { *m = MsgVerifycairo{} }
-func (m *MsgVerifycairo) String() string { return proto.CompactTextString(m) }
-func (*MsgVerifycairo) ProtoMessage()    {}
-func (*MsgVerifycairo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e08763aa79a4f210, []int{6}
-}
-func (m *MsgVerifycairo) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *MsgVerifycairo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_MsgVerifycairo.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *MsgVerifycairo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgVerifycairo.Merge(m, src)
-}
-func (m *MsgVerifycairo) XXX_Size() int {
-	return m.Size()
-}
-func (m *MsgVerifycairo) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgVerifycairo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_MsgVerifycairo proto.InternalMessageInfo
-
-func (m *MsgVerifycairo) GetCreator() string {
-	if m != nil {
-		return m.Creator
-	}
-	return ""
-}
-
-func (m *MsgVerifycairo) GetProof() string {
-	if m != nil {
-		return m.Proof
-	}
-	return ""
-}
-
-type MsgVerifycairoResponse struct {
-}
-
-func (m *MsgVerifycairoResponse) Reset()         { *m = MsgVerifycairoResponse{} }
-func (m *MsgVerifycairoResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgVerifycairoResponse) ProtoMessage()    {}
-func (*MsgVerifycairoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e08763aa79a4f210, []int{7}
-}
-func (m *MsgVerifycairoResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *MsgVerifycairoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_MsgVerifycairoResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *MsgVerifycairoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgVerifycairoResponse.Merge(m, src)
-}
-func (m *MsgVerifycairoResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *MsgVerifycairoResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgVerifycairoResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_MsgVerifycairoResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgVerifyCairoResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "alignedlayer.verification.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "alignedlayer.verification.MsgUpdateParamsResponse")
-	proto.RegisterType((*MsgVerify)(nil), "alignedlayer.verification.MsgVerify")
-	proto.RegisterType((*MsgVerifyResponse)(nil), "alignedlayer.verification.MsgVerifyResponse")
-	proto.RegisterType((*MsgVerifySp1)(nil), "alignedlayer.verification.MsgVerifySp1")
-	proto.RegisterType((*MsgVerifySp1Response)(nil), "alignedlayer.verification.MsgVerifySp1Response")
-	proto.RegisterType((*MsgVerifycairo)(nil), "alignedlayer.verification.MsgVerifycairo")
-	proto.RegisterType((*MsgVerifycairoResponse)(nil), "alignedlayer.verification.MsgVerifycairoResponse")
+	proto.RegisterType((*MsgVerifyPlonk)(nil), "alignedlayer.verification.MsgVerifyPlonk")
+	proto.RegisterType((*MsgVerifyPlonkResponse)(nil), "alignedlayer.verification.MsgVerifyPlonkResponse")
+	proto.RegisterType((*MsgVerifyCairo)(nil), "alignedlayer.verification.MsgVerifyCairo")
+	proto.RegisterType((*MsgVerifyCairoResponse)(nil), "alignedlayer.verification.MsgVerifyCairoResponse")
 }
 
 func init() {
@@ -420,41 +330,38 @@ func init() {
 }
 
 var fileDescriptor_e08763aa79a4f210 = []byte{
-	// 531 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xcf, 0x8b, 0xd3, 0x40,
-	0x14, 0x6e, 0x5c, 0xb7, 0x92, 0xb7, 0x55, 0xd9, 0x58, 0x76, 0xd3, 0x1c, 0xe2, 0x6e, 0x15, 0x5d,
-	0xab, 0x36, 0xb4, 0x82, 0x87, 0x15, 0x04, 0x8b, 0x17, 0xd1, 0x8a, 0xa4, 0xe8, 0x41, 0x84, 0x32,
-	0x9b, 0xce, 0xc6, 0x61, 0xdb, 0xcc, 0x30, 0x33, 0x5d, 0x36, 0x37, 0xf1, 0xe8, 0x49, 0xf0, 0x9f,
-	0xf0, 0x24, 0x3d, 0xf8, 0x47, 0xec, 0xcd, 0xc5, 0x93, 0x27, 0x91, 0xf6, 0xd0, 0x7f, 0x43, 0x92,
-	0x49, 0xd2, 0x1f, 0xb0, 0x25, 0xe2, 0x25, 0xc9, 0xfb, 0xde, 0xf7, 0xde, 0xf7, 0x3e, 0xde, 0x4c,
-	0xa0, 0x8a, 0xfa, 0xc4, 0x0f, 0x70, 0xaf, 0x8f, 0x42, 0xcc, 0x9d, 0x63, 0xcc, 0xc9, 0x21, 0xf1,
-	0x90, 0x24, 0x34, 0x70, 0xe4, 0x49, 0x9d, 0x71, 0x2a, 0xa9, 0x51, 0x99, 0xe7, 0xd4, 0xe7, 0x39,
-	0xd6, 0x26, 0x1a, 0x90, 0x80, 0x3a, 0xf1, 0x53, 0xb1, 0xad, 0x6d, 0x8f, 0x8a, 0x01, 0x15, 0xce,
-	0x40, 0xf8, 0xce, 0x71, 0x23, 0x7a, 0x25, 0x89, 0x8a, 0x4a, 0x74, 0xe3, 0xc8, 0x51, 0x41, 0x92,
-	0x2a, 0xfb, 0xd4, 0xa7, 0x0a, 0x8f, 0xbe, 0x12, 0xf4, 0xd6, 0xf9, 0xb3, 0x31, 0xc4, 0xd1, 0x20,
-	0xa9, 0xae, 0xfe, 0xd0, 0xe0, 0x6a, 0x5b, 0xf8, 0xaf, 0x59, 0x0f, 0x49, 0xfc, 0x2a, 0xce, 0x18,
-	0x0f, 0x41, 0x47, 0x43, 0xf9, 0x9e, 0x72, 0x22, 0x43, 0x53, 0xdb, 0xd1, 0xf6, 0xf4, 0x96, 0xf9,
-	0xf3, 0xfb, 0xfd, 0x72, 0x22, 0xfb, 0xa4, 0xd7, 0xe3, 0x58, 0x88, 0x8e, 0xe4, 0x24, 0xf0, 0xdd,
-	0x19, 0xd5, 0x78, 0x0a, 0x45, 0xd5, 0xdb, 0xbc, 0xb0, 0xa3, 0xed, 0x6d, 0x34, 0x77, 0xeb, 0xe7,
-	0x9a, 0xaf, 0x2b, 0xa9, 0x96, 0x7e, 0xfa, 0xfb, 0x7a, 0xe1, 0xeb, 0x74, 0x54, 0xd3, 0xdc, 0xa4,
-	0x76, 0xff, 0xf1, 0xc7, 0xe9, 0xa8, 0x36, 0xeb, 0xfa, 0x69, 0x3a, 0xaa, 0xdd, 0x5d, 0x30, 0x73,
-	0xb2, 0x68, 0x67, 0x69, 0xfa, 0x6a, 0x05, 0xb6, 0x97, 0x20, 0x17, 0x0b, 0x46, 0x03, 0x81, 0xab,
-	0x5f, 0x34, 0xd0, 0xdb, 0xc2, 0x7f, 0x13, 0x95, 0x87, 0x86, 0x09, 0x97, 0x3c, 0x8e, 0x91, 0xa4,
-	0x5c, 0x99, 0x74, 0xd3, 0xd0, 0x28, 0xc3, 0x3a, 0xe3, 0x94, 0x1e, 0xc6, 0x3e, 0x74, 0x57, 0x05,
-	0xc6, 0x0d, 0xb8, 0xcc, 0x86, 0x07, 0x7d, 0xe2, 0x75, 0x49, 0xc0, 0x86, 0x52, 0x98, 0x6b, 0x71,
-	0xb6, 0xa4, 0xc0, 0x67, 0x31, 0x16, 0x91, 0xe2, 0xe9, 0x42, 0x12, 0xf8, 0xdd, 0x23, 0x1c, 0x9a,
-	0x17, 0x15, 0x29, 0x03, 0x9f, 0xe3, 0x70, 0xbf, 0x14, 0x59, 0x4c, 0xd5, 0xaa, 0xd7, 0x60, 0x33,
-	0x1b, 0x2a, 0x1b, 0xf5, 0x05, 0x94, 0x32, 0xb0, 0xc3, 0x1a, 0xff, 0x3a, 0xec, 0x92, 0xc4, 0x16,
-	0x94, 0xe7, 0xbb, 0x65, 0x2a, 0x2f, 0xe1, 0x4a, 0x86, 0x7b, 0x88, 0x70, 0xfa, 0x9f, 0x3a, 0x26,
-	0x6c, 0x2d, 0xf6, 0x4b, 0x95, 0x9a, 0xdf, 0xd6, 0x60, 0xad, 0x2d, 0x7c, 0x23, 0x80, 0xd2, 0xc2,
-	0x59, 0xab, 0xad, 0x38, 0x23, 0x4b, 0x6b, 0xb4, 0x9a, 0xf9, 0xb9, 0xa9, 0xae, 0xf1, 0x0e, 0x8a,
-	0xc9, 0xba, 0x6f, 0xae, 0xae, 0x56, 0x2c, 0xeb, 0x5e, 0x1e, 0x56, 0xd6, 0x1d, 0x83, 0x3e, 0x5b,
-	0xd1, 0xed, 0x3c, 0xa5, 0x1d, 0xd6, 0xb0, 0x9c, 0x9c, 0xc4, 0x4c, 0xe6, 0x08, 0x36, 0xe6, 0x77,
-	0x74, 0x27, 0x4f, 0x7d, 0x4c, 0xb5, 0x1a, 0xb9, 0xa9, 0xa9, 0x98, 0xb5, 0xfe, 0x21, 0xba, 0x8e,
-	0xad, 0x47, 0xa7, 0x63, 0x5b, 0x3b, 0x1b, 0xdb, 0xda, 0x9f, 0xb1, 0xad, 0x7d, 0x9e, 0xd8, 0x85,
-	0xb3, 0x89, 0x5d, 0xf8, 0x35, 0xb1, 0x0b, 0x6f, 0x77, 0x57, 0xdd, 0x46, 0x19, 0x32, 0x2c, 0x0e,
-	0x8a, 0xf1, 0xcf, 0xe5, 0xc1, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x9d, 0xb5, 0xb1, 0x15, 0x22,
-	0x05, 0x00, 0x00,
+	// 494 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x53, 0x41, 0x6f, 0xd3, 0x30,
+	0x18, 0xad, 0x37, 0x36, 0x54, 0xaf, 0x80, 0x88, 0x2a, 0x96, 0xe6, 0x10, 0xb6, 0x20, 0xa1, 0x51,
+	0x44, 0xa3, 0x15, 0x89, 0xc3, 0x90, 0x90, 0x28, 0x5c, 0x10, 0x2a, 0x9a, 0x82, 0xe0, 0xc0, 0xa5,
+	0xf2, 0x5a, 0xcf, 0x58, 0x6d, 0x6d, 0xcb, 0x76, 0xa7, 0xe5, 0x86, 0x38, 0x72, 0xe2, 0xc8, 0x4f,
+	0xe0, 0xd8, 0x03, 0x3f, 0x62, 0x37, 0x26, 0x0e, 0x88, 0x13, 0x42, 0xed, 0xa1, 0x7f, 0x03, 0xc5,
+	0x4e, 0xb7, 0xa4, 0xa8, 0x55, 0xb8, 0x24, 0xf9, 0xde, 0xf7, 0xfc, 0xbd, 0xf7, 0x6c, 0x07, 0x06,
+	0x68, 0x40, 0x09, 0xc3, 0xbd, 0x01, 0x8a, 0xb1, 0x0c, 0x4f, 0xb0, 0xa4, 0xc7, 0xb4, 0x8b, 0x34,
+	0xe5, 0x2c, 0xd4, 0xa7, 0x0d, 0x21, 0xb9, 0xe6, 0x4e, 0x2d, 0xcb, 0x69, 0x64, 0x39, 0xde, 0x4d,
+	0x34, 0xa4, 0x8c, 0x87, 0xe6, 0x69, 0xd9, 0xde, 0x76, 0x97, 0xab, 0x21, 0x57, 0xe1, 0x50, 0x91,
+	0xf0, 0x64, 0x3f, 0x79, 0xa5, 0x8d, 0x9a, 0x6d, 0x74, 0x4c, 0x15, 0xda, 0x22, 0x6d, 0x55, 0x09,
+	0x27, 0xdc, 0xe2, 0xc9, 0x57, 0x8a, 0xde, 0x5d, 0xee, 0x4d, 0x20, 0x89, 0x86, 0xe9, 0xea, 0xe0,
+	0x3b, 0x80, 0x37, 0xda, 0x8a, 0xbc, 0x11, 0x3d, 0xa4, 0xf1, 0xa1, 0xe9, 0x38, 0x8f, 0x60, 0x19,
+	0x8d, 0xf4, 0x7b, 0x2e, 0xa9, 0x8e, 0x5d, 0xb0, 0x03, 0xf6, 0xca, 0x2d, 0xf7, 0xc7, 0xb7, 0x07,
+	0xd5, 0x54, 0xf6, 0x69, 0xaf, 0x27, 0xb1, 0x52, 0xaf, 0xb5, 0xa4, 0x8c, 0x44, 0x97, 0x54, 0xe7,
+	0x39, 0xdc, 0xb4, 0xb3, 0xdd, 0xb5, 0x1d, 0xb0, 0xb7, 0xd5, 0xdc, 0x6d, 0x2c, 0x0d, 0xdf, 0xb0,
+	0x52, 0xad, 0xf2, 0xd9, 0xef, 0xdb, 0xa5, 0xaf, 0xb3, 0x71, 0x1d, 0x44, 0xe9, 0xda, 0x83, 0x27,
+	0x1f, 0x67, 0xe3, 0xfa, 0xe5, 0xd4, 0x4f, 0xb3, 0x71, 0xfd, 0x7e, 0x2e, 0xcc, 0x69, 0x3e, 0xce,
+	0x82, 0xfb, 0xa0, 0x06, 0xb7, 0x17, 0xa0, 0x08, 0x2b, 0xc1, 0x99, 0xc2, 0xc1, 0x17, 0x00, 0xaf,
+	0xb7, 0x15, 0x79, 0x9b, 0x2c, 0x8f, 0x0f, 0x07, 0x9c, 0xf5, 0x1d, 0x17, 0x5e, 0xed, 0x4a, 0x8c,
+	0x34, 0x97, 0x36, 0x69, 0x34, 0x2f, 0x9d, 0x2a, 0xdc, 0x10, 0x92, 0xf3, 0x63, 0x13, 0xa6, 0x1c,
+	0xd9, 0xc2, 0xb9, 0x03, 0xaf, 0x89, 0xd1, 0xd1, 0x80, 0x76, 0x3b, 0x94, 0x89, 0x91, 0x56, 0xee,
+	0xba, 0xe9, 0x56, 0x2c, 0xf8, 0xc2, 0x60, 0x09, 0xc9, 0x58, 0x8c, 0x29, 0x23, 0x9d, 0x3e, 0x8e,
+	0xdd, 0x2b, 0x96, 0x74, 0x01, 0xbe, 0xc4, 0xf1, 0x41, 0x25, 0xc9, 0x39, 0x57, 0x0b, 0x5c, 0x78,
+	0x2b, 0xef, 0xec, 0xc2, 0xf4, 0xab, 0x8c, 0xe7, 0x67, 0x88, 0x4a, 0xfe, 0xbf, 0x9e, 0x57, 0x28,
+	0x99, 0x79, 0x73, 0xa5, 0xe6, 0xcf, 0x35, 0xb8, 0xde, 0x56, 0xc4, 0x61, 0xb0, 0x92, 0xbb, 0x0f,
+	0xf5, 0x15, 0xe7, 0xb8, 0xb0, 0xd5, 0x5e, 0xb3, 0x38, 0x77, 0xae, 0xeb, 0xf4, 0xe1, 0x56, 0xf6,
+	0x48, 0xee, 0xad, 0x1e, 0x91, 0xa1, 0x7a, 0xfb, 0x85, 0xa9, 0xff, 0x8a, 0xd9, 0xbd, 0x2c, 0x24,
+	0x66, 0xa8, 0xc5, 0xc4, 0x72, 0x3b, 0xea, 0x6d, 0x7c, 0x48, 0xae, 0x76, 0xeb, 0xf1, 0xd9, 0xc4,
+	0x07, 0xe7, 0x13, 0x1f, 0xfc, 0x99, 0xf8, 0xe0, 0xf3, 0xd4, 0x2f, 0x9d, 0x4f, 0xfd, 0xd2, 0xaf,
+	0xa9, 0x5f, 0x7a, 0xb7, 0xbb, 0xea, 0x66, 0xeb, 0x58, 0x60, 0x75, 0xb4, 0x69, 0x7e, 0xd4, 0x87,
+	0x7f, 0x03, 0x00, 0x00, 0xff, 0xff, 0xb6, 0x3b, 0x23, 0x67, 0x6e, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -472,9 +379,8 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
-	Verify(ctx context.Context, in *MsgVerify, opts ...grpc.CallOption) (*MsgVerifyResponse, error)
-	VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error)
-	Verifycairo(ctx context.Context, in *MsgVerifycairo, opts ...grpc.CallOption) (*MsgVerifycairoResponse, error)
+	VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ...grpc.CallOption) (*MsgVerifyPlonkResponse, error)
+	VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error)
 }
 
 type msgClient struct {
@@ -494,27 +400,18 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
-func (c *msgClient) Verify(ctx context.Context, in *MsgVerify, opts ...grpc.CallOption) (*MsgVerifyResponse, error) {
-	out := new(MsgVerifyResponse)
-	err := c.cc.Invoke(ctx, "/alignedlayer.verification.Msg/Verify", in, out, opts...)
+func (c *msgClient) VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ...grpc.CallOption) (*MsgVerifyPlonkResponse, error) {
+	out := new(MsgVerifyPlonkResponse)
+	err := c.cc.Invoke(ctx, "/alignedlayer.verification.Msg/VerifyPlonk", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error) {
-	out := new(MsgVerifySp1Response)
-	err := c.cc.Invoke(ctx, "/alignedlayer.verification.Msg/VerifySp1", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *msgClient) Verifycairo(ctx context.Context, in *MsgVerifycairo, opts ...grpc.CallOption) (*MsgVerifycairoResponse, error) {
-	out := new(MsgVerifycairoResponse)
-	err := c.cc.Invoke(ctx, "/alignedlayer.verification.Msg/Verifycairo", in, out, opts...)
+func (c *msgClient) VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error) {
+	out := new(MsgVerifyCairoResponse)
+	err := c.cc.Invoke(ctx, "/alignedlayer.verification.Msg/VerifyCairo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -526,9 +423,8 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
-	Verify(context.Context, *MsgVerify) (*MsgVerifyResponse, error)
-	VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error)
-	Verifycairo(context.Context, *MsgVerifycairo) (*MsgVerifycairoResponse, error)
+	VerifyPlonk(context.Context, *MsgVerifyPlonk) (*MsgVerifyPlonkResponse, error)
+	VerifyCairo(context.Context, *MsgVerifyCairo) (*MsgVerifyCairoResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -538,14 +434,11 @@ type UnimplementedMsgServer struct {
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
 }
-func (*UnimplementedMsgServer) Verify(ctx context.Context, req *MsgVerify) (*MsgVerifyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Verify not implemented")
+func (*UnimplementedMsgServer) VerifyPlonk(ctx context.Context, req *MsgVerifyPlonk) (*MsgVerifyPlonkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyPlonk not implemented")
 }
-func (*UnimplementedMsgServer) VerifySp1(ctx context.Context, req *MsgVerifySp1) (*MsgVerifySp1Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method VerifySp1 not implemented")
-}
-func (*UnimplementedMsgServer) Verifycairo(ctx context.Context, req *MsgVerifycairo) (*MsgVerifycairoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Verifycairo not implemented")
+func (*UnimplementedMsgServer) VerifyCairo(ctx context.Context, req *MsgVerifyCairo) (*MsgVerifyCairoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCairo not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -570,56 +463,38 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_Verify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerify)
+func _Msg_VerifyPlonk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifyPlonk)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).Verify(ctx, in)
+		return srv.(MsgServer).VerifyPlonk(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/alignedlayer.verification.Msg/Verify",
+		FullMethod: "/alignedlayer.verification.Msg/VerifyPlonk",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).Verify(ctx, req.(*MsgVerify))
+		return srv.(MsgServer).VerifyPlonk(ctx, req.(*MsgVerifyPlonk))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_VerifySp1_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerifySp1)
+func _Msg_VerifyCairo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifyCairo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).VerifySp1(ctx, in)
+		return srv.(MsgServer).VerifyCairo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/alignedlayer.verification.Msg/VerifySp1",
+		FullMethod: "/alignedlayer.verification.Msg/VerifyCairo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).VerifySp1(ctx, req.(*MsgVerifySp1))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_Verifycairo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerifycairo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).Verifycairo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/alignedlayer.verification.Msg/Verifycairo",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).Verifycairo(ctx, req.(*MsgVerifycairo))
+		return srv.(MsgServer).VerifyCairo(ctx, req.(*MsgVerifyCairo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -633,16 +508,12 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_UpdateParams_Handler,
 		},
 		{
-			MethodName: "Verify",
-			Handler:    _Msg_Verify_Handler,
+			MethodName: "VerifyPlonk",
+			Handler:    _Msg_VerifyPlonk_Handler,
 		},
 		{
-			MethodName: "VerifySp1",
-			Handler:    _Msg_VerifySp1_Handler,
-		},
-		{
-			MethodName: "Verifycairo",
-			Handler:    _Msg_Verifycairo_Handler,
+			MethodName: "VerifyCairo",
+			Handler:    _Msg_VerifyCairo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -712,7 +583,7 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgVerify) Marshal() (dAtA []byte, err error) {
+func (m *MsgVerifyPlonk) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -722,12 +593,12 @@ func (m *MsgVerify) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgVerify) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgVerifyPlonk) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgVerify) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgVerifyPlonk) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -763,7 +634,7 @@ func (m *MsgVerify) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgVerifyResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgVerifyPlonkResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -773,12 +644,12 @@ func (m *MsgVerifyResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgVerifyResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgVerifyPlonkResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgVerifyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgVerifyPlonkResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -786,7 +657,7 @@ func (m *MsgVerifyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgVerifySp1) Marshal() (dAtA []byte, err error) {
+func (m *MsgVerifyCairo) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -796,72 +667,12 @@ func (m *MsgVerifySp1) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgVerifySp1) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgVerifyCairo) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgVerifySp1) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.Proof) > 0 {
-		i -= len(m.Proof)
-		copy(dAtA[i:], m.Proof)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Proof)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Creator) > 0 {
-		i -= len(m.Creator)
-		copy(dAtA[i:], m.Creator)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *MsgVerifySp1Response) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *MsgVerifySp1Response) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *MsgVerifySp1Response) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	return len(dAtA) - i, nil
-}
-
-func (m *MsgVerifycairo) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *MsgVerifycairo) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *MsgVerifycairo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgVerifyCairo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -883,7 +694,7 @@ func (m *MsgVerifycairo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgVerifycairoResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgVerifyCairoResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -893,12 +704,12 @@ func (m *MsgVerifycairoResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgVerifycairoResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgVerifyCairoResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgVerifycairoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgVerifyCairoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -941,7 +752,7 @@ func (m *MsgUpdateParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgVerify) Size() (n int) {
+func (m *MsgVerifyPlonk) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -966,7 +777,7 @@ func (m *MsgVerify) Size() (n int) {
 	return n
 }
 
-func (m *MsgVerifyResponse) Size() (n int) {
+func (m *MsgVerifyPlonkResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -975,33 +786,7 @@ func (m *MsgVerifyResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgVerifySp1) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.Creator)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	l = len(m.Proof)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	return n
-}
-
-func (m *MsgVerifySp1Response) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	return n
-}
-
-func (m *MsgVerifycairo) Size() (n int) {
+func (m *MsgVerifyCairo) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1018,7 +803,7 @@ func (m *MsgVerifycairo) Size() (n int) {
 	return n
 }
 
-func (m *MsgVerifycairoResponse) Size() (n int) {
+func (m *MsgVerifyCairoResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1198,7 +983,7 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgVerify) Unmarshal(dAtA []byte) error {
+func (m *MsgVerifyPlonk) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1221,10 +1006,10 @@ func (m *MsgVerify) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgVerify: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgVerifyPlonk: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgVerify: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgVerifyPlonk: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1376,7 +1161,7 @@ func (m *MsgVerify) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgVerifyResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgVerifyPlonkResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1399,10 +1184,10 @@ func (m *MsgVerifyResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgVerifyResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgVerifyPlonkResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgVerifyResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgVerifyPlonkResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1426,7 +1211,7 @@ func (m *MsgVerifyResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgVerifySp1) Unmarshal(dAtA []byte) error {
+func (m *MsgVerifyCairo) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1449,174 +1234,10 @@ func (m *MsgVerifySp1) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgVerifySp1: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgVerifyCairo: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgVerifySp1: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Proof", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Proof = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgVerifySp1Response) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgVerifySp1Response: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgVerifySp1Response: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgVerifycairo) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgVerifycairo: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgVerifycairo: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgVerifyCairo: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1704,7 +1325,7 @@ func (m *MsgVerifycairo) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgVerifycairoResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgVerifyCairoResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1727,10 +1348,10 @@ func (m *MsgVerifycairoResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgVerifycairoResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgVerifyCairoResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgVerifycairoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgVerifyCairoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

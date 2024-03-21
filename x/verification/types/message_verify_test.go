@@ -9,21 +9,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgVerify_ValidateBasic(t *testing.T) {
+func TestMsgVerifyPlonk_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgVerify
+		msg  MsgVerifyPlonk
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgVerify{
+			msg: MsgVerifyPlonk{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgVerify{
+			msg: MsgVerifyPlonk{
 				Creator: sample.AccAddress(),
 			},
 		},
