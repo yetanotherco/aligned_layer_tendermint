@@ -25,7 +25,7 @@ cat $PROOF_FILE | tr -d '\n' > $TRIMMED_PROOF_FILE
 TRANSACTION=$(mktemp)
 alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
   --from $FROM --chain-id $CHAIN_ID --generate-only --gas $GAS \
-  | jq '.body.messages.[0].proof=$proof' --rawfile proof $TRIMMED_PROOF_FILE \
+  | jq '.body.messages[0].proof=$proof' --rawfile proof $TRIMMED_PROOF_FILE \
   > $TRANSACTION
 
 SIGNED=$(mktemp)
