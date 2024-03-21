@@ -11,12 +11,6 @@ build-cairo-ffi-linux:
 		&& cp target/release/libcairo_platinum_ffi.so ./libcairo_platinum.so \
 		&& cp target/release/libcairo_platinum_ffi.a ./libcairo_platinum.a 
 
-build-cairo-ffi-from_macos-to_linux:
-	@cd operators/cairo_platinum/lib \
-		&& cargo build --release --target=x86_64-unknown-linux-gnu \
-		&& cp target/release/libcairo_platinum_ffi.so ./libcairo_platinum.so \
-		&& cp target/release/libcairo_platinum_ffi.a ./libcairo_platinum.a
-
 test-ffi-cairo: 
 	go test -v ./operators/cairo_platinum 
 
