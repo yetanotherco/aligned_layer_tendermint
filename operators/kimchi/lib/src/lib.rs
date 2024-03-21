@@ -76,8 +76,8 @@ mod test {
     use kimchi::proof::ProverProof;
     use kimchi::{poly_commitment::commitment::CommitmentCurve, verifier::verify};
 
-    const KIMCHI_PROOF: &[u8] = include_bytes!("../kimchi_ec_add.proof");
-    const KIMCHI_VERIFIER_INDEX: &[u8] = include_bytes!("../kimchi_verifier_index.bin");
+    const KIMCHI_PROOF: &[u8] = include_bytes!("../../example/kimchi_ec_add.proof.example");
+    const KIMCHI_VERIFIER_INDEX: &[u8] = include_bytes!("../../example/kimchi_verifier_index_example.bin");
 
     #[test]
     fn kimchi_ec_add_proof_verifies() {

@@ -15,4 +15,4 @@ test-kimchi-ffi:
 	go test -v ./operators/kimchi
 
 proof-to-base64:
-	@cd ./to_base64 && go run proof_to_base64.go 
+	base64 -i ./operators/kimchi/example/kimchi_ec_add.proof.example -o ./operators/kimchi/example/kimchi_ec_add.proof.example.base64

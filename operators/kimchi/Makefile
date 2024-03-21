@@ -12,3 +12,4 @@ test-kimchi-ffi:
 
 proof-to-base64:
 	@cd ./to_base64 && go run proof_to_base64.go 
+	
