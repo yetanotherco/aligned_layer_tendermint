@@ -34,6 +34,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a verify tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}, {ProtoField: "public_inputs"}, {ProtoField: "verifying_key"}},
 				},
+				{
+					RpcMethod:      "Largeproof",
+					Use:            "largeproof [index] [proof] [proof-hash] [finished]",
+					Short:          "Send a largeproof tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "index"}, {ProtoField: "proof"}, {ProtoField: "proofHash"}, {ProtoField: "finished"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

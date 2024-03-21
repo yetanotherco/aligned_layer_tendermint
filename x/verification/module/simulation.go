@@ -27,6 +27,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgVerify int = 100
 
+	opWeightMsgLargeproof = "op_weight_msg_largeproof"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLargeproof int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -66,6 +70,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		verificationsimulation.SimulateMsgVerify(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgLargeproof int
+	simState.AppParams.GetOrGenerate(opWeightMsgLargeproof, &weightMsgLargeproof, nil,
+		func(_ *rand.Rand) {
+			weightMsgLargeproof = defaultWeightMsgLargeproof
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLargeproof,
+		verificationsimulation.SimulateMsgLargeproof(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -79,6 +94,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgVerify,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				verificationsimulation.SimulateMsgVerify(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgLargeproof,
+			defaultWeightMsgLargeproof,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				verificationsimulation.SimulateMsgLargeproof(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),
