@@ -34,6 +34,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a gnark-plonk tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}, {ProtoField: "publicInputs"}, {ProtoField: "verifyingKey"}},
 				},
+				{
+					RpcMethod:      "CairoPlatinum",
+					Use:            "cairo-platinum [proof]",
+					Short:          "Send a cairo-platinum tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
