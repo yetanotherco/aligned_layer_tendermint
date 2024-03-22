@@ -16,14 +16,14 @@ METHOD=cosmos.tx.v1beta1.Service/BroadcastTx
 : ${FROM:="alice"}
 : ${NODE:="tcp://localhost:26657"}
 : ${NODE_RPC:="localhost:9090"}
-: ${GAS:=5000000}
+: ${GAS:=8000000}
 
 NEW_PROOF_FILE=$(mktemp)
 base64 -i $PROOF_FILE | tr -d '\n' > $NEW_PROOF_FILE
 
 TRANSACTION=$(mktemp)
 alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
-  --from $FROM --chain-id $CHAIN_ID --generate-only --gas $GAS \
+  --from $FROM --chain-id $CHAIN_ID --generate-only --gas $GAS --fees 500stake \
   | jq '.body.messages[0].proof=$proof' --rawfile proof $NEW_PROOF_FILE \
   > $TRANSACTION
 
