@@ -97,11 +97,11 @@ alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer 
 
 FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
-Tip, `base64` can be used as follows to encode the proofs:
-
-```sh
-base64 -i ./prover_examples/cairo_platinum/example/fibonacci_10.proof -o ./prover_examples/cairo_platinum/example/fibonacci_10.base64
-```
+>[!TIP]
+> `base64` can be used as follows to encode the proofs:
+> ```sh
+> base64 -i ./prover_examples/cairo_platinum/example/fibonacci_10.proof -o ./prover_examples/cairo_platinum/example/fibonacci_10.base64
+> ```
 
 To run the Blockchain locally:
 
