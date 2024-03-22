@@ -2,6 +2,8 @@ name: Ignite Binary Build
 on:
   workflow_dispatch:
   push:
+    tags:
+      - "server-v*.*.*"
 jobs:
   build-binary:
     runs-on: ubuntu-latest
