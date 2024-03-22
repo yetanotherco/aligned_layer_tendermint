@@ -48,8 +48,9 @@ then
 	ls $NODES_PATH/$NODE_NAME/config/validator.json >/dev/null 2>&1
 	if [ $? != 0 ]  # The validator is not initialized yet
 	then
+		echo -n "Waiting the node to be fully synced "
 		while $(curl -s localhost:26657/status | jq .result.sync_info.catching_up); do
-			printf '.'
+			echo -n '.'
 			sleep 1
 		done
 		NODE_NAME=$NODE_NAME docker compose -f compose/validator.docker-compose.yml up validator-setup
