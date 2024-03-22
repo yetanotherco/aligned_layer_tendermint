@@ -57,6 +57,8 @@ for (( i=1; i <= "$#"; i++ )); do
     if [ $((i+1)) -le "$#" ]; then
         j=$((i+1))
         cp prod-sim/${!i}/config/genesis.json prod-sim/${!j}/config/genesis.json
+    elif [ $# != 1 ] && [ $((i+1)) -gt $# ]; then
+        cp prod-sim/${!i}/config/genesis.json prod-sim/$1/config/genesis.json
     fi
 done
 
@@ -73,6 +75,8 @@ for (( i=1; i <= "$#"; i++ )); do
     if [ $((i+1)) -le "$#" ]; then
         j=$((i+1))
         cp prod-sim/${!i}/config/genesis.json prod-sim/${!j}/config/genesis.json
+    elif [ $# != 1 ] && [ $((i+1)) -gt $# ]; then
+        cp prod-sim/${!i}/config/genesis.json prod-sim/$1/config/genesis.json
     fi
 done
 
