@@ -7,27 +7,46 @@ Cosmos SDK provides a framework to build an application layer on top of a consen
 Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, making it easier to deploy a blockchain to production.
 
 ## Table of Contents
-1. [Requirements](#requirements)
-2. [Example Local Blockchain](#example)
-3. [Trying our testnet](#tryingtestnet)
-4. [Joining our testnet](#joiningtestnet)
-    - [Requirements](#joinrequirements)
-    - [Node Setup](#nodesetup)
-5. [Creating an Account](#account)
-6. [Registering as a Validator](#validator)
-7. [Testnet Public IPs](#publicips)
-8. [How it Works](#howitworks)
-    - [Project Anatomy](#anatomy)
-    - [Transaction Lifecycle](#lifecycle)
-    - [Interacting with a Node](#interactwithnode)
-9. [Setting up multiple local nodes using docker](#multiplelocalnodes)
-10. [Tutorials](#tutorials)
-    - [Setup the Faucet Locally](#setupfaucet)
-    - [Claiming Staking Rewards](#claimstake)
-    - [Bank](#bank)
-    - [Slashing](#slashing)
-    - [Staking](#staking)
-11. [Acknowledgements](#acknowledgements)
+- [Aligned Layer Blockchain](#aligned-layer-blockchain)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements ](#requirements-)
+  - [Example Local Blockchain ](#example-local-blockchain-)
+  - [Trying our testnet ](#trying-our-testnet-)
+  - [Joining Our Testnet ](#joining-our-testnet-)
+    - [Requirements ](#requirements--1)
+      - [Hardware](#hardware)
+      - [Software](#software)
+    - [Node Setup ](#node-setup-)
+      - [The fast way](#the-fast-way)
+      - [Manual step by step](#manual-step-by-step)
+  - [Creating an Account ](#creating-an-account-)
+  - [Registering as a Validator ](#registering-as-a-validator-)
+    - [The fast way](#the-fast-way-1)
+    - [Manual step by step](#manual-step-by-step-1)
+  - [Testnet public IPs ](#testnet-public-ips-)
+  - [How It Works ](#how-it-works-)
+    - [Project Anatomy ](#project-anatomy-)
+    - [Transaction Lifecycle ](#transaction-lifecycle-)
+    - [Interacting with a Node ](#interacting-with-a-node-)
+      - [gRPC](#grpc)
+      - [REST](#rest)
+      - [CometBFT RPC](#cometbft-rpc)
+  - [Setting up a local testing network with multiple nodes ](#setting-up-a-local-testing-network-with-multiple-nodes-)
+  - [Tutorials ](#tutorials-)
+    - [Setup the Faucet Locally ](#setup-the-faucet-locally-)
+    - [Claiming Staking Rewards ](#claiming-staking-rewards-)
+      - [Querying Outstanding Rewards](#querying-outstanding-rewards)
+      - [Querying Validator Distribution Info](#querying-validator-distribution-info)
+      - [Withdraw All Rewards](#withdraw-all-rewards)
+    - [Bank ](#bank-)
+      - [Querying Account Balances](#querying-account-balances)
+    - [Slashing    ](#slashing----)
+      - [Querying Slashing Params](#querying-slashing-params)
+      - [Querying Signing info](#querying-signing-info)
+      - [Querying Slashes](#querying-slashes)
+      - [Sending Unjail Transaction](#sending-unjail-transaction)
+    - [Staking ](#staking-)
+  - [Acknowledgements ](#acknowledgements-)
 
 ## Requirements <a name="requirements"></a>
 
@@ -466,7 +485,7 @@ When sending the transaction, it must be sent serialized with protobuf and encod
 
 This is the format used by the CLI.
 
-## Setting up multiple local nodes using docker <a name="multiplelocalnodes"></a>
+## Setting up a local testing network with multiple nodes <a name="multiplelocalnodes"></a>
 
 Sets up a network of docker containers each with a validator node and a faucet account.
 
