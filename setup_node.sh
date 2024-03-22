@@ -43,4 +43,3 @@ done
 CONFIG_STRING=$(IFS=,; echo "${PERSISTENT_PEERS[*]}")
 
 $CHAIN_BINARY config set config p2p.persistent_peers "$CONFIG_STRING" --skip-validate
-$CHAIN_BINARY config set app minimum-gas-prices "$MINIMUM_GAS_PRICES" --skip-validate
