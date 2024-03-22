@@ -100,7 +100,7 @@ FFIs are being used to implement Cairo verifications, the Makefile provides all 
 Tip, `base64` can be used as follows to encode the proofs:
 
 ```sh
-base64 -i operators/cairo_platinum/example/fibonacci_10.proof.example -o operators/cairo_platinum/example/fibonacci_10.base64.example
+base64 -i operators/cairo_platinum/example/fibonacci_10.proof -o operators/cairo_platinum/example/fibonacci_10.base64
 ```
 
 To run the Blockchain locally:
@@ -118,7 +118,7 @@ make run-linux
 Then, in other terminal run:
 
 ```sh
-sh send_cairo_tx.sh operators/cairo_platinum/example/fibonacci_10.base64.example
+sh send_cairo_tx.sh operators/cairo_platinum/example/fibonacci_10.proof
 ```
 
 #### Manual step by step
@@ -133,7 +133,7 @@ alignedlayerd tx verification verify-cairo \
     --from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
-		$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
+		$(cat operators/cairo_platinum/example/fibonacci_10.base64)
 ```
 </details>
 

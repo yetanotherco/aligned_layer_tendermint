@@ -27,20 +27,6 @@ build-linux: build-cairo-ffi-linux
 run-linux: build-linux
 	ignite chain serve
 
-__LOCAL_TEST__:
-ltest-cairo-true: 
-	alignedlayerd tx verification verify-cairo \
-		--from alice \
-		--gas 4000000 \
-		--chain-id alignedlayer \
-		$$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
-
-ltest-cairo-false:
-	alignedlayerd tx verification verify-cairo \
-		--from alice \
-		--chain-id alignedlayer \
-		SHOULDFAIL
-
 clean-ffi:
 	rm -rf operators/cairo_platinum/lib/libcairo_platinum*
 	rm -rf operators/cairo_platinum/lib/target/release/libcairo_platinum*
