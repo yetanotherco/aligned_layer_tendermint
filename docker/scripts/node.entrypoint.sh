@@ -43,5 +43,4 @@ done
 PEER_LIST=$(IFS=,; echo "${PEERS[*]}")
 
 $CHAIN_BINARY config set config p2p.persistent_peers "$PEER_LIST" --skip-validate
-$CHAIN_BINARY config set app minimum-gas-prices "$MINIMUM_GAS_PRICES" --skip-validate
 $CHAIN_BINARY config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
