@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 [prod|test] binary_release_tag"
+    exit 1
+fi
+
 if [ "$1" = "prod" ]; then
     nodes=("node0" "node1" "node2" "node3")
     nodes_ips=("10.0.0.2" "10.0.0.3" "10.0.0.4" "10.0.0.6")
@@ -14,21 +19,17 @@ elif [ "$1" = "test" ]; then
     nodes_ips=("10.0.0.2" "10.0.0.3" "10.0.0.4")
     servers=("admin@testing-blockchain-1" "admin@testing-blockchain-2" "admin@testing-blockchain-3")
 else
-    echo "Usage: $0 [prod|test]"
+    echo "Usage: $0 [prod|test] binary_release_tag"
     exit 1
 fi
 
 rm -rf server-setup
 
-echo "Building binary..."
-ignite chain build --release -t linux:amd64
-
-cd release
-tar -xzf alignedlayer_linux_amd64.tar.gz
+echo "Downloading binaries into servers..."
 for server in "${servers[@]}"; do
-    scp alignedlayerd $server:/home/admin
+    ssh $server "rm -rf /home/admin/alignedlayerd"
+    ssh $server "curl -L --output alignedlayerd https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/$2/alignedlayerd && chmod +x alignedlayerd"
 done
-cd ..
 
 mkdir -p server-setup
 cd server-setup
