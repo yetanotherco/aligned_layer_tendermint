@@ -1,0 +1,23 @@
+{
+    "chain_name": "alignedlayer",
+    "api": [
+        "https://api-node.alignedlayer.com"
+    ],
+    "rpc": [
+        "https://rpc-node.alignedlayer.com"
+    ],
+    "sdk_version": "0.50.3",
+    "coin_type": "118",
+    "min_tx_fee": "800",
+    "logo": "/logos/alignedlayer.png",
+    "theme_color": "#812cd6",
+    "addr_prefix": "aligned",
+    "assets": [
+        {
+            "base": "stake",
+            "symbol": "AL",
+            "exponent": "6",
+            "logo": "/logos/alignedlayer.png"
+        }
+    ]
+}
