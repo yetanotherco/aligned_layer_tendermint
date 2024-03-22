@@ -198,7 +198,7 @@ You now need to download the blockchain genesis file and replace the one which w
 curl -s <public_node_IP>:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
 ```
 
-You now need to build a seed list. This is the list of nodes you will first connect to, preferablly you should use add all of our public nodes. The list should have this structure:
+You now need to build a initial node list. This is the list of nodes you will first connect to, preferablly you should use add all of our public nodes. The list should have this structure:
 ```
 <node1_IP>@<node1_ID>:26656,<node2_IP>@<node2_ID>:26656,...
 ```
@@ -207,10 +207,9 @@ You can find our public node IPs on [this list](#publicips). Then to obtain each
 curl -s <node_IP>:26657/status | jq -r '.result.node_info.id'
 ```
 
-To configure persistent peers, seeds and gas prices, run the following commands:
+To configure persistent peers and gas prices, run the following commands:
 ```sh
-alignedlayerd config set config p2p.seeds "<seed_list>" --skip-validate
-alignedlayerd config set config p2p.persistent_peers "<seed_list>" --skip-validate
+alignedlayerd config set config p2p.persistent_peers "<init_node_list>" --skip-validate
 alignedlayerd config set app minimum-gas-prices 0.0001stake --skip-validate
 ``` 
 
