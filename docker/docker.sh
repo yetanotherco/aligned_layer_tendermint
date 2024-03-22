@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $# -lt 1 || (($1 == "setup" || $1 == "run") && $# -lt 2) || ($1 != "stop" && $1 != "logs" && $1 == "setup" && $1 == "run") ]]
+if [[ $# -lt 1 || (($1 == "setup" || $1 == "run") && $# -lt 2) || ($1 != "stop" && $1 != "logs" && $1 != "setup" && $1 != "run") ]]
 then
 	echo "Usage:"
 	echo -e "\t$0 <setup|run> <node_name>"
