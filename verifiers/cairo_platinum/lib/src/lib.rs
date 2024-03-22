@@ -58,7 +58,7 @@ pub extern "C" fn verify_cairo_proof_ffi_100_bits(
 mod tests {
     use super::*;
 
-    const PROOF: &[u8; 265809] = include_bytes!("../../example/fibonacci_5.proof.example");
+    const PROOF: &[u8; 265809] = include_bytes!("../../../../prover_examples/cairo_platinum/example/fibonacci_5.proof");
 
     #[test]
     fn fibo_5_proof_verifies() {

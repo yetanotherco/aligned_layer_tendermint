@@ -18,9 +18,10 @@ METHOD=cosmos.tx.v1beta1.Service/BroadcastTx
 : ${NODE_RPC:="localhost:9090"}
 : ${GAS:=5000000}
 
+base64 -i $PROOF_FILE -o $PROOF_FILE.base64
 
 TRIMMED_PROOF_FILE=$(mktemp)
-cat $PROOF_FILE | tr -d '\n' > $TRIMMED_PROOF_FILE
+cat $PROOF_FILE.base64 | tr -d '\n' > $TRIMMED_PROOF_FILE
 
 TRANSACTION=$(mktemp)
 alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
