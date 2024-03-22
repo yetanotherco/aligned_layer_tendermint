@@ -40,7 +40,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
       - [Withdraw All Rewards](#withdraw-all-rewards)
     - [Bank ](#bank-)
       - [Querying Account Balances](#querying-account-balances)
-    - [Slashing    ](#slashing----)
+    - [Slashing](#slashing)
       - [Querying Slashing Params](#querying-slashing-params)
       - [Querying Signing info](#querying-signing-info)
       - [Querying Slashes](#querying-slashes)
@@ -623,7 +623,7 @@ Example:
 alignedlayerd query bank balances aligned1..
 ```
 
-### Slashing    <a name="slashing"></a>
+### Slashing<a name="slashing"></a>
 You can use the slashing CLI commands to query slashing state
 ```
 alignedlayerd query slashing --help
