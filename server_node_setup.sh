@@ -28,7 +28,7 @@ rm -rf server-setup
 echo "Downloading binaries into servers..."
 for server in "${servers[@]}"; do
     ssh $server "rm -rf /home/admin/alignedlayerd"
-    ssh $server "curl -L --output alignedlayerd https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/$2/alignedlayerd && chmod +x alignedlayerd"
+    ssh $server "curl -L -s --output alignedlayerd https://github.com/yetanotherco/aligned_layer_tendermint/releases/download/$2/alignedlayerd && chmod +x alignedlayerd"
 done
 
 mkdir -p server-setup
