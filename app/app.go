@@ -5,8 +5,6 @@ import (
 	"os"
 	"path/filepath"
 
-	verificationmodulekeeper "alignedlayer/x/verification/keeper"
-
 	_ "cosmossdk.io/api/cosmos/tx/config/v1" // import for side-effects
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/log"
@@ -77,7 +75,6 @@ type App struct {
 	ConsensusParamsKeeper consensuskeeper.Keeper
 	SlashingKeeper        slashingkeeper.Keeper
 
-	VerificationKeeper verificationmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -185,7 +182,6 @@ func New(
 		&app.DistrKeeper,
 		&app.ConsensusParamsKeeper,
 		&app.SlashingKeeper,
-		&app.VerificationKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
