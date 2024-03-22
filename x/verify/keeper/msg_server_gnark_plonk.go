@@ -18,7 +18,7 @@ import (
 func (k msgServer) GnarkPlonk(goCtx context.Context, msg *types.MsgGnarkPlonk) (*types.MsgGnarkPlonkResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	result := verifyPlonk(msg)
+	result := verifyGnarkPlonk(msg)
 	event := sdk.NewEvent("verification_finished",
 		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)),
 		sdk.NewAttribute("prover", "PLONK"))
@@ -28,7 +28,7 @@ func (k msgServer) GnarkPlonk(goCtx context.Context, msg *types.MsgGnarkPlonk) (
 	return &types.MsgGnarkPlonkResponse{}, nil
 }
 
-func verifyPlonk(msg *types.MsgGnarkPlonk) bool {
+func verifyGnarkPlonk(msg *types.MsgGnarkPlonk) bool {
 	proof := plonk.NewProof(ecc.BN254)
 	deserialize(proof, msg.Proof)
 
