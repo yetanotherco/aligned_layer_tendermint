@@ -7,7 +7,7 @@ import (
 
 	"alignedlayer/x/verification/types"
 
-	cp "alignedlayer/operators/cairo_platinum"
+	cp "alignedlayer/verifiers/cairo_platinum"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

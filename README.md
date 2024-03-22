@@ -115,7 +115,7 @@ or
 make run-linux
 ```
 
-Then, in other terminal run:
+Then, in another terminal run:
 
 ```sh
 sh send_cairo_tx.sh ./prover_examples/cairo_platinum/example/fibonacci_10.proof
@@ -137,9 +137,7 @@ alignedlayerd tx verification verify-cairo \
 ```
 </details>
 
-This will send a cairo proof to the blockchain. The CLI will ask for a signature and then it will print the transaction's information. 
-
-To check the output of the transaction:
+To check the output of the transaction, copy the given `<txhash>` and run:
 
 ```sh
 alignedlayerd q tx <txhash> | grep verification_finished -B 10
