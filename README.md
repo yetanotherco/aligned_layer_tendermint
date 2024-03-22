@@ -31,7 +31,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
       - [gRPC](#grpc)
       - [REST](#rest)
       - [CometBFT RPC](#cometbft-rpc)
-  - [Setting up a local testing network with multiple nodes ](#setting-up-a-local-testing-network-with-multiple-nodes-)
+  - [Setting up a local network with multiple nodes ](#setting-up-a-local-network-with-multiple-nodes-)
   - [Tutorials ](#tutorials-)
     - [Setup the Faucet Locally ](#setup-the-faucet-locally-)
     - [Claiming Staking Rewards ](#claiming-staking-rewards-)
@@ -485,7 +485,7 @@ When sending the transaction, it must be sent serialized with protobuf and encod
 
 This is the format used by the CLI.
 
-## Setting up a local testing network with multiple nodes <a name="multiplelocalnodes"></a>
+## Setting up a local network with multiple nodes <a name="multiplelocalnodes"></a>
 
 Sets up a network of docker containers each with a validator node and a faucet account.
 
