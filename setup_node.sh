@@ -11,6 +11,9 @@ fi
 NODE_HOME=$HOME/.alignedlayer
 CHAIN_BINARY=alignedlayerd
 CHAIN_ID=alignedlayer
+MAX_BODY_BYTES=20971520
+MAX_TX_BYTES=20971520
+MAX_TXS_BYTES=25165824
 
 PEER_ADDRESSES=("91.107.239.79" "116.203.81.174" "88.99.174.203" "128.140.3.188")
 : ${MINIMUM_GAS_PRICES="0.0001stake"}
@@ -49,3 +52,6 @@ PEER_LIST=$(IFS=,; echo "${PEERS[*]}")
 
 $CHAIN_BINARY config set config p2p.persistent_peers "$PEER_LIST" --skip-validate
 $CHAIN_BINARY config set app minimum-gas-prices "$MINIMUM_GAS_PRICES" --skip-validate
+$CHAIN_BINARY config set config rpc.max_body_bytes $MAX_BODY_BYTES --skip-validate
+$CHAIN_BINARY config set config rpc.max_tx_bytes $MAX_TX_BYTES --skip-validate
+$CHAIN_BINARY config set config rpc.max_txs_bytes $MAX_TXS_BYTES --skip-validate

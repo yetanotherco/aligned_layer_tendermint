@@ -56,9 +56,21 @@ for i in "${!nodes[@]}"; do
         seeds=${seeds//${nodes[$j]}/${nodes_ips[$j]}}
     done
     
-    docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config set config p2p.persistent_peers $seeds --skip-validate    
+    docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config set config p2p.persistent_peers $seeds --skip-validate  
 done
 
+echo "Configuring transaction sizes"
+
+MAX_BODY_BYTES=20971520
+MAX_TX_BYTES=20971520
+MAX_TXS_BYTES=25165824
+
+for i in "${!nodes[@]}"; do
+    docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config set config rpc.max_body_bytes $MAX_BODY_BYTES --skip-validate
+    docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config set config rpc.max_tx_bytes $MAX_TX_BYTES --skip-validate  
+    docker run -v "$(pwd)/prod-sim/${nodes[$i]}:/root/.alignedlayer" -it alignedlayerd_i config set config rpc.max_txs_bytes $MAX_TXS_BYTES --skip-validate 
+done
+ 
 echo "Sending directories to servers..."
 for i in "${!servers[@]}"; do  
     ssh ${servers[$i]} "rm -rf /home/admin/.alignedlayer"
