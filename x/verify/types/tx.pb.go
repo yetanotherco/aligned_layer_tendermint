@@ -36,8 +36,6 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgUpdateParams struct {
 	// authority is the address that controls the module (defaults to x/gov unless overwritten).
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
-	// params defines the module parameters to update.
-	//
 	// NOTE: All parameters must be supplied.
 	Params Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params"`
 }
@@ -127,15 +125,121 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
+type MsgGnarkPlonk struct {
+	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Proof        string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
+	PublicInputs string `protobuf:"bytes,3,opt,name=publicInputs,proto3" json:"publicInputs,omitempty"`
+	VerifyingKey string `protobuf:"bytes,4,opt,name=verifyingKey,proto3" json:"verifyingKey,omitempty"`
+}
+
+func (m *MsgGnarkPlonk) Reset()         { *m = MsgGnarkPlonk{} }
+func (m *MsgGnarkPlonk) String() string { return proto.CompactTextString(m) }
+func (*MsgGnarkPlonk) ProtoMessage()    {}
+func (*MsgGnarkPlonk) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a665612caf78653b, []int{2}
+}
+func (m *MsgGnarkPlonk) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgGnarkPlonk) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgGnarkPlonk.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgGnarkPlonk) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgGnarkPlonk.Merge(m, src)
+}
+func (m *MsgGnarkPlonk) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgGnarkPlonk) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgGnarkPlonk.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgGnarkPlonk proto.InternalMessageInfo
+
+func (m *MsgGnarkPlonk) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgGnarkPlonk) GetProof() string {
+	if m != nil {
+		return m.Proof
+	}
+	return ""
+}
+
+func (m *MsgGnarkPlonk) GetPublicInputs() string {
+	if m != nil {
+		return m.PublicInputs
+	}
+	return ""
+}
+
+func (m *MsgGnarkPlonk) GetVerifyingKey() string {
+	if m != nil {
+		return m.VerifyingKey
+	}
+	return ""
+}
+
+type MsgGnarkPlonkResponse struct {
+}
+
+func (m *MsgGnarkPlonkResponse) Reset()         { *m = MsgGnarkPlonkResponse{} }
+func (m *MsgGnarkPlonkResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgGnarkPlonkResponse) ProtoMessage()    {}
+func (*MsgGnarkPlonkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a665612caf78653b, []int{3}
+}
+func (m *MsgGnarkPlonkResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgGnarkPlonkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgGnarkPlonkResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgGnarkPlonkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgGnarkPlonkResponse.Merge(m, src)
+}
+func (m *MsgGnarkPlonkResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgGnarkPlonkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgGnarkPlonkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgGnarkPlonkResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "alignedlayer.verify.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "alignedlayer.verify.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgGnarkPlonk)(nil), "alignedlayer.verify.MsgGnarkPlonk")
+	proto.RegisterType((*MsgGnarkPlonkResponse)(nil), "alignedlayer.verify.MsgGnarkPlonkResponse")
 }
 
 func init() { proto.RegisterFile("alignedlayer/verify/tx.proto", fileDescriptor_a665612caf78653b) }
 
 var fileDescriptor_a665612caf78653b = []byte{
-	// 327 bytes of a gzipped FileDescriptorProto
+	// 449 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x49, 0xcc, 0xc9, 0x4c,
 	0xcf, 0x4b, 0x4d, 0xc9, 0x49, 0xac, 0x4c, 0x2d, 0xd2, 0x2f, 0x4b, 0x2d, 0xca, 0x4c, 0xab, 0xd4,
 	0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x46, 0x96, 0xd5, 0x83, 0xc8, 0x4a,
@@ -151,12 +255,20 @@ var fileDescriptor_a665612caf78653b = []byte{
 	0x89, 0x7b, 0xf2, 0x0c, 0x2b, 0x9e, 0x6f, 0xd0, 0x62, 0x0c, 0x82, 0xea, 0xb2, 0xb2, 0x68, 0x7a,
 	0xbe, 0x41, 0x0b, 0x61, 0x5e, 0xd7, 0xf3, 0x0d, 0x5a, 0xaa, 0x28, 0x1e, 0xa8, 0x80, 0x79, 0x01,
 	0xcd, 0xc5, 0x4a, 0x92, 0x5c, 0xe2, 0x68, 0x42, 0x41, 0xa9, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9,
-	0x46, 0x05, 0x5c, 0xcc, 0xbe, 0xc5, 0xe9, 0x42, 0x49, 0x5c, 0x3c, 0x28, 0x7e, 0x54, 0xc1, 0xea,
-	0x36, 0x34, 0x43, 0xa4, 0x74, 0x88, 0x51, 0x05, 0xb3, 0x4a, 0x8a, 0xb5, 0x01, 0xe4, 0x1d, 0x27,
-	0xd3, 0x13, 0x8f, 0xe4, 0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63,
-	0x39, 0x86, 0x0b, 0x8f, 0xe5, 0x18, 0x6e, 0x3c, 0x96, 0x63, 0x88, 0x92, 0xc6, 0xee, 0x9b, 0x92,
-	0xca, 0x82, 0xd4, 0xe2, 0x24, 0x36, 0x70, 0x84, 0x18, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x50,
-	0x40, 0x8f, 0x38, 0x44, 0x02, 0x00, 0x00,
+	0x4a, 0x53, 0x19, 0xb9, 0x78, 0x7d, 0x8b, 0xd3, 0xdd, 0xf3, 0x12, 0x8b, 0xb2, 0x03, 0x72, 0xf2,
+	0xf3, 0xb2, 0x85, 0x24, 0xb8, 0xd8, 0x93, 0x8b, 0x52, 0x13, 0x4b, 0xf2, 0x8b, 0x20, 0x9e, 0x0b,
+	0x82, 0x71, 0x85, 0x44, 0xb8, 0x58, 0x0b, 0x8a, 0xf2, 0xf3, 0xd3, 0xc0, 0xee, 0xe7, 0x0c, 0x82,
+	0x70, 0x84, 0x94, 0xb8, 0x78, 0x0a, 0x4a, 0x93, 0x72, 0x32, 0x93, 0x3d, 0xf3, 0x0a, 0x4a, 0x4b,
+	0x8a, 0x25, 0x98, 0xc1, 0x92, 0x28, 0x62, 0x20, 0x35, 0x10, 0xa7, 0x65, 0xe6, 0xa5, 0x7b, 0xa7,
+	0x56, 0x4a, 0xb0, 0x40, 0xd4, 0x20, 0x8b, 0x59, 0xf1, 0x80, 0xbc, 0x07, 0xb3, 0x4b, 0x49, 0x9c,
+	0x4b, 0x14, 0xc5, 0x59, 0x30, 0x07, 0x1b, 0x9d, 0x63, 0xe4, 0x62, 0xf6, 0x2d, 0x4e, 0x17, 0x4a,
+	0xe2, 0xe2, 0x41, 0x89, 0x15, 0x15, 0xac, 0xa1, 0x89, 0xe6, 0x6d, 0x29, 0x1d, 0x62, 0x54, 0xc1,
+	0xec, 0x12, 0x8a, 0xe1, 0xe2, 0x42, 0x0a, 0x18, 0x25, 0x5c, 0x7a, 0x11, 0x6a, 0xa4, 0xb4, 0x08,
+	0xab, 0x81, 0x99, 0x2e, 0xc5, 0xda, 0x00, 0x8a, 0x5e, 0x27, 0xd3, 0x13, 0x8f, 0xe4, 0x18, 0x2f,
+	0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f, 0xe5, 0x18,
+	0x6e, 0x3c, 0x96, 0x63, 0x88, 0x92, 0xc6, 0x1e, 0xbb, 0x25, 0x95, 0x05, 0xa9, 0xc5, 0x49, 0x6c,
+	0xe0, 0x04, 0x6a, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x29, 0xdf, 0xa3, 0x61, 0x54, 0x03, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -174,6 +286,7 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	GnarkPlonk(ctx context.Context, in *MsgGnarkPlonk, opts ...grpc.CallOption) (*MsgGnarkPlonkResponse, error)
 }
 
 type msgClient struct {
@@ -193,11 +306,21 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) GnarkPlonk(ctx context.Context, in *MsgGnarkPlonk, opts ...grpc.CallOption) (*MsgGnarkPlonkResponse, error) {
+	out := new(MsgGnarkPlonkResponse)
+	err := c.cc.Invoke(ctx, "/alignedlayer.verify.Msg/GnarkPlonk", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	GnarkPlonk(context.Context, *MsgGnarkPlonk) (*MsgGnarkPlonkResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -206,6 +329,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (*UnimplementedMsgServer) GnarkPlonk(ctx context.Context, req *MsgGnarkPlonk) (*MsgGnarkPlonkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GnarkPlonk not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -230,6 +356,24 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_GnarkPlonk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgGnarkPlonk)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).GnarkPlonk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alignedlayer.verify.Msg/GnarkPlonk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).GnarkPlonk(ctx, req.(*MsgGnarkPlonk))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "alignedlayer.verify.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -237,6 +381,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "GnarkPlonk",
+			Handler:    _Msg_GnarkPlonk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -306,6 +454,80 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgGnarkPlonk) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgGnarkPlonk) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgGnarkPlonk) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.VerifyingKey) > 0 {
+		i -= len(m.VerifyingKey)
+		copy(dAtA[i:], m.VerifyingKey)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.VerifyingKey)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.PublicInputs) > 0 {
+		i -= len(m.PublicInputs)
+		copy(dAtA[i:], m.PublicInputs)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.PublicInputs)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Proof) > 0 {
+		i -= len(m.Proof)
+		copy(dAtA[i:], m.Proof)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Proof)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgGnarkPlonkResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgGnarkPlonkResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgGnarkPlonkResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -333,6 +555,40 @@ func (m *MsgUpdateParams) Size() (n int) {
 }
 
 func (m *MsgUpdateParamsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgGnarkPlonk) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Proof)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.PublicInputs)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.VerifyingKey)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgGnarkPlonkResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -489,6 +745,234 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgGnarkPlonk) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgGnarkPlonk: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgGnarkPlonk: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Proof", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Proof = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PublicInputs", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PublicInputs = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VerifyingKey", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.VerifyingKey = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgGnarkPlonkResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgGnarkPlonkResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgGnarkPlonkResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

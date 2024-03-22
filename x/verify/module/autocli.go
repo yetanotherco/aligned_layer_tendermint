@@ -28,6 +28,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
+				{
+					RpcMethod:      "GnarkPlonk",
+					Use:            "gnark-plonk [proof] [public-inputs] [verifying-key]",
+					Short:          "Send a gnark-plonk tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}, {ProtoField: "publicInputs"}, {ProtoField: "verifyingKey"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
