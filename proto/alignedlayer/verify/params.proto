@@ -1,0 +1,15 @@
+syntax = "proto3";
+package alignedlayer.verify;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "alignedlayer/x/verify/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "alignedlayer/x/verify/Params";
+  option (gogoproto.equal) = true;
+
+  
+}

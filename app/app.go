@@ -37,6 +37,7 @@ import (
 	_ "github.com/cosmos/cosmos-sdk/x/staking" // import for side-effects
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
+	verifymodulekeeper "alignedlayer/x/verify/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"alignedlayer/docs"
@@ -75,6 +76,7 @@ type App struct {
 	ConsensusParamsKeeper consensuskeeper.Keeper
 	SlashingKeeper        slashingkeeper.Keeper
 
+	VerifyKeeper verifymodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -182,6 +184,7 @@ func New(
 		&app.DistrKeeper,
 		&app.ConsensusParamsKeeper,
 		&app.SlashingKeeper,
+		&app.VerifyKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
