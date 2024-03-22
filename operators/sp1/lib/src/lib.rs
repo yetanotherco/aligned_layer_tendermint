@@ -20,7 +20,7 @@ mod tests {
     use super::*;
 
     const PROOF: &[u8; 1040380] =
-        include_bytes!("../../../../tests/testing_data/sp1_fibonacci.proof");
+        include_bytes!("../../example/fibonacci.proof.example");
 
     #[test]
     fn verify_sp1_proof_works() {
