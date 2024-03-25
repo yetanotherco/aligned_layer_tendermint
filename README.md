@@ -103,7 +103,7 @@ alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer 
 
 FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
-After doing this test locally, remove the blockchain's binary and the config files:
+Before doing this test locally, remove the blockchain's binary and the config files:
 
 ```sh
 make clean
@@ -331,7 +331,7 @@ The node will start to sync up with the blockchain. To check if your node is alr
 curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 ```
 
-It should return `false`. If not, try again after a few minutes later.
+It should return `false`. If not, try again some minutes later.
 </details>
 
 ## Creating an Account <a name="account"></a>
