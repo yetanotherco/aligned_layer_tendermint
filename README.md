@@ -62,12 +62,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 To run a single node blockchain, run:
 
 ```sh
-make run-macos
-```
-
-or
-
-```sh
+make run-macos # or 
 make run-linux
 ```
 
