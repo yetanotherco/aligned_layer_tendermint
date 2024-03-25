@@ -16,10 +16,6 @@ CHAIN_BINARY=alignedlayerd
 CHAIN_ID=alignedlayer
 PEER_ADDRESSES=("91.107.239.79" "116.203.81.174" "88.99.174.203" "128.140.3.188")
 
-: ${MINIMUM_GAS_PRICES="0.0001stake"}
-
-ignite chain build
-
 $CHAIN_BINARY init $MONIKER \
     --chain-id $CHAIN_ID --overwrite
 
