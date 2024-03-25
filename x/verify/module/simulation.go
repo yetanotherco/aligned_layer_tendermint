@@ -34,7 +34,7 @@ const (
 	opWeightMsgSp1 = "op_weight_msg_sp_1"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSp1 int = 100
-	opWeightMsgKimchi = "op_weight_msg_kimchi"
+	opWeightMsgKimchi       = "op_weight_msg_kimchi"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgKimchi int = 100
 
@@ -97,6 +97,8 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSp1,
 		verifysimulation.SimulateMsgSp1(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	var weightMsgKimchi int
 	simState.AppParams.GetOrGenerate(opWeightMsgKimchi, &weightMsgKimchi, nil,
 		func(_ *rand.Rand) {

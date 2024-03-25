@@ -26,5 +26,5 @@ validators:
 build:
   main: cmd/alignedlayerd
 ldflags:
-    - "-r verifiers/sp1/lib"
+  - "-r verifiers/sp1/lib"
   - "-r verifiers/kimchi/lib"
