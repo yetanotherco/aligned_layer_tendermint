@@ -8,7 +8,6 @@ else
     MONIKER=$1
 fi
 
-apt update && apt install -y jq
 rm -rf /root/.alignedlayer/*
 
 NODE_HOME=$HOME/.alignedlayer

@@ -9,8 +9,6 @@ else
 	STAKING_AMOUNT=$2
 fi
 
-apt update && apt install -y jq
-
 NODE_HOME=/root/.alignedlayer
 CHAIN_BINARY=alignedlayerd
 CHAIN_ID=alignedlayer
