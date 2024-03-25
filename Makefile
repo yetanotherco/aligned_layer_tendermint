@@ -17,15 +17,15 @@ test-ffi-cairo:
 __KIMCHI_FFI__: ## 
 build-kimchi-macos:
 		@cd verifiers/kimchi/lib \
-				&& cargo build --release \
-				&& cp target/release/libkimchi_verifier_ffi.dylib ./libkimchi_verifier.dylib \
-				&& cp target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
+		&& cargo build --release \
+		&& cp target/release/libkimchi_verifier_ffi.dylib ./libkimchi_verifier.dylib \
+		&& cp target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
 
 build-kimchi-linux:
 		@cd verifiers/kimchi/lib \
-				&& cargo build --release \
-				&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so \
-				&& cp ./lib/target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
+		&& cargo build --release \
+		&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so \
+		&& cp ./lib/target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
 
 test-kimchi-ffi: 
 	go test -v ./verifiers/kimchi
