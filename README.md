@@ -112,7 +112,7 @@ go run ./prover_examples/gnark_plonk/gnark_plonk.go
 This will compile the circuit and create a proof in the root folder that is ready to be sent with:
 
 ```sh
-alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
+alignedlayerd tx verify gnark-plonk --from alice --chain-id alignedlayer \
     $(cat proof.base64) \
     $(cat public_inputs.base64) \
     $(cat verifying_key.base64)
@@ -382,11 +382,11 @@ The core of the state machine `App` is defined in [app.go](https://github.com/la
 
 Cosmos SDK provides an Application Module interface to facilitate the composition of modules to form a functional unified application. Custom modules are defined in the [x](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/) directory.
 
-A module defines a message service for handling messages. These services are defined in a [protobuf file](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/proto/alignedlayer/verification/tx.proto). The methods are then implemented in a [message server](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verification/keeper/msg_server.go), which is registered in the main application.
+A module defines a message service for handling messages. These services are defined in a [protobuf file](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/proto/alignedlayer/verify/tx.proto). The methods are then implemented in a [message server](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verify/keeper/msg_server.go), which is registered in the main application.
 
-Each message's type is identified by its fully-qualified name. For example, the _verify_ message has the type `/alignedlayer.verification.MsgVerify`.
+Each message's type is identified by its fully-qualified name. For example, the _verify_ message has the type `/alignedlayer.verify.MsgVerify`.
 
-A module usually defines a [keeper](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verification/keeper/keeper.go) which encapsulates the sub-state of each module, tipically through a key-value store. A reference to the keeper is stored in the message server to be accesed by the handlers.
+A module usually defines a [keeper](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verify/keeper/keeper.go) which encapsulates the sub-state of each module, tipically through a key-value store. A reference to the keeper is stored in the message server to be accesed by the handlers.
 
 <p align="center">
   <img src="imgs/Diagram_Cosmos.svg">
@@ -418,7 +418,7 @@ A transaction can be created and sent with protobuf with ignite CLI. A JSON repr
     "body": {
         "messages": [
             {
-                "@type": "/alignedlayer.verification.MsgName",
+                "@type": "/alignedlayer.verify.MsgName",
                 "creator": "aligned1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
                 "parameter1": "argument1"
                 "parameter2": "argument2"
