@@ -200,23 +200,29 @@ alignedlayerd init <your-node-name> --chain-id alignedlayer
 ```
 If you have already run this command, you can use the `-o` flag to overwrite previously generated files. 
 
-You now need to download the blockchain genesis file and replace the one which was automatically generated for you. You may choose any of the public nodes IPs to do the request.
+You now need to download the blockchain genesis file and replace the one which was automatically generated for you. Running this command gets the genesis from the first address in `$PEER_ADDR`:
 ```sh
-curl -s <public_node_IP>:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
+curl -s $(echo $PEER_ADDR | cut -d, -f1):26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
 ```
 
 You now need to build a initial node list. This is the list of nodes you will first connect to, preferablly you should use add all of our public nodes. The list should have this structure:
 ```
-<node1_IP>@<node1_ID>:26656,<node2_IP>@<node2_ID>:26656,...
+<node1_ID>@<node1_IP>:26656,<node2_ID>@<node2_IP>:26656,...
 ```
-You can find our public node IPs on [this list](#publicips). Then to obtain each node ID run:
+
+You can get the initial node list by running:
 ```sh
-curl -s <node_IP>:26657/status | jq -r '.result.node_info.id'
+export INIT_NODES=""; for ip in $(echo $PEER_ADDR | sed 's/,/ /g'); do export INIT_NODES="$INIT_NODES$(curl -s $ip:26657/status | jq -r '.result.node_info.id')@$ip:26656,"; done; export INIT_NODES=${INIT_NODES%?}
+```
+
+To check if the list was created correctly you can print the list:
+```sh
+echo $INIT_NODES
 ```
 
 To configure persistent peers and gas prices, run the following commands:
 ```sh
-alignedlayerd config set config p2p.persistent_peers "<init_node_list>" --skip-validate
+alignedlayerd config set config p2p.persistent_peers "$INIT_NODES" --skip-validate
 alignedlayerd config set app minimum-gas-prices 0.0001stake --skip-validate
 ``` 
 
