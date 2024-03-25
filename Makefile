@@ -24,8 +24,7 @@ build-kimchi-macos:
 build-kimchi-linux:
 		@cd verifiers/kimchi/lib \
 		&& cargo build --release \
-		&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so \
-		&& cp ./lib/target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
+		&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so
 
 test-kimchi-ffi: 
 	go test -v ./verifiers/kimchi
