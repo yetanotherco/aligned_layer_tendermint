@@ -2,7 +2,7 @@
 
 set -e
 
-if [ $# -ne 2 ]; then
+if [ $# -ne 3 ]; then
   echo "Usage: $0 <verifier> <account-name> <proof-file>"
   echo "accepts 3 arg, received $#"
   exit 1
