@@ -16,6 +16,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
     - [Gnark Plonk](#gnark-plonk)
     - [Cairo Platinum](#cairo-platinum)
     - [Kimchi](#kimchi)
+    - [Sp1](#sp1)
   - [Trying our testnet](#trying-our-testnet)
   - [Joining Our Testnet](#joining-our-testnet)
     - [Requirements](#requirements-1)
@@ -99,7 +100,7 @@ Information on the parameters received by the CLI when sending transactions can 
 ```sh
 alignedlayerd tx verify --help
 ```
-Currently, verify supports three proof systems: gnark-plonk, cairo-platinum and kimchi. 
+Currently, verify supports four proof systems: gnark-plonk, cairo-platinum, sp1 and kimchi. 
 
 Upon verification, the transaction produces an event called `verification_finished` which contains a boolean attriute `proof_verifies` indicating the result.
 
@@ -149,6 +150,14 @@ To send a Kimchi verification transaction, run the following command:
 
 ```sh
 bash send_verify_tx.sh kimchi alice ./prover_examples/kimchi/example/kimchi_ec_add.proof
+```
+
+### Sp1
+
+To send a Sp1 verification transaction, run the following command: 
+
+```sh
+bash send_verify_tx.sh sp-1 alice ./prover_examples/sp1/example/fibonacci.proof
 ```
 
 ## Trying our testnet
