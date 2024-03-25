@@ -37,7 +37,7 @@ sequence=$(echo $ACCOUNT_INFO | jq .account.value.sequence | tr -d \")
 for ((i = 0; i < ${#PROOFS[@]}; i++))
 do
   proof=${PROOFS[$i]}
-  echo $proof | xargs alignedlayerd tx verification verify \
+  echo $proof | xargs alignedlayerd tx verify gnark-plonk \
     --keyring-backend test --from $ACCOUNT \
     --chain-id $CHAIN_ID \
     --fees 20stake \
