@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) Verifykimchi(goCtx context.Context, msg *types.MsgKimchi) (*types.MsgKimchiResponse, error) {
+func (k msgServer) Kimchi(goCtx context.Context, msg *types.MsgKimchi) (*types.MsgKimchiResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	result := verifykim(msg.Proof)

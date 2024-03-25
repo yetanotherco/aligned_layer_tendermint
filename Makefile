@@ -34,16 +34,16 @@ proof-to-base64:
 	base64 -i ./operators/kimchi/example/kimchi_ec_add.proof.example -o ./operators/kimchi/example/kimchi_ec_add.proof.example.base64
 
 __COSMOS_BLOCKCHAIN__:
-build-macos: build-cairo-ffi-macos
+build-macos: build-cairo-ffi-macos build-kimchi-macos
 	ignite chain build
 
 run-macos: build-macos
 	ignite chain serve
 
-build-linux: build-cairo-ffi-linux
+build-linux: build-cairo-ffi-linux build-kimchi-macos
 	ignite chain build
 
-run-linux: build-linux
+run-linux: build-linux build-kimchi-linux
 	ignite chain serve
 
 clean-ffi:
