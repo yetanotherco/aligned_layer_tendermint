@@ -2679,6 +2679,846 @@ func (x *fastReflection_MsgCairoPlatinumResponse) ProtoMethods() *protoiface.Met
 	}
 }
 
+var (
+	md_MsgKimchi         protoreflect.MessageDescriptor
+	fd_MsgKimchi_creator protoreflect.FieldDescriptor
+	fd_MsgKimchi_proof   protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_alignedlayer_verify_tx_proto_init()
+	md_MsgKimchi = File_alignedlayer_verify_tx_proto.Messages().ByName("MsgKimchi")
+	fd_MsgKimchi_creator = md_MsgKimchi.Fields().ByName("creator")
+	fd_MsgKimchi_proof = md_MsgKimchi.Fields().ByName("proof")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgKimchi)(nil)
+
+type fastReflection_MsgKimchi MsgKimchi
+
+func (x *MsgKimchi) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgKimchi)(x)
+}
+
+func (x *MsgKimchi) slowProtoReflect() protoreflect.Message {
+	mi := &file_alignedlayer_verify_tx_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgKimchi_messageType fastReflection_MsgKimchi_messageType
+var _ protoreflect.MessageType = fastReflection_MsgKimchi_messageType{}
+
+type fastReflection_MsgKimchi_messageType struct{}
+
+func (x fastReflection_MsgKimchi_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgKimchi)(nil)
+}
+func (x fastReflection_MsgKimchi_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgKimchi)
+}
+func (x fastReflection_MsgKimchi_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgKimchi
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgKimchi) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgKimchi
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgKimchi) Type() protoreflect.MessageType {
+	return _fastReflection_MsgKimchi_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgKimchi) New() protoreflect.Message {
+	return new(fastReflection_MsgKimchi)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgKimchi) Interface() protoreflect.ProtoMessage {
+	return (*MsgKimchi)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgKimchi) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Creator != "" {
+		value := protoreflect.ValueOfString(x.Creator)
+		if !f(fd_MsgKimchi_creator, value) {
+			return
+		}
+	}
+	if x.Proof != "" {
+		value := protoreflect.ValueOfString(x.Proof)
+		if !f(fd_MsgKimchi_proof, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgKimchi) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "alignedlayer.verify.MsgKimchi.creator":
+		return x.Creator != ""
+	case "alignedlayer.verify.MsgKimchi.proof":
+		return x.Proof != ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchi"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchi does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchi) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "alignedlayer.verify.MsgKimchi.creator":
+		x.Creator = ""
+	case "alignedlayer.verify.MsgKimchi.proof":
+		x.Proof = ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchi"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchi does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgKimchi) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "alignedlayer.verify.MsgKimchi.creator":
+		value := x.Creator
+		return protoreflect.ValueOfString(value)
+	case "alignedlayer.verify.MsgKimchi.proof":
+		value := x.Proof
+		return protoreflect.ValueOfString(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchi"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchi does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchi) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "alignedlayer.verify.MsgKimchi.creator":
+		x.Creator = value.Interface().(string)
+	case "alignedlayer.verify.MsgKimchi.proof":
+		x.Proof = value.Interface().(string)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchi"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchi does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchi) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "alignedlayer.verify.MsgKimchi.creator":
+		panic(fmt.Errorf("field creator of message alignedlayer.verify.MsgKimchi is not mutable"))
+	case "alignedlayer.verify.MsgKimchi.proof":
+		panic(fmt.Errorf("field proof of message alignedlayer.verify.MsgKimchi is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchi"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchi does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgKimchi) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "alignedlayer.verify.MsgKimchi.creator":
+		return protoreflect.ValueOfString("")
+	case "alignedlayer.verify.MsgKimchi.proof":
+		return protoreflect.ValueOfString("")
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchi"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchi does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgKimchi) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in alignedlayer.verify.MsgKimchi", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgKimchi) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchi) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgKimchi) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgKimchi) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgKimchi)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.Creator)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		l = len(x.Proof)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgKimchi)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Proof) > 0 {
+			i -= len(x.Proof)
+			copy(dAtA[i:], x.Proof)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Proof)))
+			i--
+			dAtA[i] = 0x12
+		}
+		if len(x.Creator) > 0 {
+			i -= len(x.Creator)
+			copy(dAtA[i:], x.Creator)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgKimchi)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgKimchi: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgKimchi: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Creator = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Proof", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Proof = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_MsgKimchiResponse protoreflect.MessageDescriptor
+)
+
+func init() {
+	file_alignedlayer_verify_tx_proto_init()
+	md_MsgKimchiResponse = File_alignedlayer_verify_tx_proto.Messages().ByName("MsgKimchiResponse")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgKimchiResponse)(nil)
+
+type fastReflection_MsgKimchiResponse MsgKimchiResponse
+
+func (x *MsgKimchiResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgKimchiResponse)(x)
+}
+
+func (x *MsgKimchiResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_alignedlayer_verify_tx_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgKimchiResponse_messageType fastReflection_MsgKimchiResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgKimchiResponse_messageType{}
+
+type fastReflection_MsgKimchiResponse_messageType struct{}
+
+func (x fastReflection_MsgKimchiResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgKimchiResponse)(nil)
+}
+func (x fastReflection_MsgKimchiResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgKimchiResponse)
+}
+func (x fastReflection_MsgKimchiResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgKimchiResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgKimchiResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgKimchiResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgKimchiResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgKimchiResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgKimchiResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgKimchiResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgKimchiResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgKimchiResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgKimchiResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgKimchiResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchiResponse"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchiResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchiResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchiResponse"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchiResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgKimchiResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchiResponse"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchiResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchiResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchiResponse"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchiResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchiResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchiResponse"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchiResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgKimchiResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verify.MsgKimchiResponse"))
+		}
+		panic(fmt.Errorf("message alignedlayer.verify.MsgKimchiResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgKimchiResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in alignedlayer.verify.MsgKimchiResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgKimchiResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgKimchiResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgKimchiResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgKimchiResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgKimchiResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgKimchiResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgKimchiResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgKimchiResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgKimchiResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
@@ -2920,6 +3760,75 @@ func (*MsgCairoPlatinumResponse) Descriptor() ([]byte, []int) {
 	return file_alignedlayer_verify_tx_proto_rawDescGZIP(), []int{5}
 }
 
+type MsgKimchi struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Proof   string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
+}
+
+func (x *MsgKimchi) Reset() {
+	*x = MsgKimchi{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_alignedlayer_verify_tx_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgKimchi) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgKimchi) ProtoMessage() {}
+
+// Deprecated: Use MsgKimchi.ProtoReflect.Descriptor instead.
+func (*MsgKimchi) Descriptor() ([]byte, []int) {
+	return file_alignedlayer_verify_tx_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *MsgKimchi) GetCreator() string {
+	if x != nil {
+		return x.Creator
+	}
+	return ""
+}
+
+func (x *MsgKimchi) GetProof() string {
+	if x != nil {
+		return x.Proof
+	}
+	return ""
+}
+
+type MsgKimchiResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MsgKimchiResponse) Reset() {
+	*x = MsgKimchiResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_alignedlayer_verify_tx_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgKimchiResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgKimchiResponse) ProtoMessage() {}
+
+// Deprecated: Use MsgKimchiResponse.ProtoReflect.Descriptor instead.
+func (*MsgKimchiResponse) Descriptor() ([]byte, []int) {
+	return file_alignedlayer_verify_tx_proto_rawDescGZIP(), []int{7}
+}
+
 var File_alignedlayer_verify_tx_proto protoreflect.FileDescriptor
 
 var file_alignedlayer_verify_tx_proto_rawDesc = []byte{
@@ -2966,7 +3875,13 @@ var file_alignedlayer_verify_tx_proto_rawDesc = []byte{
 	0x09, 0x52, 0x05, 0x70, 0x72, 0x6f, 0x6f, 0x66, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63,
 	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x1a, 0x0a, 0x18, 0x4d, 0x73, 0x67, 0x43, 0x61, 0x69,
 	0x72, 0x6f, 0x50, 0x6c, 0x61, 0x74, 0x69, 0x6e, 0x75, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x32, 0xb5, 0x02, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x62, 0x0a, 0x0c, 0x55, 0x70,
+	0x73, 0x65, 0x22, 0x49, 0x0a, 0x09, 0x4d, 0x73, 0x67, 0x4b, 0x69, 0x6d, 0x63, 0x68, 0x69, 0x12,
+	0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x6f,
+	0x6f, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x70, 0x72, 0x6f, 0x6f, 0x66, 0x3a,
+	0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x13, 0x0a,
+	0x11, 0x4d, 0x73, 0x67, 0x4b, 0x69, 0x6d, 0x63, 0x68, 0x69, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x32, 0x87, 0x03, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x62, 0x0a, 0x0c, 0x55, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x24, 0x2e, 0x61, 0x6c, 0x69,
 	0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x79,
 	0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
@@ -2985,19 +3900,24 @@ var file_alignedlayer_verify_tx_proto_rawDesc = []byte{
 	0x69, 0x6e, 0x75, 0x6d, 0x1a, 0x2d, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61,
 	0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x79, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x61,
 	0x69, 0x72, 0x6f, 0x50, 0x6c, 0x61, 0x74, 0x69, 0x6e, 0x75, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0xb5, 0x01, 0x0a, 0x17, 0x63,
-	0x6f, 0x6d, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e,
-	0x76, 0x65, 0x72, 0x69, 0x66, 0x79, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
-	0x01, 0x5a, 0x24, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f,
-	0x61, 0x70, 0x69, 0x2f, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72,
-	0x2f, 0x76, 0x65, 0x72, 0x69, 0x66, 0x79, 0xa2, 0x02, 0x03, 0x41, 0x56, 0x58, 0xaa, 0x02, 0x13,
-	0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x56, 0x65, 0x72,
-	0x69, 0x66, 0x79, 0xca, 0x02, 0x13, 0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79,
-	0x65, 0x72, 0x5c, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0xe2, 0x02, 0x1f, 0x41, 0x6c, 0x69, 0x67,
-	0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x5c,
-	0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x41, 0x6c,
-	0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x3a, 0x3a, 0x56, 0x65, 0x72, 0x69,
-	0x66, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x73, 0x65, 0x12, 0x50, 0x0a, 0x06, 0x4b, 0x69, 0x6d, 0x63, 0x68, 0x69, 0x12, 0x1e, 0x2e,
+	0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72,
+	0x69, 0x66, 0x79, 0x2e, 0x4d, 0x73, 0x67, 0x4b, 0x69, 0x6d, 0x63, 0x68, 0x69, 0x1a, 0x26, 0x2e,
+	0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72,
+	0x69, 0x66, 0x79, 0x2e, 0x4d, 0x73, 0x67, 0x4b, 0x69, 0x6d, 0x63, 0x68, 0x69, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0xb5, 0x01, 0x0a,
+	0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65,
+	0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x79, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x50, 0x01, 0x5a, 0x24, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69,
+	0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79,
+	0x65, 0x72, 0x2f, 0x76, 0x65, 0x72, 0x69, 0x66, 0x79, 0xa2, 0x02, 0x03, 0x41, 0x56, 0x58, 0xaa,
+	0x02, 0x13, 0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x56,
+	0x65, 0x72, 0x69, 0x66, 0x79, 0xca, 0x02, 0x13, 0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c,
+	0x61, 0x79, 0x65, 0x72, 0x5c, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0xe2, 0x02, 0x1f, 0x41, 0x6c,
+	0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c, 0x56, 0x65, 0x72, 0x69, 0x66,
+	0x79, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14,
+	0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x3a, 0x3a, 0x56, 0x65,
+	0x72, 0x69, 0x66, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3012,7 +3932,7 @@ func file_alignedlayer_verify_tx_proto_rawDescGZIP() []byte {
 	return file_alignedlayer_verify_tx_proto_rawDescData
 }
 
-var file_alignedlayer_verify_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_alignedlayer_verify_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_alignedlayer_verify_tx_proto_goTypes = []interface{}{
 	(*MsgUpdateParams)(nil),          // 0: alignedlayer.verify.MsgUpdateParams
 	(*MsgUpdateParamsResponse)(nil),  // 1: alignedlayer.verify.MsgUpdateParamsResponse
@@ -3020,18 +3940,22 @@ var file_alignedlayer_verify_tx_proto_goTypes = []interface{}{
 	(*MsgGnarkPlonkResponse)(nil),    // 3: alignedlayer.verify.MsgGnarkPlonkResponse
 	(*MsgCairoPlatinum)(nil),         // 4: alignedlayer.verify.MsgCairoPlatinum
 	(*MsgCairoPlatinumResponse)(nil), // 5: alignedlayer.verify.MsgCairoPlatinumResponse
-	(*Params)(nil),                   // 6: alignedlayer.verify.Params
+	(*MsgKimchi)(nil),                // 6: alignedlayer.verify.MsgKimchi
+	(*MsgKimchiResponse)(nil),        // 7: alignedlayer.verify.MsgKimchiResponse
+	(*Params)(nil),                   // 8: alignedlayer.verify.Params
 }
 var file_alignedlayer_verify_tx_proto_depIdxs = []int32{
-	6, // 0: alignedlayer.verify.MsgUpdateParams.params:type_name -> alignedlayer.verify.Params
+	8, // 0: alignedlayer.verify.MsgUpdateParams.params:type_name -> alignedlayer.verify.Params
 	0, // 1: alignedlayer.verify.Msg.UpdateParams:input_type -> alignedlayer.verify.MsgUpdateParams
 	2, // 2: alignedlayer.verify.Msg.GnarkPlonk:input_type -> alignedlayer.verify.MsgGnarkPlonk
 	4, // 3: alignedlayer.verify.Msg.CairoPlatinum:input_type -> alignedlayer.verify.MsgCairoPlatinum
-	1, // 4: alignedlayer.verify.Msg.UpdateParams:output_type -> alignedlayer.verify.MsgUpdateParamsResponse
-	3, // 5: alignedlayer.verify.Msg.GnarkPlonk:output_type -> alignedlayer.verify.MsgGnarkPlonkResponse
-	5, // 6: alignedlayer.verify.Msg.CairoPlatinum:output_type -> alignedlayer.verify.MsgCairoPlatinumResponse
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
+	6, // 4: alignedlayer.verify.Msg.Kimchi:input_type -> alignedlayer.verify.MsgKimchi
+	1, // 5: alignedlayer.verify.Msg.UpdateParams:output_type -> alignedlayer.verify.MsgUpdateParamsResponse
+	3, // 6: alignedlayer.verify.Msg.GnarkPlonk:output_type -> alignedlayer.verify.MsgGnarkPlonkResponse
+	5, // 7: alignedlayer.verify.Msg.CairoPlatinum:output_type -> alignedlayer.verify.MsgCairoPlatinumResponse
+	7, // 8: alignedlayer.verify.Msg.Kimchi:output_type -> alignedlayer.verify.MsgKimchiResponse
+	5, // [5:9] is the sub-list for method output_type
+	1, // [1:5] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -3116,6 +4040,30 @@ func file_alignedlayer_verify_tx_proto_init() {
 				return nil
 			}
 		}
+		file_alignedlayer_verify_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgKimchi); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_alignedlayer_verify_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgKimchiResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -3123,7 +4071,7 @@ func file_alignedlayer_verify_tx_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_alignedlayer_verify_tx_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
