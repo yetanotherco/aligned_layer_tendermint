@@ -69,7 +69,7 @@ fi
 
 if [ "$CMD" == "down" ]
 then
-	NODE_NAME=$NODE_NAME docker compose -f compose/validator.docker-compose.yml down validator-runner
+	NODE_NAME=$NODE_NAME docker compose -f compose/validator.docker-compose.yml down
 fi
 
 
