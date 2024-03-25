@@ -1,7 +1,7 @@
 package sp1_test
 
 import (
-	"alignedlayer/operators/sp1"
+	"alignedlayer/verifiers/sp1"
 	"fmt"
 	"os"
 	"testing"
@@ -9,7 +9,7 @@ import (
 
 func TestFibonacciSp1ProofVerifies(t *testing.T) {
 	fmt.Println(os.Getwd())
-	f, err := os.Open("example/fibonacci.proof.example")
+	f, err := os.Open("example/fibonacci.proof")
 	if err != nil {
 		t.Errorf("could not open proof file")
 	}

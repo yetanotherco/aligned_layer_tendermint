@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"strconv"
 
-	"alignedlayer/operators/sp1"
+	sp1 "alignedlayer/verifiers/sp1"
 	"alignedlayer/x/verification/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
