@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ $# -lt 1 ]; then
+if [ $# -lt 2 ]; then
 	echo "Usage: $0 <account> <staking_amount>"
 	exit 1
 else
