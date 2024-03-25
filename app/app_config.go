@@ -1,9 +1,9 @@
 package app
 
 import (
-	verificationmodulev1 "alignedlayer/api/alignedlayer/verification/module"
-	_ "alignedlayer/x/verification/module" // import for side-effects
-	verificationmoduletypes "alignedlayer/x/verification/types"
+	verifymodulev1 "alignedlayer/api/alignedlayer/verify/module"
+	_ "alignedlayer/x/verify/module" // import for side-effects
+	verifymoduletypes "alignedlayer/x/verify/types"
 
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
@@ -46,7 +46,7 @@ var (
 		slashingtypes.ModuleName,
 		genutiltypes.ModuleName,
 		// chain modules
-		verificationmoduletypes.ModuleName,
+		verifymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -60,7 +60,7 @@ var (
 		slashingtypes.ModuleName,
 		stakingtypes.ModuleName,
 		// chain modules
-		verificationmoduletypes.ModuleName,
+		verifymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -68,7 +68,7 @@ var (
 		// cosmos sdk modules
 		stakingtypes.ModuleName,
 		// chain modules
-		verificationmoduletypes.ModuleName,
+		verifymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -165,8 +165,8 @@ var (
 				Config: appconfig.WrapAny(&genutilmodulev1.Module{}),
 			},
 			{
-				Name:   verificationmoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&verificationmodulev1.Module{}),
+				Name:   verifymoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&verifymodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

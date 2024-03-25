@@ -25,3 +25,5 @@ validators:
   bonded: 100000000stake
 build:
   main: cmd/alignedlayerd
+ldflags:
+  - "-r verifiers/kimchi/lib"

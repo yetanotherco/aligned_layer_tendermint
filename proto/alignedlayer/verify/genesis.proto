@@ -1,0 +1,17 @@
+syntax = "proto3";
+package alignedlayer.verify;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "alignedlayer/verify/params.proto";
+
+option go_package = "alignedlayer/x/verify/types";
+
+// GenesisState defines the verify module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
