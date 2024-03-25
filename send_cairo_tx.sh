@@ -15,19 +15,21 @@ CHAIN_ID=alignedlayer
 
 : ${NODE:="tcp://localhost:26657"}
 : ${FEES:=20stake}
+: ${GAS:=5000000}
 
 NEW_PROOF_FILE=$(mktemp)
 base64 -i $PROOF_FILE | tr -d '\n' > $NEW_PROOF_FILE
 
 TRANSACTION=$(mktemp)
 alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
-  --from $FROM --chain-id $CHAIN_ID --generate-only --fees $FEES \
+  --from $ACCOUNT --chain-id $CHAIN_ID --generate-only \
+  --gas $GAS --fees $FEES \
   | jq '.body.messages[0].proof=$proof' --rawfile proof $NEW_PROOF_FILE \
   > $TRANSACTION
 
 SIGNED=$(mktemp)
 alignedlayerd tx sign $TRANSACTION \
-  --from $FROM --node $NODE \
+  --from $ACCOUNT --node $NODE \
   > $SIGNED
 
 alignedlayerd tx broadcast $SIGNED --node $NODE
