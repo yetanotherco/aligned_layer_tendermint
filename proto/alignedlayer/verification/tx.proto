@@ -17,7 +17,8 @@ service Msg {
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams (MsgUpdateParams) returns (MsgUpdateParamsResponse);
-  rpc Verify       (MsgVerify      ) returns (MsgVerifyResponse      );
+  rpc VerifyPlonk  (MsgVerifyPlonk ) returns (MsgVerifyPlonkResponse );
+  rpc VerifyCairo  (MsgVerifyCairo ) returns (MsgVerifyCairoResponse );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -37,13 +38,21 @@ message MsgUpdateParams {
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
 
-message MsgVerify {
+message MsgVerifyPlonk {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator           = 1;
-  string proof             = 2;
-  string public_inputs     = 3;
-  string verifying_key     = 4;
+  string creator       = 1;
+  string proof         = 2;
+  string public_inputs = 3;
+  string verifying_key = 4;
 }
 
-message MsgVerifyResponse {}
+message MsgVerifyPlonkResponse {}
+
+message MsgVerifyCairo {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string proof   = 2;
+}
+
+message MsgVerifyCairoResponse {}
 

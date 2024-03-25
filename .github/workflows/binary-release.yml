@@ -21,10 +21,10 @@ jobs:
       - name: Install Ignite
         run: curl https://get.ignite.com/cli! | bash
       - name: Build binary
-        run: ignite chain build -o ./
+        run: make build-linux
       - name: Create release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: alignedlayerd
+          files: /home/runner/go/bin/alignedlayerd
           prerelease: true
