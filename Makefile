@@ -32,11 +32,13 @@ test-kimchi-ffi:
 
 __COSMOS_BLOCKCHAIN__:
 build-macos: build-cairo-ffi-macos build-kimchi-macos
+build-macos: build-cairo-ffi-macos build-kimchi-macos
 	ignite chain build
 
 run-macos: build-macos
 	ignite chain serve
 
+build-linux: build-cairo-ffi-linux build-kimchi-linux
 build-linux: build-cairo-ffi-linux build-kimchi-linux
 	ignite chain build
 
