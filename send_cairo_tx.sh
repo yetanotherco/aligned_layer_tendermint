@@ -2,28 +2,26 @@
 
 set -e
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <proof-file>"
-  echo "accepts 1 arg, received $#"
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <account-name> <proof-file>"
+  echo "accepts 2 arg, received $#"
   exit 1
 else
-  PROOF_FILE=$1
+  ACCOUNT=$1
+  PROOF_FILE=$2
 fi
 
 CHAIN_ID=alignedlayer
-METHOD=cosmos.tx.v1beta1.Service/BroadcastTx
 
-: ${FROM:="alice"}
 : ${NODE:="tcp://localhost:26657"}
-: ${NODE_RPC:="localhost:9090"}
-: ${GAS:=8000000}
+: ${FEES:=20stake}
 
 NEW_PROOF_FILE=$(mktemp)
 base64 -i $PROOF_FILE | tr -d '\n' > $NEW_PROOF_FILE
 
 TRANSACTION=$(mktemp)
 alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
-  --from $FROM --chain-id $CHAIN_ID --generate-only --gas $GAS --fees 500stake \
+  --from $FROM --chain-id $CHAIN_ID --generate-only --fees $FEES \
   | jq '.body.messages[0].proof=$proof' --rawfile proof $NEW_PROOF_FILE \
   > $TRANSACTION
 
