@@ -6,6 +6,53 @@ Cosmos SDK provides a framework to build an application layer on top of a consen
 
 Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, making it easier to deploy a blockchain to production.
 
+## Table of Contents
+
+<!--toc:start-->
+- [Aligned Layer Blockchain](#aligned-layer-blockchain)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Example Local Blockchain](#example-local-blockchain)
+  - [How to run Cairo proof verifications](#how-to-run-cairo-proof-verifications)
+      - [Manual step by step](#manual-step-by-step)
+  - [Trying our testnet](#trying-our-testnet)
+  - [Joining Our Testnet](#joining-our-testnet)
+    - [Requirements](#requirements)
+      - [Hardware](#hardware)
+      - [Software](#software)
+    - [Node Setup](#node-setup)
+      - [The fast way](#the-fast-way)
+      - [Manual step by step](#manual-step-by-step)
+    - [Creating an Account](#creating-an-account)
+    - [Registering as a Validator](#registering-as-a-validator)
+      - [The fast way](#the-fast-way)
+      - [Manual step by step](#manual-step-by-step)
+  - [Testnet public IPs](#testnet-public-ips)
+  - [How It Works](#how-it-works)
+    - [Project Anatomy](#project-anatomy)
+    - [Transaction Lifecycle](#transaction-lifecycle)
+    - [Interacting with a Node](#interacting-with-a-node)
+      - [gRPC](#grpc)
+      - [REST](#rest)
+      - [CometBFT RPC](#cometbft-rpc)
+  - [Setting up a local network with multiple nodes](#setting-up-a-local-network-with-multiple-nodes)
+  - [Tutorials](#tutorials)
+    - [Setup the Faucet Locally](#setup-the-faucet-locally)
+    - [Claiming Staking Rewards](#claiming-staking-rewards)
+      - [Querying Outstanding Rewards](#querying-outstanding-rewards)
+      - [Querying Validator Distribution Info](#querying-validator-distribution-info)
+      - [Withdraw All Rewards](#withdraw-all-rewards)
+    - [Bank](#bank)
+      - [Querying Account Balances](#querying-account-balances)
+    - [Slashing](#slashing)
+      - [Querying Slashing Params](#querying-slashing-params)
+      - [Querying Signing info](#querying-signing-info)
+      - [Querying Slashes](#querying-slashes)
+      - [Sending Unjail Transaction](#sending-unjail-transaction)
+    - [Staking](#staking)
+  - [Acknowledgements](#acknowledgements)
+<!--toc:end-->
+
 ## Requirements
 
 - [Go v1.22](https://go.dev/dl/)
