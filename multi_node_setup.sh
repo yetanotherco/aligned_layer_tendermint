@@ -24,11 +24,11 @@ node_ids=()
 
 for node in "$@"; do
     echo "Initializing $node..."
-    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i init alignedlayer_$node --chain-id alignedlayer > /dev/null
+    docker run --rm -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i init alignedlayer_$node --chain-id alignedlayer > /dev/null
     
     docker run --rm -it -v $(pwd)/prod-sim/$node:/root/.alignedlayer --entrypoint sed alignedlayerd_i -i 's/"stake"/"'$token'"/g' /root/.alignedlayer/config/genesis.json 
-    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app minimum-gas-prices "$minimum_gas_price$token"
-    docker run -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app pruning "nothing" 
+    docker run --rm -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app minimum-gas-prices "$minimum_gas_price$token"
+    docker run --rm -v $(pwd)/prod-sim/$node:/root/.alignedlayer -it alignedlayerd_i config set app pruning "nothing" 
 
 
     node_id=$(docker run --rm -i -v $(pwd)/prod-sim/$node:/root/.alignedlayer alignedlayerd_i tendermint show-node-id)
@@ -112,14 +112,14 @@ for (( i=1; i <= "$#"; i++ )); do
     done
     other_addresses=$(IFS=,; echo "${other_addresses[*]}")
     #Peer configuration
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers "$other_addresses" --skip-validate
+    docker run --rm -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config p2p.persistent_peers "$other_addresses" --skip-validate
     #RPC configuration
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
+    docker run --rm -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.laddr "tcp://0.0.0.0:26657" --skip-validate
     #Explorer configuration
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.cors_allowed_origins '["*"]' --skip-validate 
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enable true --skip-validate 
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enabled-unsafe-cors true --skip-validate 
-    docker run -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.address "tcp://0.0.0.0:1317" --skip-validate
+    docker run --rm -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set config rpc.cors_allowed_origins '["*"]' --skip-validate 
+    docker run --rm -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enable true --skip-validate 
+    docker run --rm -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.enabled-unsafe-cors true --skip-validate 
+    docker run --rm -v $(pwd)/prod-sim/${!i}:/root/.alignedlayer -it alignedlayerd_i config set app api.address "tcp://0.0.0.0:1317" --skip-validate
 done
 
 
