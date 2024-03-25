@@ -2,7 +2,7 @@ package kimchi
 
 /*
 #cgo darwin LDFLAGS: -L./lib -lkimchi_verifier
-#cgo linux LDFLAGS: ${SRCDIR}/lib/libkimchi_verifier.so -ldl -lrt -lm
+#cgo linux LDFLAGS: ${SRCDIR}/lib/libkimchi_verifier.a -ldl -lrt -lm
 
 #include "lib/kimchi.h"
 */
