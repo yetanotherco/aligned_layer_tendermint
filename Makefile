@@ -30,9 +30,6 @@ build-kimchi-linux:
 test-kimchi-ffi: 
 	go test -v ./verifiers/kimchi
 
-proof-to-base64:
-	base64 -i ./verifiers/kimchi/example/kimchi_ec_add.proof.example -o ./verifiers/kimchi/example/kimchi_ec_add.proof.example.base64
-
 __COSMOS_BLOCKCHAIN__:
 build-macos: build-cairo-ffi-macos build-kimchi-macos
 	ignite chain build

@@ -8,7 +8,7 @@ import (
 
 func TestEcAddKimchiProofVerifies(t *testing.T) {
 	fmt.Println(os.Getwd())
-	proofFile, err := os.Open("./example/kimchi_ec_add.proof.example")
+	proofFile, err := os.Open("../../prover_examples/kimchi/example/kimchi_ec_add.proof")
 	if err != nil {
 		t.Errorf("could not open kimchi proof file")
 	}
@@ -19,7 +19,7 @@ func TestEcAddKimchiProofVerifies(t *testing.T) {
 		t.Errorf("could not read bytes from kimchi proof file")
 	}
 
-	pubInputFile, err := os.Open("./example/kimchi_verifier_index_example.bin")
+	pubInputFile, err := os.Open("../../prover_examples/kimchi/example/kimchi_verifier_index_example.bin")
 	if err != nil {
 		t.Errorf("could not open kimchi aggregated public input file")
 	}
