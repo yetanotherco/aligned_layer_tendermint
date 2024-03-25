@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $# -lt 1 || (($1 == "setup" || $1 == "run" || $1 == "run-validator") && $# -lt 2) || ($1 != "stop" && $1 != "logs" && $1 != "setup" && $1 != "run" && $1 != "run-validator") ]]
+if [[ $# -lt 1 || (($1 == "setup" || $1 == "run" || $1 == "run-validator") && $# -lt 2) || ($1 != "stop" && $1 != "logs" && $1 != "setup" && $1 != "run" && $1 != "down" && $1 != "run-validator") ]]
 then
 	echo "Usage:"
 	echo -e "\t$0 <setup|run|run-validator> <node_name>"
@@ -66,6 +66,12 @@ if [ "$CMD" == "stop" ]
 then
 	NODE_NAME=$NODE_NAME docker compose -f compose/validator.docker-compose.yml stop validator-runner
 fi
+
+if [ "$CMD" == "down" ]
+then
+	NODE_NAME=$NODE_NAME docker compose -f compose/validator.docker-compose.yml down validator-runner
+fi
+
 
 if [ "$CMD" == "logs" ]
 then
