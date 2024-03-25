@@ -68,16 +68,10 @@ make run-linux
 
 This command installs dependencies, builds, initializes, and starts your blockchain in development.
 
-To send a verify message (transaction), use the following command:
+You can try to send an example proof used in the repo with the following command:
 
 ```sh
-alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
-```
-
-You can try with an example proof used in the repo with the following command:
-
-```sh
-alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
+alignedlayerd tx verify gnark-plonk --from alice --chain-id alignedlayer \
     $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
@@ -93,9 +87,22 @@ txhash: F105EAD99F96289914EF16CB164CE43A330AEDB93CAE2A1CFA5FAE013B5CC515
 To get the transaction result, run:
 
 ```sh
-alignedlayerd query tx <txhash> | grep proof_verifies -A 10
+alignedlayerd query tx <txhash> | grep proof_verifies -B 10
 ```
-If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
+
+## Verifiers
+
+Information on the parameters received by the CLI when sending transactions can be found by running:
+
+```sh
+alignedlayerd tx verify --help
+```
+
+Upon verification, the transactions produces an event called `verification_finished` which contains a boolean attriute `proof_verifies` indicating the result.
+
+### Gnark Plonk
+
+If you want to generate a Gnark Plonk proof by yourself, you must edit the circuit definition and solution in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
 ```sh
 go run ./prover_examples/gnark_plonk/gnark_plonk.go
@@ -110,96 +117,30 @@ alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer 
     $(cat verifying_key.base64)
 ```
 
-## How to run Cairo proof verifications
+### Cairo Platinum
 
-FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
-
-After doing this test locally, remove the blockchain's binary and the config files:
+To send a Cairo Platinum transaction, we can use the following script, which generates the proof manually by reading the file in order to bypass the CLI limit.
 
 ```sh
-make clean
-```
-
-To run the Blockchain locally:
-
-```sh
-make run-macos
-```
-
-or
-
-```sh
-make run-linux
-```
-
-Then, in another terminal run:
-
-```sh
-sh send_cairo_tx.sh ./prover_examples/cairo_platinum/example/fibonacci_10.proof
+sh send_cairo_tx.sh alice ./prover_examples/cairo_platinum/example/fibonacci_10.proof
 ```
 
 If we need, we can set GAS and FEES as env vars before running the script.
 
 >[!TIP]
-> The script already converts the `.proof` to `.proof.base64`.
-> But `base64` can be used as follows to encode the proofs:
+> The script already converts the `.proof` to `.proof.base64`, but `base64` can be used as follows to encode the proofs:
 > ```sh
 > base64 -i ./prover_examples/cairo_platinum/example/fibonacci_10.proof -o ./prover_examples/cairo_platinum/example/fibonacci_10.base64
 > ```
 
-#### Manual step by step
-
-> [!WARNING]
-> The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
-
-<details>
-
-```sh
-alignedlayerd tx verification verify-cairo \
-    --from alice \
-		--gas 4000000 \
-		--chain-id alignedlayer \
-		$(cat ./prover_examples/cairo_platinum/example/fibonacci_10.base64)
-```
-</details>
-
-To check the output of the transaction, copy the given `<txhash>` and run:
-
-```sh
-alignedlayerd q tx <txhash> | grep verification_finished -B 10
-```
-
-The output should be:
-
-```yaml
-    key: proof_verifies
-    value: "true"
-  - index: true
-    key: prover
-    value: CAIRO
-  - index: true
-    key: msg_index
-    value: "0"
-  type: verification_finished
-gas_used: "3819148"
-gas_wanted: "5000000"
-```
-
-
-To create your own proofs:
-- [CairoVM](https://github.com/lambdaclass/cairo-vm)
+To create your own proofs, visit [CairoVM](https://github.com/lambdaclass/cairo-vm).
 
 ## Trying our testnet
 
 Compile with:
 
 ```sh
-make build-macos
-```
-
-or
-
-```sh
+make build-macos # or
 make build-linux
 ```
 
@@ -209,28 +150,18 @@ Create some keys:
 alignedlayerd keys add <your_key_name> --node tcp://91.107.239.79:26657
 ```
 
-After adding the keys you will get an address, use it in the faucet to get more gas for paying fees:
+After adding the keys you will get an address, use it in the [faucet](https://faucet.alignedlayer.com/) to get more gas for paying fees.
 
-```sh
-https://faucet.alignedlayer.com/
-```
-
-If you missed your address, you can get it again with:
+If you forgot your address, you can get it again with:
 
 ```sh
 alignedlayerd keys list
 ```
 
-Then you can try sending a proof for verification with:
+To send a gnark-plonk proof to the blockchain, use:
 
-```
-alignedlayerd tx verification verify --from <your_key_name>  --chain-id alignedlayer --node tcp://rpc-node.alignedlayer.com:26657 <proof> <pub_inputs> <verification_key>
-```
-
-If you want to test it with a valid proof use:
-
-```
-alignedlayerd tx verification verify --from <your_key_name> \
+```sh
+alignedlayerd tx verify gnark-plonk --from <your_key_name> \
 	--chain-id alignedlayer \
 	--node tcp://rpc-node.alignedlayer.com:26657 \
 	--fees 50stake \
@@ -238,8 +169,6 @@ alignedlayerd tx verification verify --from <your_key_name> \
 	$(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
 	$(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
 ```
-
-Other proofs can be generated by changing the circuit [here](https://github.com/yetanotherco/aligned_layer_tendermint/tree/main/prover_examples/gnark_plonk) and using  ```make generate-proof```
 
 ## Joining Our Testnet
 
