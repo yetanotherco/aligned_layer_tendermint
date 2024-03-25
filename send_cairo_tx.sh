@@ -21,7 +21,7 @@ NEW_PROOF_FILE=$(mktemp)
 base64 -i $PROOF_FILE | tr -d '\n' > $NEW_PROOF_FILE
 
 TRANSACTION=$(mktemp)
-alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
+alignedlayerd tx verify cairo-platinum "PLACEHOLDER" \
   --from $ACCOUNT --chain-id $CHAIN_ID --generate-only \
   --gas $GAS --fees $FEES \
   | jq '.body.messages[0].proof=$proof' --rawfile proof $NEW_PROOF_FILE \

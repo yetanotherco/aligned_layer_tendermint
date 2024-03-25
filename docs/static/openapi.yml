@@ -4,12 +4,94 @@ info:
   name: ''
   description: ''
 paths:
-  /alignedlayer.verification.Msg/UpdateParams:
+  /alignedlayer.verify.Msg/CairoPlatinum:
+    post:
+      operationId: AlignedlayerVerifyMsg_CairoPlatinum
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              proof:
+                type: string
+      tags:
+        - Msg
+  /alignedlayer.verify.Msg/GnarkPlonk:
+    post:
+      operationId: AlignedlayerVerifyMsg_GnarkPlonk
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              proof:
+                type: string
+              publicInputs:
+                type: string
+              verifyingKey:
+                type: string
+      tags:
+        - Msg
+  /alignedlayer.verify.Msg/UpdateParams:
     post:
       summary: |-
         UpdateParams defines a (governance) operation for updating the module
         parameters. The authority defaults to the x/gov module account.
-      operationId: AlignedlayerVerificationMsg_UpdateParams
+      operationId: AlignedlayerVerifyMsg_UpdateParams
       responses:
         '200':
           description: A successful response.
@@ -55,88 +137,6 @@ paths:
                 description: 'NOTE: All parameters must be supplied.'
                 type: object
             description: MsgUpdateParams is the Msg/UpdateParams request type.
-      tags:
-        - Msg
-  /alignedlayer.verification.Msg/VerifyCairo:
-    post:
-      operationId: AlignedlayerVerificationMsg_VerifyCairo
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              proof:
-                type: string
-      tags:
-        - Msg
-  /alignedlayer.verification.Msg/VerifyPlonk:
-    post:
-      operationId: AlignedlayerVerificationMsg_VerifyPlonk
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              proof:
-                type: string
-              public_inputs:
-                type: string
-              verifying_key:
-                type: string
       tags:
         - Msg
   /cosmos.auth.v1beta1.Msg/UpdateParams:
@@ -3766,7 +3766,29 @@ paths:
       tags:
         - Msg
 definitions:
-  alignedlayer.verification.MsgUpdateParams:
+  alignedlayer.verify.MsgCairoPlatinum:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+  alignedlayer.verify.MsgCairoPlatinumResponse:
+    type: object
+  alignedlayer.verify.MsgGnarkPlonk:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+      publicInputs:
+        type: string
+      verifyingKey:
+        type: string
+  alignedlayer.verify.MsgGnarkPlonkResponse:
+    type: object
+  alignedlayer.verify.MsgUpdateParams:
     type: object
     properties:
       authority:
@@ -3778,34 +3800,12 @@ definitions:
         description: 'NOTE: All parameters must be supplied.'
         type: object
     description: MsgUpdateParams is the Msg/UpdateParams request type.
-  alignedlayer.verification.MsgUpdateParamsResponse:
+  alignedlayer.verify.MsgUpdateParamsResponse:
     type: object
     description: |-
       MsgUpdateParamsResponse defines the response structure for executing a
       MsgUpdateParams message.
-  alignedlayer.verification.MsgVerifyCairo:
-    type: object
-    properties:
-      creator:
-        type: string
-      proof:
-        type: string
-  alignedlayer.verification.MsgVerifyCairoResponse:
-    type: object
-  alignedlayer.verification.MsgVerifyPlonk:
-    type: object
-    properties:
-      creator:
-        type: string
-      proof:
-        type: string
-      public_inputs:
-        type: string
-      verifying_key:
-        type: string
-  alignedlayer.verification.MsgVerifyPlonkResponse:
-    type: object
-  alignedlayer.verification.Params:
+  alignedlayer.verify.Params:
     type: object
     description: Params defines the parameters for the module.
   google.protobuf.Any:
