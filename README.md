@@ -99,11 +99,11 @@ Information on the parameters received by the CLI when sending transactions can 
 alignedlayerd tx verify --help
 ```
 
-Upon verification, the transactions produces an event called `verification_finished` which contains a boolean attriute `proof_verifies` indicating the result.
+Upon verification, the transaction produces an event called `verification_finished` which contains a boolean attriute `proof_verifies` indicating the result.
 
 ### Gnark Plonk
 
-If you want to generate a Gnark Plonk proof by yourself, you must edit the circuit definition and solution in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
+If you want to generate a Gnark Plonk proof by yourself, you must edit the circuit definition and witness in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
 ```sh
 go run ./prover_examples/gnark_plonk/gnark_plonk.go
@@ -120,7 +120,7 @@ alignedlayerd tx verify gnark-plonk --from alice --chain-id alignedlayer \
 
 ### Cairo Platinum
 
-To send a Cairo Platinum transaction, we can use the following script, which generates the proof manually by reading the file in order to bypass the CLI limit.
+To send a Cairo Platinum transaction, we can use the following script, which generates the proof manually by reading the file in order to bypass the shell limit (the size of Cairo proofs tends to be large). 
 
 ```sh
 sh send_cairo_tx.sh alice ./prover_examples/cairo_platinum/example/fibonacci_10.proof
