@@ -2,13 +2,25 @@
 
 set -e
 
-if [ $# -ne 2 ]; then
+if [ $# -ne 3 ]; then
   echo "Usage: $0 <account-name> <proof-file>"
   echo "accepts 2 arg, received $#"
   exit 1
 else
-  ACCOUNT=$1
-  PROOF_FILE=$2
+  PROVER=$1
+  ACCOUNT=$2
+  PROOF_FILE=$3
+fi
+
+
+if [ $1 = "cairo" ]; then 
+  PROVER="verify-cairo"
+elif [ $1 =  "sp1" ]; then 
+  PROVER="verify-sp-1"
+else 
+  echo "Usage: $0 <prover> <proof-file>"
+  echo "Provers accepted: cairo & sp1"
+  exit 1
 fi
 
 CHAIN_ID=alignedlayer
@@ -21,7 +33,7 @@ NEW_PROOF_FILE=$(mktemp)
 base64 -i $PROOF_FILE | tr -d '\n' > $NEW_PROOF_FILE
 
 TRANSACTION=$(mktemp)
-alignedlayerd tx verification verify-cairo "PLACEHOLDER" \
+alignedlayerd tx verification ${PROVER} "PLACEHOLDER" \
   --from $ACCOUNT --chain-id $CHAIN_ID --generate-only \
   --gas $GAS --fees $FEES \
   | jq '.body.messages[0].proof=$proof' --rawfile proof $NEW_PROOF_FILE \
