@@ -8,6 +8,7 @@ package verify
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,6 +23,7 @@ const (
 	Msg_UpdateParams_FullMethodName  = "/alignedlayer.verify.Msg/UpdateParams"
 	Msg_GnarkPlonk_FullMethodName    = "/alignedlayer.verify.Msg/GnarkPlonk"
 	Msg_CairoPlatinum_FullMethodName = "/alignedlayer.verify.Msg/CairoPlatinum"
+	Msg_Sp1_FullMethodName           = "/alignedlayer.verify.Msg/Sp1"
 )
 
 // MsgClient is the client API for Msg service.
@@ -33,6 +35,7 @@ type MsgClient interface {
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	GnarkPlonk(ctx context.Context, in *MsgGnarkPlonk, opts ...grpc.CallOption) (*MsgGnarkPlonkResponse, error)
 	CairoPlatinum(ctx context.Context, in *MsgCairoPlatinum, opts ...grpc.CallOption) (*MsgCairoPlatinumResponse, error)
+	Sp1(ctx context.Context, in *MsgSp1, opts ...grpc.CallOption) (*MsgSp1Response, error)
 }
 
 type msgClient struct {
@@ -70,6 +73,15 @@ func (c *msgClient) CairoPlatinum(ctx context.Context, in *MsgCairoPlatinum, opt
 	return out, nil
 }
 
+func (c *msgClient) Sp1(ctx context.Context, in *MsgSp1, opts ...grpc.CallOption) (*MsgSp1Response, error) {
+	out := new(MsgSp1Response)
+	err := c.cc.Invoke(ctx, Msg_Sp1_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -79,6 +91,7 @@ type MsgServer interface {
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	GnarkPlonk(context.Context, *MsgGnarkPlonk) (*MsgGnarkPlonkResponse, error)
 	CairoPlatinum(context.Context, *MsgCairoPlatinum) (*MsgCairoPlatinumResponse, error)
+	Sp1(context.Context, *MsgSp1) (*MsgSp1Response, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -94,6 +107,9 @@ func (UnimplementedMsgServer) GnarkPlonk(context.Context, *MsgGnarkPlonk) (*MsgG
 }
 func (UnimplementedMsgServer) CairoPlatinum(context.Context, *MsgCairoPlatinum) (*MsgCairoPlatinumResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CairoPlatinum not implemented")
+}
+func (UnimplementedMsgServer) Sp1(context.Context, *MsgSp1) (*MsgSp1Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Sp1 not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -162,6 +178,24 @@ func _Msg_CairoPlatinum_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_Sp1_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSp1)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).Sp1(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_Sp1_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).Sp1(ctx, req.(*MsgSp1))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -180,6 +214,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CairoPlatinum",
 			Handler:    _Msg_CairoPlatinum_Handler,
+		},
+		{
+			MethodName: "Sp1",
+			Handler:    _Msg_Sp1_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
