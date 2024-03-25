@@ -331,7 +331,7 @@ The node will start to sync up with the blockchain. To check if your node is alr
 curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 ```
 
-It should return `false`. If not, try again after a few minutes later.
+It should return `false`. If not, try again some minutes later.
 </details>
 
 ## Creating an Account <a name="account"></a>
