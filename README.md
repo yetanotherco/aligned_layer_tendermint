@@ -8,7 +8,6 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 
 ## Table of Contents
 
-<!--toc:start-->
 - [Aligned Layer Blockchain](#aligned-layer-blockchain)
   - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
@@ -17,16 +16,16 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
       - [Manual step by step](#manual-step-by-step)
   - [Trying our testnet](#trying-our-testnet)
   - [Joining Our Testnet](#joining-our-testnet)
-    - [Requirements](#requirements)
+    - [Requirements](#requirements-1)
       - [Hardware](#hardware)
       - [Software](#software)
     - [Node Setup](#node-setup)
       - [The fast way](#the-fast-way)
-      - [Manual step by step](#manual-step-by-step)
+      - [Manual step by step](#manual-step-by-step-1)
     - [Creating an Account](#creating-an-account)
     - [Registering as a Validator](#registering-as-a-validator)
-      - [The fast way](#the-fast-way)
-      - [Manual step by step](#manual-step-by-step)
+      - [The fast way](#the-fast-way-1)
+      - [Manual step by step](#manual-step-by-step-2)
   - [Testnet public IPs](#testnet-public-ips)
   - [How It Works](#how-it-works)
     - [Project Anatomy](#project-anatomy)
@@ -51,7 +50,6 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
       - [Sending Unjail Transaction](#sending-unjail-transaction)
     - [Staking](#staking)
   - [Acknowledgements](#acknowledgements)
-<!--toc:end-->
 
 ## Requirements
 
