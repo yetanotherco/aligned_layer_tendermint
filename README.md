@@ -303,7 +303,7 @@ curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 It should return `false`. If not, try again some minutes later.
 </details>
 
-## Creating an Account
+### Creating an Account
 
 The following command shows all the possible operations regarding keys:
 
@@ -339,9 +339,9 @@ alignedlayerd query bank balances <account-address-or-name>
 
 To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `alignedxxxxxxxxxxxx`, which you obtained in the previuos step.
 
-## Registering as a Validator
+### Registering as a Validator
 
-### The fast way
+#### The fast way
 
 The fastest way to setup a new node is with our script. It receives the amount to stake as an argument:
 
@@ -351,7 +351,7 @@ bash setup_validator.sh <account-name-or-address> 1050000stake
 
 This will configure your node and send a transaction for creating a validator.
 
-### Manual step by step
+#### Manual step by step
 
 <details>
   <summary>Steps</summary>
