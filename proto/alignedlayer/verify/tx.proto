@@ -20,6 +20,7 @@ service Msg {
   rpc GnarkPlonk    (MsgGnarkPlonk   ) returns (MsgGnarkPlonkResponse   );
   rpc CairoPlatinum (MsgCairoPlatinum) returns (MsgCairoPlatinumResponse);
   rpc Sp1           (MsgSp1          ) returns (MsgSp1Response          );
+  rpc Kimchi        (MsgKimchi       ) returns (MsgKimchiResponse       );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -63,5 +64,12 @@ message MsgSp1 {
   string proof   = 2;
 }
 
+message MsgKimchi {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string proof   = 2;
+}
+
 message MsgSp1Response {}
+message MsgKimchiResponse {}
 

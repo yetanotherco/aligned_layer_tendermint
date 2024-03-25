@@ -34,6 +34,9 @@ const (
 	opWeightMsgSp1 = "op_weight_msg_sp_1"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSp1 int = 100
+	opWeightMsgKimchi = "op_weight_msg_kimchi"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgKimchi int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -94,6 +97,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSp1,
 		verifysimulation.SimulateMsgSp1(am.accountKeeper, am.bankKeeper, am.keeper),
+	var weightMsgKimchi int
+	simState.AppParams.GetOrGenerate(opWeightMsgKimchi, &weightMsgKimchi, nil,
+		func(_ *rand.Rand) {
+			weightMsgKimchi = defaultWeightMsgKimchi
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgKimchi,
+		verifysimulation.SimulateMsgKimchi(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
@@ -125,6 +137,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgSp1,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				verifysimulation.SimulateMsgSp1(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgKimchi,
+			defaultWeightMsgKimchi,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				verifysimulation.SimulateMsgKimchi(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

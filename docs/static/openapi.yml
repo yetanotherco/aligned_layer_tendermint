@@ -122,9 +122,9 @@ paths:
                 type: string
       tags:
         - Msg
-  /alignedlayer.verify.Msg/Sp1:
+  /alignedlayer.verify.Msg/Kimchi:
     post:
-      operationId: AlignedlayerVerifyMsg_Sp1
+      operationId: AlignedlayerVerifyMsg_Kimchi
       responses:
         '200':
           description: A successful response.
@@ -3841,6 +3841,57 @@ paths:
       tags:
         - Msg
 definitions:
+  alignedlayer.verify.MsgCairoPlatinum:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+  alignedlayer.verify.MsgCairoPlatinumResponse:
+    type: object
+  alignedlayer.verify.MsgGnarkPlonk:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+      publicInputs:
+        type: string
+      verifyingKey:
+        type: string
+  alignedlayer.verify.MsgGnarkPlonkResponse:
+    type: object
+  alignedlayer.verify.MsgKimchi:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+  alignedlayer.verify.MsgKimchiResponse:
+    type: object
+  alignedlayer.verify.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: 'NOTE: All parameters must be supplied.'
+        type: object
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  alignedlayer.verify.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
+  alignedlayer.verify.Params:
+    type: object
+    description: Params defines the parameters for the module.
   google.protobuf.Any:
     type: object
     properties:
