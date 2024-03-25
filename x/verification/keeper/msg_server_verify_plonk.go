@@ -15,19 +15,20 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) Verify(goCtx context.Context, msg *types.MsgVerify) (*types.MsgVerifyResponse, error) {
+func (k msgServer) VerifyPlonk(goCtx context.Context, msg *types.MsgVerifyPlonk) (*types.MsgVerifyPlonkResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	result := verify(msg)
+	result := verifyPlonk(msg)
 	event := sdk.NewEvent("verification_finished",
-		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)))
+		sdk.NewAttribute("proof_verifies", strconv.FormatBool(result)),
+		sdk.NewAttribute("prover", "PLONK"))
 
 	ctx.EventManager().EmitEvent(event)
 
-	return &types.MsgVerifyResponse{}, nil
+	return &types.MsgVerifyPlonkResponse{}, nil
 }
 
-func verify(msg *types.MsgVerify) bool {
+func verifyPlonk(msg *types.MsgVerifyPlonk) bool {
 	proof := plonk.NewProof(ecc.BN254)
 	deserialize(proof, msg.Proof)
 

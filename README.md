@@ -39,13 +39,20 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 
 - [Go v1.22](https://go.dev/dl/)
 - [Ignite v28.2](https://docs.ignite.com/welcome/install)
+- [Rust v1.76](https://www.rust-lang.org/tools/install)
 
 ## Example Local Blockchain<a name="example"></a>
 
 To run a single node blockchain, run:
 
 ```sh
-ignite chain serve
+make run-macos
+```
+
+or 
+
+```sh
+make run-linux
 ```
 
 This command installs dependencies, builds, initializes, and starts your blockchain in development.
@@ -53,13 +60,13 @@ This command installs dependencies, builds, initializes, and starts your blockch
 To send a verify message (transaction), use the following command:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
+alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
 ```
 
 You can try with an example proof used in the repo with the following command:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
+alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
     $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
@@ -75,7 +82,7 @@ txhash: F105EAD99F96289914EF16CB164CE43A330AEDB93CAE2A1CFA5FAE013B5CC515
 To get the transaction result, run:
 
 ```sh
-alignedlayerd query tx <txhash>
+alignedlayerd query tx <txhash> | grep proof_verifies -A 10
 ```
 If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
@@ -86,12 +93,91 @@ go run ./prover_examples/gnark_plonk/gnark_plonk.go
 This will compile the circuit and create a proof in the root folder that is ready to be sent with:
 
 ```sh
-alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
+alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
     $(cat proof.base64) \
     $(cat public_inputs.base64) \
     $(cat verifying_key.base64)
 ```
 
+## How to run Cairo proof verifications <a name="cairo"></a>
+
+FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
+
+Before doing this test locally, remove the blockchain's binary and the config files:
+
+```sh
+make clean
+```
+
+To run the Blockchain locally:
+
+```sh
+make run-macos
+```
+
+or 
+
+```sh
+make run-linux
+```
+
+Then, in another terminal run:
+
+```sh
+sh send_cairo_tx.sh ./prover_examples/cairo_platinum/example/fibonacci_10.proof
+```
+
+If we need, we can set GAS and FEES as env vars before running the script.
+
+>[!TIP]
+> The script already converts the `.proof` to `.proof.base64`.
+> But `base64` can be used as follows to encode the proofs:
+> ```sh
+> base64 -i ./prover_examples/cairo_platinum/example/fibonacci_10.proof -o ./prover_examples/cairo_platinum/example/fibonacci_10.base64
+> ```
+
+#### Manual step by step
+
+> [!WARNING]
+> The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
+
+<details>
+
+```sh
+alignedlayerd tx verification verify-cairo \
+    --from alice \
+		--gas 4000000 \
+		--chain-id alignedlayer \
+		$(cat ./prover_examples/cairo_platinum/example/fibonacci_10.base64)
+```
+</details>
+
+To check the output of the transaction, copy the given `<txhash>` and run:
+
+```sh
+alignedlayerd q tx <txhash> | grep verification_finished -B 10
+```
+
+The output should be:
+
+```yaml
+    key: proof_verifies
+    value: "true"
+  - index: true
+    key: prover
+    value: CAIRO
+  - index: true
+    key: msg_index
+    value: "0"
+  type: verification_finished
+gas_used: "3819148"
+gas_wanted: "5000000"
+```
+
+
+
+To create your own proofs:
+- [CairoVM](https://github.com/lambdaclass/cairo-vm)
 
 ## Trying our testnet<a name="tryingtestnet"></a>
 
@@ -99,7 +185,13 @@ alignedlayerd tx verification verify --from alice --chain-id alignedlayer \
 Compile with:
 
 ```sh
-ignite chain build
+make build-macos
+```
+
+or 
+
+```sh
+make build-linux
 ```
 
 Create some keys:
@@ -186,7 +278,7 @@ If you want to do a more detailed step by step setup, follow this instructions:
 
 First, build the app:
 ```sh
-ignite chain build --output OUTPUT_DIR
+make build_<macos or linux>
 ```
 
 To make sure the installation was successful, run the following command:
@@ -248,7 +340,7 @@ The node will start to sync up with the blockchain. To check if your node is alr
 curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 ```
 
-It should return `false`. If not, try again after a few minutes later.
+It should return `false`. If not, try again some minutes later.
 </details>
 
 ## Creating an Account <a name="account"></a>

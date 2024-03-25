@@ -6,10 +6,10 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-var _ sdk.Msg = &MsgVerify{}
+var _ sdk.Msg = &MsgVerifyPlonk{}
 
-func NewMsgVerify(creator, proof, public_inputs, verifying_key string) *MsgVerify {
-	return &MsgVerify{
+func NewMsgVerifyPlonk(creator, proof, public_inputs, verifying_key string) *MsgVerifyPlonk {
+	return &MsgVerifyPlonk{
 		Creator:      creator,
 		Proof:        proof,
 		PublicInputs: public_inputs,
@@ -17,7 +17,7 @@ func NewMsgVerify(creator, proof, public_inputs, verifying_key string) *MsgVerif
 	}
 }
 
-func (msg *MsgVerify) ValidateBasic() error {
+func (msg *MsgVerifyPlonk) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

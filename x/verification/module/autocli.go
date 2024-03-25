@@ -29,10 +29,16 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Skip:      true, // skipped because authority gated
 				},
 				{
-					RpcMethod:      "Verify",
-					Use:            "verify [proof] [public_inputs] [verifying_key]",
-					Short:          "Send a verify tx",
+					RpcMethod:      "VerifyPlonk",
+					Use:            "verify-plonk [proof] [public_inputs] [verifying_key]",
+					Short:          "Send a verify-plonk tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}, {ProtoField: "public_inputs"}, {ProtoField: "verifying_key"}},
+				},
+				{
+					RpcMethod:      "VerifyCairo",
+					Use:            "verify-cairo [proof]",
+					Short:          "Send a verify-cairo tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

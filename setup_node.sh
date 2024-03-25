@@ -17,7 +17,14 @@ CHAIN_ID=alignedlayer
 PEER_ARRAY=(${PEER_ADDR//,/ })
 : ${MINIMUM_GAS_PRICES="0.0001stake"}
 
-ignite chain build
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    make build-linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    make build-macos
+else
+    echo "Unsupported OS"
+    exit 0
+fi
 
 $CHAIN_BINARY comet unsafe-reset-all
 $CHAIN_BINARY init $MONIKER \
