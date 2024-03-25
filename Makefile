@@ -25,7 +25,7 @@ build-kimchi-linux:
 		@cd verifiers/kimchi/lib \
 		&& cargo build --release \
 		&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so \
-		&& cp ./lib/target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
+		&& cp target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
 
 test-kimchi-ffi: 
 	go test -v ./verifiers/kimchi
@@ -46,6 +46,8 @@ run-linux: build-linux
 clean-ffi:
 	rm -rf verifiers/cairo_platinum/lib/libcairo_platinum*
 	rm -rf verifiers/cairo_platinum/lib/target/release/libcairo_platinum*
+	rm -rf verifiers/kimchi/lib/libkimchi_verifier*
+	rm -rf verifiers/kimchi/lib/target/release/libcairo_verifier*
 
 clean:
 	rm -rf ~/.alignedlayer
