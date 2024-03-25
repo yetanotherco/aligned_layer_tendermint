@@ -15,6 +15,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
   - [Verifiers](#verifiers)
     - [Gnark Plonk](#gnark-plonk)
     - [Cairo Platinum](#cairo-platinum)
+    - [Kimchi](#kimchi)
   - [Trying our testnet](#trying-our-testnet)
   - [Joining Our Testnet](#joining-our-testnet)
     - [Requirements](#requirements-1)
@@ -98,8 +99,15 @@ Information on the parameters received by the CLI when sending transactions can 
 ```sh
 alignedlayerd tx verify --help
 ```
+Currently, verify supports three proof systems: gnark-plonk, cairo-platinum and kimchi. 
 
 Upon verification, the transaction produces an event called `verification_finished` which contains a boolean attriute `proof_verifies` indicating the result.
+
+We also provide the script send_verify_tx.sh to send verification transactions. You may use it according to the following syntax:
+
+```sh
+bash send_verify_tx.sh <verifier> <account> <proof_file>
+```
 
 ### Gnark Plonk
 
@@ -120,10 +128,10 @@ alignedlayerd tx verify gnark-plonk --from alice --chain-id alignedlayer \
 
 ### Cairo Platinum
 
-To send a Cairo Platinum transaction, we can use the following script, which generates the proof manually by reading the file in order to bypass the shell limit (the size of Cairo proofs tends to be large). 
+To send a Cairo Platinum verification transaction, we can use the following script, which generates the proof manually by reading the file in order to bypass the shell limit (the size of Cairo proofs tends to be large). 
 
 ```sh
-sh send_cairo_tx.sh alice ./prover_examples/cairo_platinum/example/fibonacci_10.proof
+bash send_verify_tx.sh cairo-platinum alice ./prover_examples/cairo_platinum/example/fibonacci_10.proof
 ```
 
 If we need, we can set GAS and FEES as env vars before running the script.
@@ -135,6 +143,13 @@ If we need, we can set GAS and FEES as env vars before running the script.
 > ```
 
 To create your own proofs, visit [CairoVM](https://github.com/lambdaclass/cairo-vm).
+
+### Kimchi
+To send a Kimchi verification transaction, run the following command: 
+
+```sh
+bash send_verify_tx.sh kimchi alice ./prover_examples/kimchi/example/kimchi_ec_add.proof
+```
 
 ## Trying our testnet
 

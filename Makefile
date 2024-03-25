@@ -50,6 +50,24 @@ test-kimchi-ffi:
 
 __COSMOS_BLOCKCHAIN__:
 build-macos: build-cairo-ffi-macos build-sp1-ffi-macos build-kimchi-macos
+__KIMCHI_FFI__: ## 
+build-kimchi-macos:
+		@cd verifiers/kimchi/lib \
+		&& cargo build --release \
+		&& cp target/release/libkimchi_verifier_ffi.dylib ./libkimchi_verifier.dylib \
+		&& cp target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
+
+build-kimchi-linux:
+		@cd verifiers/kimchi/lib \
+		&& cargo build --release \
+		&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so \
+		&& cp ./lib/target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
+
+test-kimchi-ffi: 
+	go test -v ./verifiers/kimchi
+
+__COSMOS_BLOCKCHAIN__:
+build-macos: build-cairo-ffi-macos build-kimchi-macos
 	ignite chain build
 
 run-macos: build-macos
