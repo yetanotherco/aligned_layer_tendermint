@@ -31,7 +31,7 @@ test-ffi-sp1:
 	go test -v ./verifiers/sp1
 
 __COSMOS_BLOCKCHAIN__:
-build-macos: build-sp1-ffi-macos build-cairo-ffi-macos
+build-macos: build-cairo-ffi-macos
 	ignite chain build
 
 run-macos: build-macos
@@ -44,6 +44,9 @@ run-linux: build-linux
 	ignite chain serve
 
 __LOCAL_TEST__:
+run-linux: build-linux
+	ignite chain serve
+
 clean-ffi:
 	rm -rf verifiers/sp1/lib/target/release/libsp1_verifier*
 	rm -rf verifiers/cairo_platinum/lib/libcairo_platinum*
@@ -52,3 +55,4 @@ clean-ffi:
 
 clean:
 	rm -rf ~/.alignedlayer
+	rm ${HOME}/go/bin/alignedlayerd

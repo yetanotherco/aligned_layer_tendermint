@@ -22,7 +22,10 @@ const (
 	Msg_UpdateParams_FullMethodName = "/alignedlayer.verification.Msg/UpdateParams"
 	Msg_VerifyPlonk_FullMethodName  = "/alignedlayer.verification.Msg/VerifyPlonk"
 	Msg_VerifyCairo_FullMethodName  = "/alignedlayer.verification.Msg/VerifyCairo"
+<<<<<<< HEAD
 	Msg_VerifySp1_FullMethodName    = "/alignedlayer.verification.Msg/VerifySp1"
+=======
+>>>>>>> cairoplatinum
 )
 
 // MsgClient is the client API for Msg service.
@@ -34,7 +37,10 @@ type MsgClient interface {
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ...grpc.CallOption) (*MsgVerifyPlonkResponse, error)
 	VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error)
+<<<<<<< HEAD
 	VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error)
+=======
+>>>>>>> cairoplatinum
 }
 
 type msgClient struct {
@@ -57,6 +63,7 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 func (c *msgClient) VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ...grpc.CallOption) (*MsgVerifyPlonkResponse, error) {
 	out := new(MsgVerifyPlonkResponse)
 	err := c.cc.Invoke(ctx, Msg_VerifyPlonk_FullMethodName, in, out, opts...)
+<<<<<<< HEAD
 	if err != nil {
 		return nil, err
 	}
@@ -66,15 +73,23 @@ func (c *msgClient) VerifyPlonk(ctx context.Context, in *MsgVerifyPlonk, opts ..
 func (c *msgClient) VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error) {
 	out := new(MsgVerifyCairoResponse)
 	err := c.cc.Invoke(ctx, Msg_VerifyCairo_FullMethodName, in, out, opts...)
+=======
+>>>>>>> cairoplatinum
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
+<<<<<<< HEAD
 func (c *msgClient) VerifySp1(ctx context.Context, in *MsgVerifySp1, opts ...grpc.CallOption) (*MsgVerifySp1Response, error) {
 	out := new(MsgVerifySp1Response)
 	err := c.cc.Invoke(ctx, Msg_VerifySp1_FullMethodName, in, out, opts...)
+=======
+func (c *msgClient) VerifyCairo(ctx context.Context, in *MsgVerifyCairo, opts ...grpc.CallOption) (*MsgVerifyCairoResponse, error) {
+	out := new(MsgVerifyCairoResponse)
+	err := c.cc.Invoke(ctx, Msg_VerifyCairo_FullMethodName, in, out, opts...)
+>>>>>>> cairoplatinum
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +105,10 @@ type MsgServer interface {
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	VerifyPlonk(context.Context, *MsgVerifyPlonk) (*MsgVerifyPlonkResponse, error)
 	VerifyCairo(context.Context, *MsgVerifyCairo) (*MsgVerifyCairoResponse, error)
+<<<<<<< HEAD
 	VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error)
+=======
+>>>>>>> cairoplatinum
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -103,12 +121,18 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) VerifyPlonk(context.Context, *MsgVerifyPlonk) (*MsgVerifyPlonkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyPlonk not implemented")
+<<<<<<< HEAD
 }
 func (UnimplementedMsgServer) VerifyCairo(context.Context, *MsgVerifyCairo) (*MsgVerifyCairoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCairo not implemented")
 }
 func (UnimplementedMsgServer) VerifySp1(context.Context, *MsgVerifySp1) (*MsgVerifySp1Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifySp1 not implemented")
+=======
+}
+func (UnimplementedMsgServer) VerifyCairo(context.Context, *MsgVerifyCairo) (*MsgVerifyCairoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCairo not implemented")
+>>>>>>> cairoplatinum
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -155,6 +179,7 @@ func _Msg_VerifyPlonk_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).VerifyPlonk(ctx, req.(*MsgVerifyPlonk))
+<<<<<<< HEAD
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -173,24 +198,30 @@ func _Msg_VerifyCairo_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).VerifyCairo(ctx, req.(*MsgVerifyCairo))
+=======
+>>>>>>> cairoplatinum
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_VerifySp1_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgVerifySp1)
+func _Msg_VerifyCairo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgVerifyCairo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).VerifySp1(ctx, in)
+		return srv.(MsgServer).VerifyCairo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_VerifySp1_FullMethodName,
+		FullMethod: Msg_VerifyCairo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+<<<<<<< HEAD
 		return srv.(MsgServer).VerifySp1(ctx, req.(*MsgVerifySp1))
+=======
+		return srv.(MsgServer).VerifyCairo(ctx, req.(*MsgVerifyCairo))
+>>>>>>> cairoplatinum
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -209,6 +240,7 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyPlonk",
 			Handler:    _Msg_VerifyPlonk_Handler,
+<<<<<<< HEAD
 		},
 		{
 			MethodName: "VerifyCairo",
@@ -217,6 +249,12 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifySp1",
 			Handler:    _Msg_VerifySp1_Handler,
+=======
+		},
+		{
+			MethodName: "VerifyCairo",
+			Handler:    _Msg_VerifyCairo_Handler,
+>>>>>>> cairoplatinum
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -7,34 +7,41 @@ Cosmos SDK provides a framework to build an application layer on top of a consen
 Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, making it easier to deploy a blockchain to production.
 
 ## Table of Contents
-1. [Requirements](#requirements)
-2. [Example Local Blockchain](#example)
-3. [Cairo](#cairo)
-4. [Trying our testnet](#tryingtestnet)
-5. [Joining our testnet](#joiningtestnet)
-    - [Requirements](#joinrequirements)
-    - [Node Setup](#nodesetup)
-6. [Creating an Account](#account)
-7. [Registering as a Validator](#validator)
-8. [Testnet Public IPs](#publicips)
-9. [How it Works](#howitworks)
-    - [Project Anatomy](#anatomy)
-    - [Transaction Lifecycle](#lifecycle)
-    - [Interacting with a Node](#interactwithnode)
-10. [Setting up multiple local nodes using docker](#multiplelocalnodes)
-11. [Tutorials](#tutorials)
-    - [Setup the Faucet Locally](#setupfaucet)
-    - [Claiming Staking Rewards](#claimstake)
-    - [Bank](#bank)
-    - [Slashing](#slashing)
-12. [Acknowledgements](#acknowledgements)
 
-## Requirements <a name="requirements"></a>
+<!-- omit in toc -->1
+- [Aligned Layer Blockchain](#aligned-layer-blockchain)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Example Local Blockchain](#example-local-blockchain)
+  - [Trying our testnet](#trying-our-testnet)
+  - [Joining Our Testnet](#joining-our-testnet)
+    - [Requirements](#requirements-1)
+    - [Node Setup](#node-setup)
+  - [Creating an Account ](#creating-an-account-)
+  - [Registering as a Validator](#registering-as-a-validator)
+    - [The fast way](#the-fast-way-1)
+    - [Manual step by step](#manual-step-by-step-1)
+  - [Testnet public IPs ](#testnet-public-ips-)
+  - [How It Works ](#how-it-works-)
+    - [Project Anatomy ](#project-anatomy-)
+    - [Transaction Lifecycle ](#transaction-lifecycle-)
+    - [Interacting with a Node ](#interacting-with-a-node-)
+  - [Setting up a local network with multiple nodes ](#setting-up-a-local-network-with-multiple-nodes-)
+  - [Tutorials ](#tutorials-)
+    - [Setup the Faucet Locally ](#setup-the-faucet-locally-)
+    - [Claiming Staking Rewards ](#claiming-staking-rewards-)
+    - [Bank ](#bank-)
+    - [Slashing](#slashing)
+    - [Staking ](#staking-)
+  - [Acknowledgements ](#acknowledgements-)
+
+## Requirements<a name="requirements"></a>
 
 - [Go v1.22](https://go.dev/dl/)
 - [Ignite v28.2](https://docs.ignite.com/welcome/install)
+- [Rust v1.76](https://www.rust-lang.org/tools/install)
 
-## Example Local Blockchain <a name="example"></a>
+## Example Local Blockchain<a name="example"></a>
 
 To run a single node blockchain, run:
 
@@ -75,7 +82,7 @@ txhash: F105EAD99F96289914EF16CB164CE43A330AEDB93CAE2A1CFA5FAE013B5CC515
 To get the transaction result, run:
 
 ```sh
-alignedlayerd query tx <txhash> | grep verification_finished -B 10
+alignedlayerd query tx <txhash> | grep proof_verifies -A 10
 ```
 If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
@@ -96,11 +103,10 @@ alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer 
 
 FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
 
-Tip, `base64` can be used as follows to encode the proofs:
+After doing this test locally, remove the blockchain's binary and the config files:
 
 ```sh
-base64 -i operators/cairo_platinum/example/fibonacci_5.proof.example \
-    > operators/cairo_platinum/example/fibonacci_5.base64.exampl
+make clean
 ```
 
 To run the Blockchain locally:
@@ -115,13 +121,23 @@ or
 make run-linux
 ```
 
-Then, in other terminal run:
+Then, in another terminal run:
 
 ```sh
-make ltest-cairo-true
+sh send_cairo_tx.sh ./prover_examples/cairo_platinum/example/fibonacci_10.proof
 ```
 
+>[!TIP]
+> The script already converts the `.proof` to `.proof.base64`.
+> But `base64` can be used as follows to encode the proofs:
+> ```sh
+> base64 -i ./prover_examples/cairo_platinum/example/fibonacci_10.proof -o ./prover_examples/cairo_platinum/example/fibonacci_10.base64
+> ```
+
 #### Manual step by step
+
+> [!WARNING]
+> The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
 
 <details>
 
@@ -130,13 +146,11 @@ alignedlayerd tx verification verify-cairo \
     --from alice \
 		--gas 4000000 \
 		--chain-id alignedlayer \
-		$(cat operators/cairo_platinum/example/fibonacci_10.base64.example)
+		$(cat ./prover_examples/cairo_platinum/example/fibonacci_10.base64)
 ```
 </details>
 
-This will send a cairo proof to the blockchain. The CLI will ask for a signature and then it will print the transaction's information. 
-
-To check the output of the transaction:
+To check the output of the transaction, copy the given `<txhash>` and run:
 
 ```sh
 alignedlayerd q tx <txhash> | grep verification_finished -B 10
@@ -144,9 +158,7 @@ alignedlayerd q tx <txhash> | grep verification_finished -B 10
 
 The output should be:
 
-```
-- attributes:
-  - index: true
+```yaml
     key: proof_verifies
     value: "true"
   - index: true
@@ -156,15 +168,16 @@ The output should be:
     key: msg_index
     value: "0"
   type: verification_finished
+gas_used: "3819148"
+gas_wanted: "5000000"
 ```
 
-> [!NOTE]
-> The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
+
 
 To create your own proofs:
 - [CairoVM](https://github.com/lambdaclass/cairo-vm)
 
-## Trying our testnet <a name="tryingtestnet"></a>
+## Trying our testnet<a name="tryingtestnet"></a>
 
 
 Compile with:
@@ -217,11 +230,11 @@ alignedlayerd tx verification verify --from <your_key_name> \
 
 Other proofs can be generated by changing the circuit [here](https://github.com/yetanotherco/aligned_layer_tendermint/tree/main/prover_examples/gnark_plonk) and using  ```make generate-proof```
 
-## Joining Our Testnet <a name="joiningtestnet"></a>
+## Joining Our Testnet<a name="joiningtestnet"></a>
 
-### Requirements <a name="joinrequirements"></a>
+### Requirements<a name="joinrequirements"></a>
 
-#### Hardware 
+#### Hardware
 
 - CPU: 4 cores
 - Memory: 16GB
@@ -230,8 +243,9 @@ Other proofs can be generated by changing the circuit [here](https://github.com/
 #### Software
 
 - [jq](https://jqlang.github.io/jq/download/)
+- [sponge](https://linux.die.net/man/1/sponge)
 
-### Node Setup <a name="nodesetup"></a>
+### Node Setup<a name="nodesetup"></a>
 
 To join our network as a full-node, you need a public node to first connect to. An initial IP address must be set on a PEER_ADDR env variable:
 
@@ -334,7 +348,7 @@ alignedlayerd keys add <account-name>
 
 This commands will return the following information:
 ```
-address: cosmosxxxxxxxxxxxx
+address: alignedxxxxxxxxxxxx
 name: your-account-name
 pubkey: '{"@type":"xxxxxx","key":"xxxxxx"}'
 type: local
@@ -353,9 +367,9 @@ To check the balance of an address using the binary:
 alignedlayerd query bank balances <account-address-or-name>
 ```
 
-To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `cosmosxxxxxxxxxxxx`, which you obtained in the previuos step.
+To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `alignedxxxxxxxxxxxx`, which you obtained in the previuos step.
 
-## Registering as a Validator <a name="validator"></a>
+## Registering as a Validator<a name="validator"></a>
 
 ### The fast way
 
@@ -405,7 +419,7 @@ alignedlayerd query tendermint-validator-set | grep $(alignedlayerd tendermint s
 It should return something like:
 
 ```
-- address: cosmosvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
+- address: alignedvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
 ```
 </details>
 
@@ -465,7 +479,7 @@ A transaction can be created and sent with protobuf with ignite CLI. A JSON repr
         "messages": [
             {
                 "@type": "/alignedlayer.verification.MsgName",
-                "creator": "cosmos1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
+                "creator": "aligned1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
                 "parameter1": "argument1"
                 "parameter2": "argument2"
                 ...
@@ -548,7 +562,7 @@ When sending the transaction, it must be sent serialized with protobuf and encod
 
 This is the format used by the CLI.
 
-## Setting up multiple local nodes using docker <a name="multiplelocalnodes"></a>
+## Setting up a local network with multiple nodes <a name="multiplelocalnodes"></a>
 
 Sets up a network of docker containers each with a validator node and a faucet account.
 
@@ -634,7 +648,7 @@ alignedlayerd query distribution validator-outstanding-rewards [validator] [flag
 
 Example:
 ```sh
-alignedlayerd query distribution validator-outstanding-rewards cosmosvaloper1...
+alignedlayerd query distribution validator-outstanding-rewards alignedvaloper1...
 ```
 Example Output:
 ```sh
@@ -648,14 +662,14 @@ The **validator-distribution-info** command allows users to query validator comm
 
 Example:
 ```sh
-alignedlayerd query distribution validator-distribution-info cosmosvaloper1...
+alignedlayerd query distribution validator-distribution-info alignedvaloper1...
 ```
 Example output:
 ```sh
 commission:
 - amount: "100000.000000000000000000"
   denom: stake
-operator_address: cosmosvaloper1...
+operator_address: alignedvaloper1...
 self_bond_rewards:
 - amount: "100000.000000000000000000"
   denom: stake
@@ -669,7 +683,7 @@ alignedlayerd tx distribution withdraw-rewards [validator-addr] [flags]
 
 Example:
 ```sh
-alignedlayerd tx distribution withdraw-rewards cosmosvaloper1... --from cosmos1... --commission
+alignedlayerd tx distribution withdraw-rewards alignedvaloper1... --from aligned1... --commission
 ```
 
 See the Cosmos' [documentation](https://docs.cosmos.network/main/build/modules/distribution) to learn
@@ -683,10 +697,10 @@ alignedlayerd query bank balances [address] [flags]
 ```
 Example:
 ```sh
-alignedlayerd query bank balances cosmos1..
+alignedlayerd query bank balances aligned1..
 ```
 
-### Slashing    <a name="slashing"></a>
+### Slashing<a name="slashing"></a>
 You can use the slashing CLI commands to query slashing state
 ```
 alignedlayerd query slashing --help
@@ -704,16 +718,16 @@ alignedlayerd query slashing params [flags]
     Example output:
     ```
     info:
-    - address: cosmosvalcons15gc...
+    - address: alignedvalcons15gc...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons14xa...
+    - address: alignedvalcons14xa...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons14nz...
+    - address: alignedvalcons14nz...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
-    - address: cosmosvalcons1a34...
+    - address: alignedvalcons1a34...
     index_offset: "147"
     jailed_until: "1970-01-01T00:00:00Z"
     pagination:
@@ -723,13 +737,13 @@ alignedlayerd query slashing params [flags]
 
     Example:
     ```sh
-    alignedlayerd query slashing signing-info cosmosvalcons15gc...
+    alignedlayerd query slashing signing-info alignedvalcons15gc...
     ```
 
     Example output:
     ```
     val_signing_info:
-        address: cosmosvalcons15gc...
+        address: alignedvalcons15gc...
         index_offset: "255"
         jailed_until: "1970-01-01T00:00:00Z"
         missed_blocks_counter: "16"
@@ -744,8 +758,20 @@ alignedlayerd query distribution slashes [validator-addr] [start-height] [end-he
 #### Sending Unjail Transaction
 To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin the validator set:
 ```
-alignedlayerd tx slashing unjail --from account_name --chain-id alignedlayer --fees 20stake
+alignedlayerd tx slashing unjail --from <account_name> --chain-id alignedlayer --fees 20stake
+```
+
+### Staking <a name="staking"></a>
+You may stake additional tokens after registering your validator with the following command: 
+```
+alignedlayerd tx staking delegate <valoperaddr> <amount> --from <account_name> --chain-id alignedlayer --fees 20stake
+```
+
+You can obtain your validator `valoperaddr` by doing:
+
+```
+alignedlayerd keys show <account_name> --bech val --address
 ```
 
 ## Acknowledgements <a name="acknowledgements"></a>
-We are most grateful to [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), [Ignite CLI](https://github.com/ignite/cli), [CometBFT](https://github.com/cometbft/cometbft) and [Ping.pub](https://github.com/ping-pub/faucet).
+We are most grateful to [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), [Ignite CLI](https://github.com/ignite/cli), [CometBFT](https://github.com/cometbft/cometbft) and Ping.pub for their [faucet](https://github.com/ping-pub/faucet) and [explorer](https://github.com/ping-pub/explorer).

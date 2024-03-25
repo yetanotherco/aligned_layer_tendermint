@@ -9,4 +9,4 @@ release/
 *.ign
 prod-sim/
 server-setup/
-*.base64
+prover_examples/gnark_plonk/*.base64

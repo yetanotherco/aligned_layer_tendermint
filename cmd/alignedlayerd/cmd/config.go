@@ -32,7 +32,9 @@ func initCometBFTConfig() *cmtcfg.Config {
 	// these values put a higher strain on node memory
 	// cfg.P2P.MaxNumInboundPeers = 100
 	// cfg.P2P.MaxNumOutboundPeers = 40
-
+	cfg.Mempool.MaxTxBytes = 20971520
+	cfg.Mempool.MaxTxsBytes = 25165824
+	cfg.RPC.MaxBodyBytes = 20971520
 	return cfg
 }
 
@@ -61,6 +63,8 @@ func initAppConfig() (string, interface{}) {
 	// In tests, we set the min gas prices to 0.
 	// srvCfg.MinGasPrices = "0stake"
 	// srvCfg.BaseConfig.IAVLDisableFastNode = true // disable fastnode by default
+
+	srvCfg.MinGasPrices = "0.0001stake"
 
 	customAppConfig := CustomAppConfig{
 		Config: *srvCfg,

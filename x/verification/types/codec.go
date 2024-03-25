@@ -10,12 +10,18 @@ import (
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgVerifyPlonk{},
+<<<<<<< HEAD
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgVerifyCairo{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgVerifySp1{},
+=======
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgVerifyCairo{},
+>>>>>>> cairoplatinum
 	)
 	// this line is used by starport scaffolding # 3
 

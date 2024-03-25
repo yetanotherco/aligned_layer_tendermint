@@ -1802,6 +1802,7 @@ func (x *fastReflection_MsgVerifyPlonkResponse) ProtoMethods() *protoiface.Metho
 			}
 			if fieldNum <= 0 {
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifyPlonkResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+<<<<<<< HEAD
 			}
 			switch fieldNum {
 			default:
@@ -2642,6 +2643,8 @@ func (x *fastReflection_MsgVerifyCairoResponse) ProtoMethods() *protoiface.Metho
 			}
 			if fieldNum <= 0 {
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifyCairoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+=======
+>>>>>>> cairoplatinum
 			}
 			switch fieldNum {
 			default:
@@ -2680,28 +2683,33 @@ func (x *fastReflection_MsgVerifyCairoResponse) ProtoMethods() *protoiface.Metho
 }
 
 var (
-	md_MsgVerifySp1         protoreflect.MessageDescriptor
-	fd_MsgVerifySp1_creator protoreflect.FieldDescriptor
-	fd_MsgVerifySp1_proof   protoreflect.FieldDescriptor
+	md_MsgVerifyCairo         protoreflect.MessageDescriptor
+	fd_MsgVerifyCairo_creator protoreflect.FieldDescriptor
+	fd_MsgVerifyCairo_proof   protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_alignedlayer_verification_tx_proto_init()
-	md_MsgVerifySp1 = File_alignedlayer_verification_tx_proto.Messages().ByName("MsgVerifySp1")
-	fd_MsgVerifySp1_creator = md_MsgVerifySp1.Fields().ByName("creator")
-	fd_MsgVerifySp1_proof = md_MsgVerifySp1.Fields().ByName("proof")
+	md_MsgVerifyCairo = File_alignedlayer_verification_tx_proto.Messages().ByName("MsgVerifyCairo")
+	fd_MsgVerifyCairo_creator = md_MsgVerifyCairo.Fields().ByName("creator")
+	fd_MsgVerifyCairo_proof = md_MsgVerifyCairo.Fields().ByName("proof")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgVerifySp1)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgVerifyCairo)(nil)
 
-type fastReflection_MsgVerifySp1 MsgVerifySp1
+type fastReflection_MsgVerifyCairo MsgVerifyCairo
 
-func (x *MsgVerifySp1) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgVerifySp1)(x)
+func (x *MsgVerifyCairo) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgVerifyCairo)(x)
 }
 
+<<<<<<< HEAD
 func (x *MsgVerifySp1) slowProtoReflect() protoreflect.Message {
 	mi := &file_alignedlayer_verification_tx_proto_msgTypes[6]
+=======
+func (x *MsgVerifyCairo) slowProtoReflect() protoreflect.Message {
+	mi := &file_alignedlayer_verification_tx_proto_msgTypes[4]
+>>>>>>> cairoplatinum
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2712,43 +2720,43 @@ func (x *MsgVerifySp1) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgVerifySp1_messageType fastReflection_MsgVerifySp1_messageType
-var _ protoreflect.MessageType = fastReflection_MsgVerifySp1_messageType{}
+var _fastReflection_MsgVerifyCairo_messageType fastReflection_MsgVerifyCairo_messageType
+var _ protoreflect.MessageType = fastReflection_MsgVerifyCairo_messageType{}
 
-type fastReflection_MsgVerifySp1_messageType struct{}
+type fastReflection_MsgVerifyCairo_messageType struct{}
 
-func (x fastReflection_MsgVerifySp1_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgVerifySp1)(nil)
+func (x fastReflection_MsgVerifyCairo_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgVerifyCairo)(nil)
 }
-func (x fastReflection_MsgVerifySp1_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgVerifySp1)
+func (x fastReflection_MsgVerifyCairo_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgVerifyCairo)
 }
-func (x fastReflection_MsgVerifySp1_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgVerifySp1
+func (x fastReflection_MsgVerifyCairo_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgVerifyCairo
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgVerifySp1) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgVerifySp1
+func (x *fastReflection_MsgVerifyCairo) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgVerifyCairo
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgVerifySp1) Type() protoreflect.MessageType {
-	return _fastReflection_MsgVerifySp1_messageType
+func (x *fastReflection_MsgVerifyCairo) Type() protoreflect.MessageType {
+	return _fastReflection_MsgVerifyCairo_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgVerifySp1) New() protoreflect.Message {
-	return new(fastReflection_MsgVerifySp1)
+func (x *fastReflection_MsgVerifyCairo) New() protoreflect.Message {
+	return new(fastReflection_MsgVerifyCairo)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgVerifySp1) Interface() protoreflect.ProtoMessage {
-	return (*MsgVerifySp1)(x)
+func (x *fastReflection_MsgVerifyCairo) Interface() protoreflect.ProtoMessage {
+	return (*MsgVerifyCairo)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -2756,16 +2764,16 @@ func (x *fastReflection_MsgVerifySp1) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgVerifySp1) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgVerifyCairo) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Creator != "" {
 		value := protoreflect.ValueOfString(x.Creator)
-		if !f(fd_MsgVerifySp1_creator, value) {
+		if !f(fd_MsgVerifyCairo_creator, value) {
 			return
 		}
 	}
 	if x.Proof != "" {
 		value := protoreflect.ValueOfString(x.Proof)
-		if !f(fd_MsgVerifySp1_proof, value) {
+		if !f(fd_MsgVerifyCairo_proof, value) {
 			return
 		}
 	}
@@ -2782,17 +2790,17 @@ func (x *fastReflection_MsgVerifySp1) Range(f func(protoreflect.FieldDescriptor,
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgVerifySp1) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgVerifyCairo) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "alignedlayer.verification.MsgVerifySp1.creator":
+	case "alignedlayer.verification.MsgVerifyCairo.creator":
 		return x.Creator != ""
-	case "alignedlayer.verification.MsgVerifySp1.proof":
+	case "alignedlayer.verification.MsgVerifyCairo.proof":
 		return x.Proof != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairo"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1 does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairo does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2802,17 +2810,17 @@ func (x *fastReflection_MsgVerifySp1) Has(fd protoreflect.FieldDescriptor) bool 
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgVerifyCairo) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "alignedlayer.verification.MsgVerifySp1.creator":
+	case "alignedlayer.verification.MsgVerifyCairo.creator":
 		x.Creator = ""
-	case "alignedlayer.verification.MsgVerifySp1.proof":
+	case "alignedlayer.verification.MsgVerifyCairo.proof":
 		x.Proof = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairo"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1 does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairo does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2822,19 +2830,19 @@ func (x *fastReflection_MsgVerifySp1) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgVerifySp1) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgVerifyCairo) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "alignedlayer.verification.MsgVerifySp1.creator":
+	case "alignedlayer.verification.MsgVerifyCairo.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
-	case "alignedlayer.verification.MsgVerifySp1.proof":
+	case "alignedlayer.verification.MsgVerifyCairo.proof":
 		value := x.Proof
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairo"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1 does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairo does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2848,17 +2856,17 @@ func (x *fastReflection_MsgVerifySp1) Get(descriptor protoreflect.FieldDescripto
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgVerifyCairo) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "alignedlayer.verification.MsgVerifySp1.creator":
+	case "alignedlayer.verification.MsgVerifyCairo.creator":
 		x.Creator = value.Interface().(string)
-	case "alignedlayer.verification.MsgVerifySp1.proof":
+	case "alignedlayer.verification.MsgVerifyCairo.proof":
 		x.Proof = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairo"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1 does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairo does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2872,44 +2880,44 @@ func (x *fastReflection_MsgVerifySp1) Set(fd protoreflect.FieldDescriptor, value
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgVerifyCairo) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "alignedlayer.verification.MsgVerifySp1.creator":
-		panic(fmt.Errorf("field creator of message alignedlayer.verification.MsgVerifySp1 is not mutable"))
-	case "alignedlayer.verification.MsgVerifySp1.proof":
-		panic(fmt.Errorf("field proof of message alignedlayer.verification.MsgVerifySp1 is not mutable"))
+	case "alignedlayer.verification.MsgVerifyCairo.creator":
+		panic(fmt.Errorf("field creator of message alignedlayer.verification.MsgVerifyCairo is not mutable"))
+	case "alignedlayer.verification.MsgVerifyCairo.proof":
+		panic(fmt.Errorf("field proof of message alignedlayer.verification.MsgVerifyCairo is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairo"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1 does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairo does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgVerifySp1) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgVerifyCairo) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "alignedlayer.verification.MsgVerifySp1.creator":
+	case "alignedlayer.verification.MsgVerifyCairo.creator":
 		return protoreflect.ValueOfString("")
-	case "alignedlayer.verification.MsgVerifySp1.proof":
+	case "alignedlayer.verification.MsgVerifyCairo.proof":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairo"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1 does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairo does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgVerifySp1) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgVerifyCairo) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in alignedlayer.verification.MsgVerifySp1", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in alignedlayer.verification.MsgVerifyCairo", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2917,7 +2925,7 @@ func (x *fastReflection_MsgVerifySp1) WhichOneof(d protoreflect.OneofDescriptor)
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgVerifySp1) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgVerifyCairo) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -2928,7 +2936,7 @@ func (x *fastReflection_MsgVerifySp1) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgVerifyCairo) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -2940,7 +2948,7 @@ func (x *fastReflection_MsgVerifySp1) SetUnknown(fields protoreflect.RawFields) 
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgVerifySp1) IsValid() bool {
+func (x *fastReflection_MsgVerifyCairo) IsValid() bool {
 	return x != nil
 }
 
@@ -2950,9 +2958,9 @@ func (x *fastReflection_MsgVerifySp1) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgVerifySp1) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgVerifyCairo) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgVerifySp1)
+		x := input.Message.Interface().(*MsgVerifyCairo)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2982,7 +2990,7 @@ func (x *fastReflection_MsgVerifySp1) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgVerifySp1)
+		x := input.Message.Interface().(*MsgVerifyCairo)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3026,7 +3034,7 @@ func (x *fastReflection_MsgVerifySp1) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgVerifySp1)
+		x := input.Message.Interface().(*MsgVerifyCairo)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3058,10 +3066,10 @@ func (x *fastReflection_MsgVerifySp1) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifySp1: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifyCairo: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifySp1: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifyCairo: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -3164,24 +3172,29 @@ func (x *fastReflection_MsgVerifySp1) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgVerifySp1Response protoreflect.MessageDescriptor
+	md_MsgVerifyCairoResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_alignedlayer_verification_tx_proto_init()
-	md_MsgVerifySp1Response = File_alignedlayer_verification_tx_proto.Messages().ByName("MsgVerifySp1Response")
+	md_MsgVerifyCairoResponse = File_alignedlayer_verification_tx_proto.Messages().ByName("MsgVerifyCairoResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgVerifySp1Response)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgVerifyCairoResponse)(nil)
 
-type fastReflection_MsgVerifySp1Response MsgVerifySp1Response
+type fastReflection_MsgVerifyCairoResponse MsgVerifyCairoResponse
 
-func (x *MsgVerifySp1Response) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgVerifySp1Response)(x)
+func (x *MsgVerifyCairoResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgVerifyCairoResponse)(x)
 }
 
+<<<<<<< HEAD
 func (x *MsgVerifySp1Response) slowProtoReflect() protoreflect.Message {
 	mi := &file_alignedlayer_verification_tx_proto_msgTypes[7]
+=======
+func (x *MsgVerifyCairoResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_alignedlayer_verification_tx_proto_msgTypes[5]
+>>>>>>> cairoplatinum
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3192,43 +3205,43 @@ func (x *MsgVerifySp1Response) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgVerifySp1Response_messageType fastReflection_MsgVerifySp1Response_messageType
-var _ protoreflect.MessageType = fastReflection_MsgVerifySp1Response_messageType{}
+var _fastReflection_MsgVerifyCairoResponse_messageType fastReflection_MsgVerifyCairoResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgVerifyCairoResponse_messageType{}
 
-type fastReflection_MsgVerifySp1Response_messageType struct{}
+type fastReflection_MsgVerifyCairoResponse_messageType struct{}
 
-func (x fastReflection_MsgVerifySp1Response_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgVerifySp1Response)(nil)
+func (x fastReflection_MsgVerifyCairoResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgVerifyCairoResponse)(nil)
 }
-func (x fastReflection_MsgVerifySp1Response_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgVerifySp1Response)
+func (x fastReflection_MsgVerifyCairoResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgVerifyCairoResponse)
 }
-func (x fastReflection_MsgVerifySp1Response_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgVerifySp1Response
+func (x fastReflection_MsgVerifyCairoResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgVerifyCairoResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgVerifySp1Response) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgVerifySp1Response
+func (x *fastReflection_MsgVerifyCairoResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgVerifyCairoResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgVerifySp1Response) Type() protoreflect.MessageType {
-	return _fastReflection_MsgVerifySp1Response_messageType
+func (x *fastReflection_MsgVerifyCairoResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgVerifyCairoResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgVerifySp1Response) New() protoreflect.Message {
-	return new(fastReflection_MsgVerifySp1Response)
+func (x *fastReflection_MsgVerifyCairoResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgVerifyCairoResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgVerifySp1Response) Interface() protoreflect.ProtoMessage {
-	return (*MsgVerifySp1Response)(x)
+func (x *fastReflection_MsgVerifyCairoResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgVerifyCairoResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -3236,7 +3249,7 @@ func (x *fastReflection_MsgVerifySp1Response) Interface() protoreflect.ProtoMess
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgVerifySp1Response) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgVerifyCairoResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -3250,13 +3263,13 @@ func (x *fastReflection_MsgVerifySp1Response) Range(f func(protoreflect.FieldDes
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgVerifySp1Response) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgVerifyCairoResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1Response"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairoResponse"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1Response does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairoResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3266,13 +3279,13 @@ func (x *fastReflection_MsgVerifySp1Response) Has(fd protoreflect.FieldDescripto
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1Response) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgVerifyCairoResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1Response"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairoResponse"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1Response does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairoResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3282,13 +3295,13 @@ func (x *fastReflection_MsgVerifySp1Response) Clear(fd protoreflect.FieldDescrip
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgVerifySp1Response) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgVerifyCairoResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1Response"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairoResponse"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1Response does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairoResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3302,13 +3315,13 @@ func (x *fastReflection_MsgVerifySp1Response) Get(descriptor protoreflect.FieldD
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1Response) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgVerifyCairoResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1Response"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairoResponse"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1Response does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairoResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3322,36 +3335,36 @@ func (x *fastReflection_MsgVerifySp1Response) Set(fd protoreflect.FieldDescripto
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1Response) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgVerifyCairoResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1Response"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairoResponse"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1Response does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairoResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgVerifySp1Response) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgVerifyCairoResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifySp1Response"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: alignedlayer.verification.MsgVerifyCairoResponse"))
 		}
-		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifySp1Response does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message alignedlayer.verification.MsgVerifyCairoResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgVerifySp1Response) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgVerifyCairoResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in alignedlayer.verification.MsgVerifySp1Response", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in alignedlayer.verification.MsgVerifyCairoResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3359,7 +3372,7 @@ func (x *fastReflection_MsgVerifySp1Response) WhichOneof(d protoreflect.OneofDes
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgVerifySp1Response) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgVerifyCairoResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3370,7 +3383,7 @@ func (x *fastReflection_MsgVerifySp1Response) GetUnknown() protoreflect.RawField
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgVerifySp1Response) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgVerifyCairoResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -3382,7 +3395,7 @@ func (x *fastReflection_MsgVerifySp1Response) SetUnknown(fields protoreflect.Raw
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgVerifySp1Response) IsValid() bool {
+func (x *fastReflection_MsgVerifyCairoResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -3392,9 +3405,9 @@ func (x *fastReflection_MsgVerifySp1Response) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgVerifySp1Response) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgVerifyCairoResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgVerifySp1Response)
+		x := input.Message.Interface().(*MsgVerifyCairoResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3416,7 +3429,7 @@ func (x *fastReflection_MsgVerifySp1Response) ProtoMethods() *protoiface.Methods
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgVerifySp1Response)
+		x := input.Message.Interface().(*MsgVerifyCairoResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3446,7 +3459,7 @@ func (x *fastReflection_MsgVerifySp1Response) ProtoMethods() *protoiface.Methods
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgVerifySp1Response)
+		x := input.Message.Interface().(*MsgVerifyCairoResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3478,10 +3491,14 @@ func (x *fastReflection_MsgVerifySp1Response) ProtoMethods() *protoiface.Methods
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifySp1Response: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifyCairoResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
+<<<<<<< HEAD
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifySp1Response: illegal tag %d (wire type %d)", fieldNum, wire)
+=======
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgVerifyCairoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+>>>>>>> cairoplatinum
 			}
 			switch fieldNum {
 			default:
@@ -3692,6 +3709,7 @@ func (*MsgVerifyPlonkResponse) Descriptor() ([]byte, []int) {
 }
 
 type MsgVerifyCairo struct {
+<<<<<<< HEAD
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -3761,6 +3779,8 @@ func (*MsgVerifyCairoResponse) Descriptor() ([]byte, []int) {
 }
 
 type MsgVerifySp1 struct {
+=======
+>>>>>>> cairoplatinum
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -3769,8 +3789,8 @@ type MsgVerifySp1 struct {
 	Proof   string `protobuf:"bytes,2,opt,name=proof,proto3" json:"proof,omitempty"`
 }
 
-func (x *MsgVerifySp1) Reset() {
-	*x = MsgVerifySp1{}
+func (x *MsgVerifyCairo) Reset() {
+	*x = MsgVerifyCairo{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_alignedlayer_verification_tx_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3778,39 +3798,45 @@ func (x *MsgVerifySp1) Reset() {
 	}
 }
 
-func (x *MsgVerifySp1) String() string {
+func (x *MsgVerifyCairo) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgVerifySp1) ProtoMessage() {}
+func (*MsgVerifyCairo) ProtoMessage() {}
 
+<<<<<<< HEAD
 // Deprecated: Use MsgVerifySp1.ProtoReflect.Descriptor instead.
 func (*MsgVerifySp1) Descriptor() ([]byte, []int) {
 	return file_alignedlayer_verification_tx_proto_rawDescGZIP(), []int{6}
+=======
+// Deprecated: Use MsgVerifyCairo.ProtoReflect.Descriptor instead.
+func (*MsgVerifyCairo) Descriptor() ([]byte, []int) {
+	return file_alignedlayer_verification_tx_proto_rawDescGZIP(), []int{4}
+>>>>>>> cairoplatinum
 }
 
-func (x *MsgVerifySp1) GetCreator() string {
+func (x *MsgVerifyCairo) GetCreator() string {
 	if x != nil {
 		return x.Creator
 	}
 	return ""
 }
 
-func (x *MsgVerifySp1) GetProof() string {
+func (x *MsgVerifyCairo) GetProof() string {
 	if x != nil {
 		return x.Proof
 	}
 	return ""
 }
 
-type MsgVerifySp1Response struct {
+type MsgVerifyCairoResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgVerifySp1Response) Reset() {
-	*x = MsgVerifySp1Response{}
+func (x *MsgVerifyCairoResponse) Reset() {
+	*x = MsgVerifyCairoResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_alignedlayer_verification_tx_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3818,15 +3844,21 @@ func (x *MsgVerifySp1Response) Reset() {
 	}
 }
 
-func (x *MsgVerifySp1Response) String() string {
+func (x *MsgVerifyCairoResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgVerifySp1Response) ProtoMessage() {}
+func (*MsgVerifyCairoResponse) ProtoMessage() {}
 
+<<<<<<< HEAD
 // Deprecated: Use MsgVerifySp1Response.ProtoReflect.Descriptor instead.
 func (*MsgVerifySp1Response) Descriptor() ([]byte, []int) {
 	return file_alignedlayer_verification_tx_proto_rawDescGZIP(), []int{7}
+=======
+// Deprecated: Use MsgVerifyCairoResponse.ProtoReflect.Descriptor instead.
+func (*MsgVerifyCairoResponse) Descriptor() ([]byte, []int) {
+	return file_alignedlayer_verification_tx_proto_rawDescGZIP(), []int{5}
+>>>>>>> cairoplatinum
 }
 
 var File_alignedlayer_verification_tx_proto protoreflect.FileDescriptor
@@ -3877,6 +3909,7 @@ var file_alignedlayer_verification_tx_proto_rawDesc = []byte{
 	0x09, 0x52, 0x05, 0x70, 0x72, 0x6f, 0x6f, 0x66, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63,
 	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x18, 0x0a, 0x16, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72,
 	0x69, 0x66, 0x79, 0x43, 0x61, 0x69, 0x72, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+<<<<<<< HEAD
 	0x22, 0x4c, 0x0a, 0x0c, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x53, 0x70, 0x31,
 	0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72,
@@ -3926,6 +3959,44 @@ var file_alignedlayer_verification_tx_proto_rawDesc = []byte{
 	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x1a, 0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c,
 	0x61, 0x79, 0x65, 0x72, 0x3a, 0x3a, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+=======
+	0x32, 0xd6, 0x02, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x6e, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x2a, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e,
+	0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x1a, 0x32, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61,
+	0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6b, 0x0a, 0x0b, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x79, 0x50, 0x6c, 0x6f, 0x6e, 0x6b, 0x12, 0x29, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65,
+	0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x50, 0x6c, 0x6f,
+	0x6e, 0x6b, 0x1a, 0x31, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65,
+	0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
+	0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x50, 0x6c, 0x6f, 0x6e, 0x6b, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6b, 0x0a, 0x0b, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x43,
+	0x61, 0x69, 0x72, 0x6f, 0x12, 0x29, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61,
+	0x79, 0x65, 0x72, 0x2e, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x43, 0x61, 0x69, 0x72, 0x6f, 0x1a,
+	0x31, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76,
+	0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56,
+	0x65, 0x72, 0x69, 0x66, 0x79, 0x43, 0x61, 0x69, 0x72, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0xd9, 0x01, 0x0a, 0x1d, 0x63, 0x6f,
+	0x6d, 0x2e, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x76,
+	0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x07, 0x54, 0x78, 0x50,
+	0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x2a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64,
+	0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64,
+	0x6c, 0x61, 0x79, 0x65, 0x72, 0x2f, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x41, 0x56, 0x58, 0xaa, 0x02, 0x19, 0x41, 0x6c, 0x69, 0x67, 0x6e,
+	0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0xca, 0x02, 0x19, 0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61,
+	0x79, 0x65, 0x72, 0x5c, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0xe2, 0x02, 0x25, 0x41, 0x6c, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c,
+	0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42,
+	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x1a, 0x41, 0x6c, 0x69, 0x67, 0x6e,
+	0x65, 0x64, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x3a, 0x3a, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+>>>>>>> cairoplatinum
 }
 
 var (
@@ -3940,7 +4011,7 @@ func file_alignedlayer_verification_tx_proto_rawDescGZIP() []byte {
 	return file_alignedlayer_verification_tx_proto_rawDescData
 }
 
-var file_alignedlayer_verification_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_alignedlayer_verification_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_alignedlayer_verification_tx_proto_goTypes = []interface{}{
 	(*MsgUpdateParams)(nil),         // 0: alignedlayer.verification.MsgUpdateParams
 	(*MsgUpdateParamsResponse)(nil), // 1: alignedlayer.verification.MsgUpdateParamsResponse
@@ -3948,15 +4019,20 @@ var file_alignedlayer_verification_tx_proto_goTypes = []interface{}{
 	(*MsgVerifyPlonkResponse)(nil),  // 3: alignedlayer.verification.MsgVerifyPlonkResponse
 	(*MsgVerifyCairo)(nil),          // 4: alignedlayer.verification.MsgVerifyCairo
 	(*MsgVerifyCairoResponse)(nil),  // 5: alignedlayer.verification.MsgVerifyCairoResponse
+<<<<<<< HEAD
 	(*MsgVerifySp1)(nil),            // 6: alignedlayer.verification.MsgVerifySp1
 	(*MsgVerifySp1Response)(nil),    // 7: alignedlayer.verification.MsgVerifySp1Response
 	(*Params)(nil),                  // 8: alignedlayer.verification.Params
+=======
+	(*Params)(nil),                  // 6: alignedlayer.verification.Params
+>>>>>>> cairoplatinum
 }
 var file_alignedlayer_verification_tx_proto_depIdxs = []int32{
-	8, // 0: alignedlayer.verification.MsgUpdateParams.params:type_name -> alignedlayer.verification.Params
+	6, // 0: alignedlayer.verification.MsgUpdateParams.params:type_name -> alignedlayer.verification.Params
 	0, // 1: alignedlayer.verification.Msg.UpdateParams:input_type -> alignedlayer.verification.MsgUpdateParams
 	2, // 2: alignedlayer.verification.Msg.VerifyPlonk:input_type -> alignedlayer.verification.MsgVerifyPlonk
 	4, // 3: alignedlayer.verification.Msg.VerifyCairo:input_type -> alignedlayer.verification.MsgVerifyCairo
+<<<<<<< HEAD
 	6, // 4: alignedlayer.verification.Msg.VerifySp1:input_type -> alignedlayer.verification.MsgVerifySp1
 	1, // 5: alignedlayer.verification.Msg.UpdateParams:output_type -> alignedlayer.verification.MsgUpdateParamsResponse
 	3, // 6: alignedlayer.verification.Msg.VerifyPlonk:output_type -> alignedlayer.verification.MsgVerifyPlonkResponse
@@ -3964,6 +4040,13 @@ var file_alignedlayer_verification_tx_proto_depIdxs = []int32{
 	7, // 8: alignedlayer.verification.Msg.VerifySp1:output_type -> alignedlayer.verification.MsgVerifySp1Response
 	5, // [5:9] is the sub-list for method output_type
 	1, // [1:5] is the sub-list for method input_type
+=======
+	1, // 4: alignedlayer.verification.Msg.UpdateParams:output_type -> alignedlayer.verification.MsgUpdateParamsResponse
+	3, // 5: alignedlayer.verification.Msg.VerifyPlonk:output_type -> alignedlayer.verification.MsgVerifyPlonkResponse
+	5, // 6: alignedlayer.verification.Msg.VerifyCairo:output_type -> alignedlayer.verification.MsgVerifyCairoResponse
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
+>>>>>>> cairoplatinum
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -4038,6 +4121,7 @@ func file_alignedlayer_verification_tx_proto_init() {
 		}
 		file_alignedlayer_verification_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgVerifyCairoResponse); i {
+<<<<<<< HEAD
 			case 0:
 				return &v.state
 			case 1:
@@ -4062,6 +4146,8 @@ func file_alignedlayer_verification_tx_proto_init() {
 		}
 		file_alignedlayer_verification_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgVerifySp1Response); i {
+=======
+>>>>>>> cairoplatinum
 			case 0:
 				return &v.state
 			case 1:
@@ -4079,7 +4165,7 @@ func file_alignedlayer_verification_tx_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_alignedlayer_verification_tx_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -26,14 +26,21 @@ const (
 	opWeightMsgVerifyPlonk = "op_weight_msg_verify_plonk"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgVerifyPlonk int = 100
+<<<<<<< HEAD
 
 	opWeightMsgVerifyCairo = "op_weight_msg_verify_cairo"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgVerifyCairo int = 100
+=======
+>>>>>>> cairoplatinum
 
-	opWeightMsgVerifySp1 = "op_weight_msg_verify_sp_1"
+	opWeightMsgVerifyCairo = "op_weight_msg_verify_cairo"
 	// TODO: Determine the simulation weight value
+<<<<<<< HEAD
 	defaultWeightMsgVerifySp1 int = 100
+=======
+	defaultWeightMsgVerifyCairo int = 100
+>>>>>>> cairoplatinum
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -72,6 +79,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgVerifyPlonk,
 		verificationsimulation.SimulateMsgVerifyPlonk(am.accountKeeper, am.bankKeeper, am.keeper),
+<<<<<<< HEAD
 	))
 
 	var weightMsgVerifyCairo int
@@ -83,17 +91,24 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgVerifyCairo,
 		verificationsimulation.SimulateMsgVerifyCairo(am.accountKeeper, am.bankKeeper, am.keeper),
+=======
+>>>>>>> cairoplatinum
 	))
 
-	var weightMsgVerifySp1 int
-	simState.AppParams.GetOrGenerate(opWeightMsgVerifySp1, &weightMsgVerifySp1, nil,
+	var weightMsgVerifyCairo int
+	simState.AppParams.GetOrGenerate(opWeightMsgVerifyCairo, &weightMsgVerifyCairo, nil,
 		func(_ *rand.Rand) {
-			weightMsgVerifySp1 = defaultWeightMsgVerifySp1
+			weightMsgVerifyCairo = defaultWeightMsgVerifyCairo
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
+<<<<<<< HEAD
 		weightMsgVerifySp1,
 		verificationsimulation.SimulateMsgVerifySp1(am.accountKeeper, am.bankKeeper, am.keeper),
+=======
+		weightMsgVerifyCairo,
+		verificationsimulation.SimulateMsgVerifyCairo(am.accountKeeper, am.bankKeeper, am.keeper),
+>>>>>>> cairoplatinum
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
@@ -109,6 +124,7 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgVerifyPlonk,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				verificationsimulation.SimulateMsgVerifyPlonk(am.accountKeeper, am.bankKeeper, am.keeper)
+<<<<<<< HEAD
 				return nil
 			},
 		),
@@ -117,14 +133,20 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgVerifyCairo,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				verificationsimulation.SimulateMsgVerifyCairo(am.accountKeeper, am.bankKeeper, am.keeper)
+=======
+>>>>>>> cairoplatinum
 				return nil
 			},
 		),
 		simulation.NewWeightedProposalMsg(
-			opWeightMsgVerifySp1,
-			defaultWeightMsgVerifySp1,
+			opWeightMsgVerifyCairo,
+			defaultWeightMsgVerifyCairo,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+<<<<<<< HEAD
 				verificationsimulation.SimulateMsgVerifySp1(am.accountKeeper, am.bankKeeper, am.keeper)
+=======
+				verificationsimulation.SimulateMsgVerifyCairo(am.accountKeeper, am.bankKeeper, am.keeper)
+>>>>>>> cairoplatinum
 				return nil
 			},
 		),
