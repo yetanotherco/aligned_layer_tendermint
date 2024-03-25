@@ -8,65 +8,71 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 
 ## Table of Contents
 
-<!-- omit in toc -->1
 - [Aligned Layer Blockchain](#aligned-layer-blockchain)
   - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
   - [Example Local Blockchain](#example-local-blockchain)
+  - [Verifiers](#verifiers)
+    - [Gnark Plonk](#gnark-plonk)
+    - [Cairo Platinum](#cairo-platinum)
   - [Trying our testnet](#trying-our-testnet)
   - [Joining Our Testnet](#joining-our-testnet)
     - [Requirements](#requirements-1)
+      - [Hardware](#hardware)
+      - [Software](#software)
     - [Node Setup](#node-setup)
-  - [Creating an Account ](#creating-an-account-)
-  - [Registering as a Validator](#registering-as-a-validator)
-    - [The fast way](#the-fast-way-1)
-    - [Manual step by step](#manual-step-by-step-1)
-  - [Testnet public IPs ](#testnet-public-ips-)
-  - [How It Works ](#how-it-works-)
-    - [Project Anatomy ](#project-anatomy-)
-    - [Transaction Lifecycle ](#transaction-lifecycle-)
-    - [Interacting with a Node ](#interacting-with-a-node-)
-  - [Setting up a local network with multiple nodes ](#setting-up-a-local-network-with-multiple-nodes-)
-  - [Tutorials ](#tutorials-)
-    - [Setup the Faucet Locally ](#setup-the-faucet-locally-)
-    - [Claiming Staking Rewards ](#claiming-staking-rewards-)
-    - [Bank ](#bank-)
+      - [The fast way](#the-fast-way)
+      - [Manual step by step](#manual-step-by-step)
+    - [Creating an Account](#creating-an-account)
+    - [Registering as a Validator](#registering-as-a-validator)
+      - [The fast way](#the-fast-way-1)
+      - [Manual step by step](#manual-step-by-step-1)
+  - [Testnet public IPs](#testnet-public-ips)
+  - [How It Works](#how-it-works)
+    - [Project Anatomy](#project-anatomy)
+    - [Transaction Lifecycle](#transaction-lifecycle)
+    - [Interacting with a Node](#interacting-with-a-node)
+      - [gRPC](#grpc)
+      - [REST](#rest)
+      - [CometBFT RPC](#cometbft-rpc)
+  - [Tutorials](#tutorials)
+    - [Setting up a local network with multiple nodes](#setting-up-a-local-network-with-multiple-nodes)
+    - [Setup the Faucet Locally](#setup-the-faucet-locally)
+    - [Claiming Staking Rewards](#claiming-staking-rewards)
+      - [Querying Outstanding Rewards](#querying-outstanding-rewards)
+      - [Querying Validator Distribution Info](#querying-validator-distribution-info)
+      - [Withdraw All Rewards](#withdraw-all-rewards)
+    - [Bank](#bank)
+      - [Querying Account Balances](#querying-account-balances)
     - [Slashing](#slashing)
-    - [Staking ](#staking-)
-  - [Acknowledgements ](#acknowledgements-)
+      - [Querying Slashing Params](#querying-slashing-params)
+      - [Querying Signing info](#querying-signing-info)
+      - [Querying Slashes](#querying-slashes)
+      - [Sending Unjail Transaction](#sending-unjail-transaction)
+    - [Staking](#staking)
+  - [Acknowledgements](#acknowledgements)
 
-## Requirements<a name="requirements"></a>
+## Requirements
 
 - [Go v1.22](https://go.dev/dl/)
 - [Ignite v28.2](https://docs.ignite.com/welcome/install)
 - [Rust v1.76](https://www.rust-lang.org/tools/install)
 
-## Example Local Blockchain<a name="example"></a>
+## Example Local Blockchain
 
 To run a single node blockchain, run:
 
 ```sh
-make run-macos
-```
-
-or 
-
-```sh
+make run-macos # or 
 make run-linux
 ```
 
 This command installs dependencies, builds, initializes, and starts your blockchain in development.
 
-To send a verify message (transaction), use the following command:
+You can try to send an example proof used in the repo with the following command:
 
 ```sh
-alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer <proof> <public_inputs> <verifying_key>
-```
-
-You can try with an example proof used in the repo with the following command:
-
-```sh
-alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
+alignedlayerd tx verify gnark-plonk --from alice --chain-id alignedlayer \
     $(cat ./prover_examples/gnark_plonk/example/proof.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/public_inputs.base64.example) \
     $(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
@@ -82,9 +88,22 @@ txhash: F105EAD99F96289914EF16CB164CE43A330AEDB93CAE2A1CFA5FAE013B5CC515
 To get the transaction result, run:
 
 ```sh
-alignedlayerd query tx <txhash> | grep proof_verifies -A 10
+alignedlayerd query tx <txhash> | grep proof_verifies -B 10
 ```
-If you want to generate a gnark proof by yourself, you must edit the circuit definition and soltion in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
+
+## Verifiers
+
+Information on the parameters received by the CLI when sending transactions can be found by running:
+
+```sh
+alignedlayerd tx verify --help
+```
+
+Upon verification, the transaction produces an event called `verification_finished` which contains a boolean attriute `proof_verifies` indicating the result.
+
+### Gnark Plonk
+
+If you want to generate a Gnark Plonk proof by yourself, you must edit the circuit definition and witness in `./prover_examples/gnark_plonk/gnark_plonk.go` and run the following command:
 
 ```sh
 go run ./prover_examples/gnark_plonk/gnark_plonk.go
@@ -93,104 +112,36 @@ go run ./prover_examples/gnark_plonk/gnark_plonk.go
 This will compile the circuit and create a proof in the root folder that is ready to be sent with:
 
 ```sh
-alignedlayerd tx verification verify-plonk --from alice --chain-id alignedlayer \
+alignedlayerd tx verify gnark-plonk --from alice --chain-id alignedlayer \
     $(cat proof.base64) \
     $(cat public_inputs.base64) \
     $(cat verifying_key.base64)
 ```
 
-## How to run Cairo proof verifications <a name="cairo"></a>
+### Cairo Platinum
 
-FFIs are being used to implement Cairo verifications, the Makefile provides all the steps needed to build the `C libraries` and the Blockchain's binary.
-
-After doing this test locally, remove the blockchain's binary and the config files:
+To send a Cairo Platinum transaction, we can use the following script, which generates the proof manually by reading the file in order to bypass the shell limit (the size of Cairo proofs tends to be large). 
 
 ```sh
-make clean
-```
-
-To run the Blockchain locally:
-
-```sh
-make run-macos
-```
-
-or 
-
-```sh
-make run-linux
-```
-
-Then, in another terminal run:
-
-```sh
-sh send_cairo_tx.sh ./prover_examples/cairo_platinum/example/fibonacci_10.proof
+sh send_cairo_tx.sh alice ./prover_examples/cairo_platinum/example/fibonacci_10.proof
 ```
 
 If we need, we can set GAS and FEES as env vars before running the script.
 
 >[!TIP]
-> The script already converts the `.proof` to `.proof.base64`.
-> But `base64` can be used as follows to encode the proofs:
+> The script already converts the `.proof` to `.proof.base64`, but `base64` can be used as follows to encode the proofs:
 > ```sh
 > base64 -i ./prover_examples/cairo_platinum/example/fibonacci_10.proof -o ./prover_examples/cairo_platinum/example/fibonacci_10.base64
 > ```
 
-#### Manual step by step
+To create your own proofs, visit [CairoVM](https://github.com/lambdaclass/cairo-vm).
 
-> [!WARNING]
-> The Cairo proof used weights 380KB. Sending a larger proof via the CLI may result in an error.
-
-<details>
-
-```sh
-alignedlayerd tx verification verify-cairo \
-    --from alice \
-		--gas 4000000 \
-		--chain-id alignedlayer \
-		$(cat ./prover_examples/cairo_platinum/example/fibonacci_10.base64)
-```
-</details>
-
-To check the output of the transaction, copy the given `<txhash>` and run:
-
-```sh
-alignedlayerd q tx <txhash> | grep verification_finished -B 10
-```
-
-The output should be:
-
-```yaml
-    key: proof_verifies
-    value: "true"
-  - index: true
-    key: prover
-    value: CAIRO
-  - index: true
-    key: msg_index
-    value: "0"
-  type: verification_finished
-gas_used: "3819148"
-gas_wanted: "5000000"
-```
-
-
-
-To create your own proofs:
-- [CairoVM](https://github.com/lambdaclass/cairo-vm)
-
-## Trying our testnet<a name="tryingtestnet"></a>
-
+## Trying our testnet
 
 Compile with:
 
 ```sh
-make build-macos
-```
-
-or 
-
-```sh
+make build-macos # or
 make build-linux
 ```
 
@@ -200,28 +151,18 @@ Create some keys:
 alignedlayerd keys add <your_key_name> --node tcp://91.107.239.79:26657
 ```
 
-After adding the keys you will get an address, use it in the faucet to get more gas for paying fees:
+After adding the keys you will get an address, use it in the [faucet](https://faucet.alignedlayer.com/) to get more gas for paying fees.
 
-```sh
-https://faucet.alignedlayer.com/
-```
-
-If you missed your address, you can get it again with:
+If you forgot your address, you can get it again with:
 
 ```sh
 alignedlayerd keys list
 ```
 
-Then you can try sending a proof for verification with:
+To send a gnark-plonk proof to the blockchain, use:
 
-```
-alignedlayerd tx verification verify --from <your_key_name>  --chain-id alignedlayer --node tcp://rpc-node.alignedlayer.com:26657 <proof> <pub_inputs> <verification_key>
-```
-
-If you want to test it with a valid proof use:
-
-```
-alignedlayerd tx verification verify --from <your_key_name> \
+```sh
+alignedlayerd tx verify gnark-plonk --from <your_key_name> \
 	--chain-id alignedlayer \
 	--node tcp://rpc-node.alignedlayer.com:26657 \
 	--fees 50stake \
@@ -230,11 +171,9 @@ alignedlayerd tx verification verify --from <your_key_name> \
 	$(cat ./prover_examples/gnark_plonk/example/verifying_key.base64.example)
 ```
 
-Other proofs can be generated by changing the circuit [here](https://github.com/yetanotherco/aligned_layer_tendermint/tree/main/prover_examples/gnark_plonk) and using  ```make generate-proof```
+## Joining Our Testnet
 
-## Joining Our Testnet<a name="joiningtestnet"></a>
-
-### Requirements<a name="joinrequirements"></a>
+### Requirements
 
 #### Hardware
 
@@ -247,7 +186,7 @@ Other proofs can be generated by changing the circuit [here](https://github.com/
 - [jq](https://jqlang.github.io/jq/download/)
 - [sponge](https://linux.die.net/man/1/sponge)
 
-### Node Setup<a name="nodesetup"></a>
+### Node Setup
 
 To join our network as a full-node, you need a public node to first connect to. An initial IP address must be set on a PEER_ADDR env variable:
 
@@ -290,7 +229,7 @@ To initialize the node, run
 ```sh
 alignedlayerd init <your-node-name> --chain-id alignedlayer
 ```
-If you have already run this command, you can use the `-o` flag to overwrite previously generated files. 
+If you have already run this command, you can use the `-o` flag to overwrite previously generated files.
 
 You now need to download the blockchain genesis file and replace the one which was automatically generated for you.
 ```sh
@@ -307,7 +246,7 @@ To configure persistent peers, seeds and gas prices, run the following commands:
 alignedlayerd config set config p2p.seeds "NODEID@blockchain-1:26656" --skip-validate
 alignedlayerd config set config p2p.persistent_peers "NODEID@blockchain-1:26656" --skip-validate
 alignedlayerd config set app minimum-gas-prices 0.0001stake --skip-validate
-``` 
+```
 
 The two most important ports are 26656 and 26657.
 
@@ -334,7 +273,7 @@ curl -s localhost:26657/status |  jq '.result.sync_info.catching_up'
 It should return `false`. If not, try again some minutes later.
 </details>
 
-## Creating an Account <a name="account"></a>
+### Creating an Account
 
 The following command shows all the possible operations regarding keys:
 
@@ -356,14 +295,13 @@ pubkey: '{"@type":"xxxxxx","key":"xxxxxx"}'
 type: local
 ```
 
-You'll be encouraged to save a mnemomic in case you need to recover your account. 
+You'll be encouraged to save a mnemomic in case you need to recover your account.
 
 > [!TIP]
 > If you don't remember the address, you can do the following:
 > `alignedlayerd keys show <address>` or `alignedlayerd keys list`
 
-
-To check the balance of an address using the binary: 
+To check the balance of an address using the binary:
 
 ```sh
 alignedlayerd query bank balances <account-address-or-name>
@@ -371,9 +309,9 @@ alignedlayerd query bank balances <account-address-or-name>
 
 To ask for tokens, connect to our [faucet](https://faucet.alignedlayer.com) with your browser. You'll be asked to specify your account address `alignedxxxxxxxxxxxx`, which you obtained in the previuos step.
 
-## Registering as a Validator<a name="validator"></a>
+### Registering as a Validator
 
-### The fast way
+#### The fast way
 
 The fastest way to setup a new node is with our script. It receives the amount to stake as an argument:
 
@@ -383,7 +321,7 @@ bash setup_validator.sh <account-name-or-address> 1050000stake
 
 This will configure your node and send a transaction for creating a validator.
 
-### Manual step by step
+#### Manual step by step
 
 <details>
   <summary>Steps</summary>
@@ -425,7 +363,7 @@ It should return something like:
 ```
 </details>
 
-## Testnet public IPs <a name="publicips"></a>
+## Testnet public IPs
 
 Our public nodes have the following IPs. Please be aware that they are in development stage, so expect inconsistency.
 
@@ -436,19 +374,19 @@ Our public nodes have the following IPs. Please be aware that they are in develo
 128.140.3.188
 ```
 
-## How It Works <a name="howitworks"></a>
+## How It Works
 
-### Project Anatomy <a name="anatomy"></a>
+### Project Anatomy
 
 The core of the state machine `App` is defined in [app.go](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/app/app.go). The application inherits from Cosmos' `BaseApp`, which routes messages to the appropriate module for handling. A transaction contains any number of messages.
 
 Cosmos SDK provides an Application Module interface to facilitate the composition of modules to form a functional unified application. Custom modules are defined in the [x](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/) directory.
 
-A module defines a message service for handling messages. These services are defined in a [protobuf file](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/proto/alignedlayer/verification/tx.proto). The methods are then implemented in a [message server](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verification/keeper/msg_server.go), which is registered in the main application.
+A module defines a message service for handling messages. These services are defined in a [protobuf file](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/proto/alignedlayer/verify/tx.proto). The methods are then implemented in a [message server](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verify/keeper/msg_server.go), which is registered in the main application.
 
-Each message's type is identified by its fully-qualified name. For example, the _verify_ message has the type `/alignedlayer.verification.MsgVerify`.
+Each message's type is identified by its fully-qualified name. For example, the _verify_ message has the type `/alignedlayer.verify.MsgVerify`.
 
-A module usually defines a [keeper](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verification/keeper/keeper.go) which encapsulates the sub-state of each module, tipically through a key-value store. A reference to the keeper is stored in the message server to be accesed by the handlers.
+A module usually defines a [keeper](https://github.com/lambdaclass/aligned_layer_tendermint/blob/main/x/verify/keeper/keeper.go) which encapsulates the sub-state of each module, tipically through a key-value store. A reference to the keeper is stored in the message server to be accesed by the handlers.
 
 <p align="center">
   <img src="imgs/Diagram_Cosmos.svg">
@@ -471,7 +409,7 @@ ignite scaffold message --module <module-name> <message-name> \
 See the [Ignite CLI reference](https://docs.ignite.com/references/cli) to learn
 about other scaffolding commands.
 
-### Transaction Lifecycle <a name="lifecycle"></a>
+### Transaction Lifecycle
 
 A transaction can be created and sent with protobuf with ignite CLI. A JSON representation of the transaction can be obtained with the `--generate-only` flag. It contains transaction metadata and a set of messages. A **message** contains the fully-qualified type to route it correctly, and its parameters.
 
@@ -480,7 +418,7 @@ A transaction can be created and sent with protobuf with ignite CLI. A JSON repr
     "body": {
         "messages": [
             {
-                "@type": "/alignedlayer.verification.MsgName",
+                "@type": "/alignedlayer.verify.MsgName",
                 "creator": "aligned1524vzjchy064rr98d2de7u6uvl4qr3egfq67xn",
                 "parameter1": "argument1"
                 "parameter2": "argument2"
@@ -518,7 +456,7 @@ After Comet BFT receives the transaction, its relayed to the application through
 
 The response is then encoded in the transaction result, and added to the blockchain.
 
-### Interacting with a Node <a name="interactwithnode"></a>
+### Interacting with a Node
 
 The full-node exposes three different types of endpoints for interacting with it.
 
@@ -550,7 +488,6 @@ The CometBFT layer exposes a RPC server on port 26657. An OpenAPI specification 
 
 When sending the transaction, it must be sent serialized with protobuf and encoded in base64, like the following example:
 
-
 ```json
 {
     "jsonrpc": "2.0",
@@ -564,7 +501,9 @@ When sending the transaction, it must be sent serialized with protobuf and encod
 
 This is the format used by the CLI.
 
-## Setting up a local network with multiple nodes <a name="multiplelocalnodes"></a>
+## Tutorials
+
+### Setting up a local network with multiple nodes
 
 Sets up a network of docker containers each with a validator node and a faucet account.
 
@@ -605,9 +544,7 @@ You can verify that it works by running (replacing `<node1_name>` by the name of
 docker run --rm -it --network alignedlayer_net-public alignedlayerd_i status --node "tcp://<node1_name>:26657"
 ```
 
-## Tutorials <a name="tutorials"></a>
-
-### Setup the Faucet Locally <a name="setupfaucet"></a>
+### Setup the Faucet Locally
 
 The dir `/faucet` has the files needed to setup the client.
 
@@ -637,7 +574,7 @@ Now the web view can used to request tokens or curl can be used as follows:
 ```sh
 curl http://localhost:8088/send/alignedlayer/:address
 ```
-### Claiming Staking Rewards <a name="claimstake"></a>
+### Claiming Staking Rewards
 
 Validators and delegators can use the following commands to claim their rewards:
 
@@ -691,7 +628,7 @@ alignedlayerd tx distribution withdraw-rewards alignedvaloper1... --from aligned
 See the Cosmos' [documentation](https://docs.cosmos.network/main/build/modules/distribution) to learn
 about other distribution commands.
 
-### Bank <a name="bank"></a>
+### Bank 
 #### Querying Account Balances
 You can use the **balances** command to query account balances by address.
 ```sh
@@ -702,7 +639,7 @@ Example:
 alignedlayerd query bank balances aligned1..
 ```
 
-### Slashing<a name="slashing"></a>
+### Slashing
 You can use the slashing CLI commands to query slashing state
 ```
 alignedlayerd query slashing --help
@@ -763,7 +700,7 @@ To send a transaction to unjail yourself, after the JailPeriod, and thus rejoin 
 alignedlayerd tx slashing unjail --from <account_name> --chain-id alignedlayer --fees 20stake
 ```
 
-### Staking <a name="staking"></a>
+### Staking 
 You may stake additional tokens after registering your validator with the following command: 
 ```
 alignedlayerd tx staking delegate <valoperaddr> <amount> --from <account_name> --chain-id alignedlayer --fees 20stake
@@ -775,5 +712,5 @@ You can obtain your validator `valoperaddr` by doing:
 alignedlayerd keys show <account_name> --bech val --address
 ```
 
-## Acknowledgements <a name="acknowledgements"></a>
+## Acknowledgements 
 We are most grateful to [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), [Ignite CLI](https://github.com/ignite/cli), [CometBFT](https://github.com/cometbft/cometbft) and Ping.pub for their [faucet](https://github.com/ping-pub/faucet) and [explorer](https://github.com/ping-pub/explorer).

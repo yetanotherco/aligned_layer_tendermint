@@ -1,8 +1,8 @@
 .PHONY: prove generate-proof send-proof query-tx clean
 
 CHAIN ?= alignedlayer
-MODULE ?= verification
-MESSAGE ?= verify
+MODULE ?= verify
+MESSAGE ?= gnark-plonk
 PROVER ?= gnark_plonk.go
 
 PROOF_FILE ?= proof.base64
