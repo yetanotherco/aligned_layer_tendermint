@@ -44,9 +44,6 @@ run-linux: build-linux
 	ignite chain serve
 
 __LOCAL_TEST__:
-run-linux: build-linux
-	ignite chain serve
-
 clean-ffi:
 	rm -rf verifiers/sp1/lib/target/release/libsp1_verifier*
 	rm -rf verifiers/cairo_platinum/lib/libcairo_platinum*
