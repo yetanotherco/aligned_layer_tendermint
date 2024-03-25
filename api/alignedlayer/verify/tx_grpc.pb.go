@@ -22,6 +22,7 @@ const (
 	Msg_UpdateParams_FullMethodName  = "/alignedlayer.verify.Msg/UpdateParams"
 	Msg_GnarkPlonk_FullMethodName    = "/alignedlayer.verify.Msg/GnarkPlonk"
 	Msg_CairoPlatinum_FullMethodName = "/alignedlayer.verify.Msg/CairoPlatinum"
+	Msg_Kimchi_FullMethodName        = "/alignedlayer.verify.Msg/Kimchi"
 )
 
 // MsgClient is the client API for Msg service.
@@ -33,6 +34,7 @@ type MsgClient interface {
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	GnarkPlonk(ctx context.Context, in *MsgGnarkPlonk, opts ...grpc.CallOption) (*MsgGnarkPlonkResponse, error)
 	CairoPlatinum(ctx context.Context, in *MsgCairoPlatinum, opts ...grpc.CallOption) (*MsgCairoPlatinumResponse, error)
+	Kimchi(ctx context.Context, in *MsgKimchi, opts ...grpc.CallOption) (*MsgKimchiResponse, error)
 }
 
 type msgClient struct {
@@ -70,6 +72,15 @@ func (c *msgClient) CairoPlatinum(ctx context.Context, in *MsgCairoPlatinum, opt
 	return out, nil
 }
 
+func (c *msgClient) Kimchi(ctx context.Context, in *MsgKimchi, opts ...grpc.CallOption) (*MsgKimchiResponse, error) {
+	out := new(MsgKimchiResponse)
+	err := c.cc.Invoke(ctx, Msg_Kimchi_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -79,6 +90,7 @@ type MsgServer interface {
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	GnarkPlonk(context.Context, *MsgGnarkPlonk) (*MsgGnarkPlonkResponse, error)
 	CairoPlatinum(context.Context, *MsgCairoPlatinum) (*MsgCairoPlatinumResponse, error)
+	Kimchi(context.Context, *MsgKimchi) (*MsgKimchiResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -94,6 +106,9 @@ func (UnimplementedMsgServer) GnarkPlonk(context.Context, *MsgGnarkPlonk) (*MsgG
 }
 func (UnimplementedMsgServer) CairoPlatinum(context.Context, *MsgCairoPlatinum) (*MsgCairoPlatinumResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CairoPlatinum not implemented")
+}
+func (UnimplementedMsgServer) Kimchi(context.Context, *MsgKimchi) (*MsgKimchiResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Kimchi not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -162,6 +177,24 @@ func _Msg_CairoPlatinum_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_Kimchi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgKimchi)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).Kimchi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_Kimchi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).Kimchi(ctx, req.(*MsgKimchi))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -180,6 +213,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CairoPlatinum",
 			Handler:    _Msg_CairoPlatinum_Handler,
+		},
+		{
+			MethodName: "Kimchi",
+			Handler:    _Msg_Kimchi_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -86,6 +86,45 @@ paths:
                 type: string
       tags:
         - Msg
+  /alignedlayer.verify.Msg/Kimchi:
+    post:
+      operationId: AlignedlayerVerifyMsg_Kimchi
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              proof:
+                type: string
+      tags:
+        - Msg
   /alignedlayer.verify.Msg/UpdateParams:
     post:
       summary: |-
@@ -3787,6 +3826,15 @@ definitions:
       verifyingKey:
         type: string
   alignedlayer.verify.MsgGnarkPlonkResponse:
+    type: object
+  alignedlayer.verify.MsgKimchi:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+  alignedlayer.verify.MsgKimchiResponse:
     type: object
   alignedlayer.verify.MsgUpdateParams:
     type: object
