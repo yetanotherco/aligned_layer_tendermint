@@ -14,7 +14,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 COPY . .
 
-RUN make clean_ffi
-RUN make build_linux
+RUN make clean-ffi
+RUN make build-linux
 
 ENTRYPOINT [ "alignedlayerd" ]

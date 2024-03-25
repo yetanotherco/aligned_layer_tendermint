@@ -212,13 +212,13 @@ alignedlayerd tx verify gnark-plonk --from <your_key_name> \
 
 ### Node Setup
 
-To join our network as a full-node, you need a public node to first connect to. An initial IP address must be set on a PEER_ADDR env variable:
+To join our network as a full-node, you need a list of public nodes to first connect to. This must be set on a PEER_ADDR env variable:
 
 ```sh
-export PEER_ADDR=91.107.239.79
+export PEER_ADDR=91.107.239.79,116.203.81.174,88.99.174.203,128.140.3.188
 ```
 
-A list of our testnet public IP addresses can be found below.
+A list of our testnet public IP addresses can be found [below](#publicips).
 
 #### The fast way
 
@@ -255,20 +255,29 @@ alignedlayerd init <your-node-name> --chain-id alignedlayer
 ```
 If you have already run this command, you can use the `-o` flag to overwrite previously generated files.
 
-You now need to download the blockchain genesis file and replace the one which was automatically generated for you.
+You now need to download the blockchain genesis file and replace the one which was automatically generated for you. Running this command gets the genesis from the first address in `$PEER_ADDR`:
 ```sh
-curl -s $PEER_ADDR:26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
+curl -s $(echo $PEER_ADDR | cut -d, -f1):26657/genesis | jq '.result.genesis' > ~/.alignedlayer/config/genesis.json
 ```
 
-Obtain the peer node id by running:
-```sh
-curl -s $PEER_ADDR:26657/status | jq -r '.result.node_info.id'
+You now need to build a initial node list. This is the list of nodes you will first connect to, preferablly you should use add all of our public nodes. The list should have this structure:
+```
+<node1_ID>@<node1_IP>:26656,<node2_ID>@<node2_IP>:26656,...
 ```
 
-To configure persistent peers, seeds and gas prices, run the following commands:
+You can get the initial node list by running:
 ```sh
-alignedlayerd config set config p2p.seeds "NODEID@blockchain-1:26656" --skip-validate
-alignedlayerd config set config p2p.persistent_peers "NODEID@blockchain-1:26656" --skip-validate
+export INIT_NODES=""; for ip in $(echo $PEER_ADDR | sed 's/,/ /g'); do export INIT_NODES="$INIT_NODES$(curl -s $ip:26657/status | jq -r '.result.node_info.id')@$ip:26656,"; done; export INIT_NODES=${INIT_NODES%?}
+```
+
+To check if the list was created correctly you can print the list:
+```sh
+echo $INIT_NODES
+```
+
+To configure persistent peers and gas prices, run the following commands:
+```sh
+alignedlayerd config set config p2p.persistent_peers "$INIT_NODES" --skip-validate
 alignedlayerd config set app minimum-gas-prices 0.0001stake --skip-validate
 ```
 
