@@ -127,6 +127,8 @@ Then, in another terminal run:
 sh send_cairo_tx.sh ./prover_examples/cairo_platinum/example/fibonacci_10.proof
 ```
 
+If we need, we can set GAS and FEES as env vars before running the script.
+
 >[!TIP]
 > The script already converts the `.proof` to `.proof.base64`.
 > But `base64` can be used as follows to encode the proofs:
