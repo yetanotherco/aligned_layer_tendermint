@@ -501,7 +501,9 @@ When sending the transaction, it must be sent serialized with protobuf and encod
 
 This is the format used by the CLI.
 
-## Setting up a local network with multiple nodes
+## Tutorials
+
+### Setting up a local network with multiple nodes
 
 Sets up a network of docker containers each with a validator node and a faucet account.
 
@@ -541,8 +543,6 @@ You can verify that it works by running (replacing `<node1_name>` by the name of
 ```sh
 docker run --rm -it --network alignedlayer_net-public alignedlayerd_i status --node "tcp://<node1_name>:26657"
 ```
-
-## Tutorials
 
 ### Setup the Faucet Locally
 
