@@ -15,8 +15,8 @@ fi
 CHAIN_ID=alignedlayer
 
 : ${NODE:="tcp://localhost:26657"}
-: ${FEES:=20stake}
-: ${GAS:=5000000}
+: ${FEES:=2000stake}
+: ${GAS:=20000000}
 
 NEW_PROOF_FILE=$(mktemp)
 base64 -i $PROOF_FILE | tr -d '\n' > $NEW_PROOF_FILE

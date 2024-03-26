@@ -41,6 +41,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
 				},
 				{
+					RpcMethod:      "Sp1",
+					Use:            "sp-1 [proof]",
+					Short:          "Send a sp1 tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "proof"}},
+				},
+				{
 					RpcMethod:      "Kimchi",
 					Use:            "kimchi [proof]",
 					Short:          "Send a kimchi tx",

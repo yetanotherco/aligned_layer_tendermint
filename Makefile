@@ -14,6 +14,22 @@ build-cairo-ffi-linux:
 test-ffi-cairo: 
 	go test -v ./verifiers/cairo_platinum 
 
+__SP1_FFI__:
+build-sp1-ffi-macos:
+	@cd verifiers/sp1/lib \
+		&& cargo build --release \
+		&& cp target/release/libsp1_verifier_wrapper.dylib ./libsp1_verifier.dylib \
+		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
+
+build-sp1-ffi-linux:
+	@cd verifiers/sp1/lib \
+		&& cargo build --release \
+		&& cp target/release/libsp1_verifier_wrapper.so ./libsp1_verifier.so \
+		&& cp target/release/libsp1_verifier_wrapper.a ./libsp1_verifier.a
+
+test-ffi-sp1:
+	go test -v ./verifiers/sp1
+
 __KIMCHI_FFI__: ## 
 build-kimchi-macos:
 		@cd verifiers/kimchi/lib \
@@ -31,13 +47,13 @@ test-kimchi-ffi:
 	go test -v ./verifiers/kimchi
 
 __COSMOS_BLOCKCHAIN__:
-build-macos: build-cairo-ffi-macos build-kimchi-macos
+build-macos: build-cairo-ffi-macos build-sp1-ffi-macos build-kimchi-macos
 	ignite chain build
 
 run-macos: build-macos
 	ignite chain serve
 
-build-linux: build-cairo-ffi-linux build-kimchi-linux
+build-linux: build-cairo-ffi-linux build-sp1-ffi-linux build-kimchi-linux
 	ignite chain build
 
 run-linux: build-linux
