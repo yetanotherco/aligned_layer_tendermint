@@ -1,6 +1,5 @@
 README.md
 LICENSE
-docs/
 imgs/
 
 faucet/
@@ -10,13 +9,7 @@ release/
 server-setup/
 explorer/
 
-multi_node_setup.sh
-node.Dockerfile
-send_verify_tx.sh
-server_node_setup.sh
-setup_node.sh
-setup_validator.sh
-spawner.sh
+*.sh
 
 .gitignore
 .git/
