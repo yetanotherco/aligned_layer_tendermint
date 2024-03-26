@@ -125,6 +125,45 @@ paths:
                 type: string
       tags:
         - Msg
+  /alignedlayer.verify.Msg/Sp1:
+    post:
+      operationId: AlignedlayerVerifyMsg_Sp1
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              proof:
+                type: string
+      tags:
+        - Msg
   /alignedlayer.verify.Msg/UpdateParams:
     post:
       summary: |-
@@ -3835,6 +3874,15 @@ definitions:
       proof:
         type: string
   alignedlayer.verify.MsgKimchiResponse:
+    type: object
+  alignedlayer.verify.MsgSp1:
+    type: object
+    properties:
+      creator:
+        type: string
+      proof:
+        type: string
+  alignedlayer.verify.MsgSp1Response:
     type: object
   alignedlayer.verify.MsgUpdateParams:
     type: object
