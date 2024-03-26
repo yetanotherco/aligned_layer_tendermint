@@ -97,6 +97,10 @@ cat prod-sim/$1/config/genesis.json \
                         "slash_fraction_downtime": "0.000100000000000000" }' \
     | sponge prod-sim/$1/config/genesis.json
 
+cat prod-sim/$1/config/genesis.json \
+    | jq '.app_state.staking.params.max_validators = "200"' \
+    | sponge prod-sim/$1/config/genesis.json
+
 echo "Copying genesis file to other nodes..."
 for node in "${@:2}"; do
     cp prod-sim/$1/config/genesis.json prod-sim/$node/config/genesis.json
