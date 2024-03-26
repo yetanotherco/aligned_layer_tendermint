@@ -9,8 +9,6 @@ else
 	STAKING_AMOUNT=$2
 fi
 
-apt update && apt install -y jq
-
 NODE_HOME=/root/.alignedlayer
 CHAIN_BINARY=alignedlayerd
 CHAIN_ID=alignedlayer
@@ -39,7 +37,7 @@ cat << EOF > $NODE_HOME/config/validator.json
 	"commission-rate": "0.1",
 	"commission-max-rate": "0.2",
 	"commission-max-change-rate": "0.01",
-	"min-self-delegation": "1",
+	"min-self-delegation": "1"
 }
 EOF
 

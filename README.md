@@ -22,6 +22,7 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
     - [Requirements](#requirements-1)
       - [Hardware](#hardware)
       - [Software](#software)
+    - [With Docker](#with-docker)
     - [Node Setup](#node-setup)
       - [The fast way](#the-fast-way)
       - [Manual step by step](#manual-step-by-step)
@@ -209,6 +210,28 @@ alignedlayerd tx verify gnark-plonk --from <your_key_name> \
 
 - [jq](https://jqlang.github.io/jq/download/)
 - [sponge](https://linux.die.net/man/1/sponge)
+
+### With Docker
+
+If you want to run a node on Docker, you first need to build the image by running:
+
+```sh
+docker build . -t alignedlayerd_i
+```
+
+Then go into the `docker` directory and run the following command to setup the node:
+
+```sh
+bash docker.sh setup <your_node_name>
+```
+
+After that, you can decide if you want to be a validator or not. To start the node, run:
+
+```sh
+bash docker.sh run[-validator] <your_node_name>
+```
+
+Once you do a `run-validator`, that node name will be a validator, even if you later run it with `run`.
 
 ### Node Setup
 
