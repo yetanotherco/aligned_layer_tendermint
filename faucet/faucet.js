@@ -14,7 +14,7 @@ console.log("loaded config: ", conf)
 const mutex = withTimeout(new Mutex(), 10000);
 
 const app = express()
-
+app.enable("trust proxy")
 app.set("view engine", "ejs");
 
 const checker = new FrequencyChecker(conf)
