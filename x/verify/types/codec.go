@@ -15,6 +15,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCairoPlatinum{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSp1{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgKimchi{},
 	)
 	// this line is used by starport scaffolding # 3

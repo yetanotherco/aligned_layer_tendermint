@@ -2,7 +2,7 @@ package cairo_platinum
 
 /*
 #cgo darwin LDFLAGS: ${SRCDIR}/lib/libcairo_platinum.a
-#cgo linux LDFLAGS: ${SRCDIR}/lib/libcairo_platinum.a -ldl -lrt -lm
+#cgo linux LDFLAGS: ${SRCDIR}/lib/libcairo_platinum.a -ldl -lrt -lm -Wl,--allow-multiple-definition
 
 
 #include "lib/cairo_platinum.h"
