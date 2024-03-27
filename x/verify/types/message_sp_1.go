@@ -8,10 +8,11 @@ import (
 
 var _ sdk.Msg = &MsgSp1{}
 
-func NewMsgSp1(creator string, proof string) *MsgSp1 {
+func NewMsgSp1(creator string, proof string, elf string) *MsgSp1 {
 	return &MsgSp1{
 		Creator: creator,
 		Proof:   proof,
+		Elf:     elf,
 	}
 }
 

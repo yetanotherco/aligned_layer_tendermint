@@ -162,6 +162,8 @@ paths:
                 type: string
               proof:
                 type: string
+              elf:
+                type: string
       tags:
         - Msg
   /alignedlayer.verify.Msg/UpdateParams:
@@ -3881,6 +3883,8 @@ definitions:
       creator:
         type: string
       proof:
+        type: string
+      elf:
         type: string
   alignedlayer.verify.MsgSp1Response:
     type: object
