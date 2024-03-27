@@ -27,7 +27,7 @@ NUMBER_OF_NODES = len(urls)
 #url = "http:/100.76.93.84:26657/"
 
 def get_block_of(url):
-    for _ in range(2):
+    for _ in range(5):
         try: 
             height = requests.get(url+"abci_info?", timeout=5).json()["result"]["response"]["last_block_height"]
             timestamp =  requests.get(url+"block?", params={"height": height}, timeout=5).json()["result"]["block"]["header"]["time"]
