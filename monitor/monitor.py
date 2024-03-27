@@ -7,25 +7,15 @@ from slack_sdk import WebhookClient
 SLACK_URL = os.environ["SLACK_URL"]
 
 FAUCET_URL = "http://faucet.alignedlayer.com/"
-#FAUCET_URL = "http://testing-blockchain-1:8088/"
 
 FAUCET_MIN_FUNDS = 1100050
 
 urls = ["http://91.107.239.79:26657/",
         "http://116.203.81.174:26657/",
         "http://88.99.174.203:26657/",
-        "http://128.140.3.188:26657/"]
-
-#urls = ["http://localhost:26657/",
-#        "http://localhost:27000/",
-#        "http://localhost:27001/",
-#        "http://localhost:27002/"]
-        
+        "http://128.140.3.188:26657/"]  
 
 NUMBER_OF_NODES = len(urls)
-
-#url = "http://0.0.0.0:26657/"
-#url = "http:/100.76.93.84:26657/"
 
 def get_block_of(url):
     for _ in range(5):
