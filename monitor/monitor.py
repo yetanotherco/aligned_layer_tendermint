@@ -76,7 +76,7 @@ if __name__ == "__main__":
         last_height[i], timestamp = get_block_of(urls[i])
         
     while True:
-        time.sleep(5)
+        time.sleep(60)
         
         funds = get_faucet_funds()
         print(funds)
