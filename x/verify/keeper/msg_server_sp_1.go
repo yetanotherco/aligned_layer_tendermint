@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
 	"strconv"
 
 	sp1 "alignedlayer/verifiers/sp1"
@@ -42,5 +41,5 @@ func verifySp1(proof string, elf string) bool {
 		return false
 	}
 
-	return sp1.VerifySp1Proof(([sp1.MAX_PROOF_SIZE]byte)(decodedProof), ([sp1.MAX_PROOF_SIZE]byte)(decodedElf), uint(nDecodedProof), uint(nDecodedElf))
+	return sp1.VerifySp1ProofElf(([sp1.MAX_PROOF_SIZE]byte)(decodedProof), ([sp1.MAX_PROOF_SIZE]byte)(decodedElf), uint(nDecodedProof), uint(nDecodedElf))
 }
