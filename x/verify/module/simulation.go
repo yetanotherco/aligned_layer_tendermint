@@ -35,7 +35,7 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSp1 int = 100
 
-	opWeightMsgKimchi       = "op_weight_msg_kimchi"
+	opWeightMsgKimchi = "op_weight_msg_kimchi"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgKimchi int = 100
 

@@ -62,6 +62,7 @@ message MsgSp1 {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
   string proof   = 2;
+  string elf     = 3;
 }
 
 message MsgKimchi {
