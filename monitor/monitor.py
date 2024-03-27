@@ -6,7 +6,8 @@ from slack_sdk import WebhookClient
 
 SLACK_URL = os.environ["SLACK_URL"]
 
-FAUCET_URL = "http://https://faucet.alignedlayer.com/"
+FAUCET_URL = "http://faucet.alignedlayer.com/"
+#FAUCET_URL = "http://testing-blockchain-1:8088/"
 
 FAUCET_MIN_FUNDS = 1100050
 
@@ -77,6 +78,7 @@ if __name__ == "__main__":
     last_height = [0] * NUMBER_OF_NODES
     current_height = [0] * NUMBER_OF_NODES
     alive = [True for i in range(NUMBER_OF_NODES)]
+    faucet_ok = True
 
     for i in range(NUMBER_OF_NODES):
         print("Starting node " + str(i))
@@ -84,13 +86,20 @@ if __name__ == "__main__":
         last_height[i], timestamp = get_block_of(urls[i])
         
     while True:
-        time.sleep(60)
+        time.sleep(5)
         
         funds = get_faucet_funds()
-        if funds=="ERROR":
+        print(funds)
+        if faucet_ok and funds=="ERROR":
             send_faucet_alert("The faucet is unreachable.")
-        elif funds < FAUCET_MIN_FUNDS:
+            faucet_ok = False
+        elif faucet_ok and int(funds) < FAUCET_MIN_FUNDS:
             send_faucet_alert("The faucet has run out of funds. Please refill.")
+            faucet_ok = False
+        elif not faucet_ok and funds!="ERROR" and int(funds)>=FAUCET_MIN_FUNDS:
+            faucet_ok = True
+            send_faucet_alert("The faucet has been successfully refilled.")
+            
 
         for i in range(NUMBER_OF_NODES):
             current_height[i], timestamp = get_block_of(urls[i])
