@@ -12,11 +12,10 @@ pub extern "C" fn verify_sp1_proof_with_elf_ffi(
     proof_len: usize,
     elf_len: usize
 ) -> bool {
-
     let real_elf = &elf_bytes[0..elf_len];
 
     if let Ok(proof) = bincode::deserialize(&proof_bytes[..proof_len]) {
-            return SP1Verifier::verify(real_elf, &proof).is_ok();
+        return SP1Verifier::verify(real_elf, &proof).is_ok();
     }
     
     false
