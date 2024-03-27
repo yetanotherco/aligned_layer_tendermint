@@ -74,4 +74,4 @@ clean-ffi:
 
 clean:
 	rm -rf ~/.alignedlayer
-	rm ${HOME}/go/bin/alignedlayerd
+	rm -f $$(which alignedlayerd)
