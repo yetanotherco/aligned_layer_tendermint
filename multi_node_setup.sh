@@ -3,7 +3,7 @@
 : "${PASSWORD:=password}"
 : "${FAUCET_DIR:=./faucet}"
 token="stake"
-initial_balance=10000000000
+initial_balance=1000000000000
 initial_faucet_balance=1000000000
 initial_stake=10000000
 minimum_gas_price=0.0001
