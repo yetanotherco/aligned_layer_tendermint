@@ -220,6 +220,9 @@ Then we can start the node with:
 alignedlayerd start
 ```
 
+> [!TIP]
+> Don't stop this process, and continue the setup on another terminal
+
 #### Manual step by step
 <details>
  <summary>Steps</summary>
@@ -383,6 +386,9 @@ It should return something like:
 </details>
 
 ## Joining Our Testnet With Docker 
+
+> [!TIP]
+> This is an alternative to the previous [Joining Our Testnet](#joining-our-testnet) guide
 
 If you want to run a node on Docker, you first need to build the image by running:
 
