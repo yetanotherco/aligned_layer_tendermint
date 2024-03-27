@@ -25,10 +25,6 @@ func (k msgServer) Sp1(goCtx context.Context, msg *types.MsgSp1) (*types.MsgSp1R
 }
 
 func verifySp1(proof string, elf string) bool {
-	if len(proof)%3 != 0 {
-		return false
-	}
-
 	decodedProof := make([]byte, sp1.MAX_PROOF_SIZE)
 	nDecodedProof, err := base64.StdEncoding.Decode(decodedProof, []byte(proof))
 	if err != nil {
