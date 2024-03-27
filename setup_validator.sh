@@ -33,4 +33,4 @@ EOF
 
 $CHAIN_BINARY tx staking create-validator $NODE_HOME/config/validator.json \
 	--from $VALIDATOR --chain-id $CHAIN_ID \
-	--node tcp://$PEER_ADDR:26657 --fees $FEES
+	--node tcp://$(echo $PEER_ADDR | cut -d, -f1):26657 --fees $FEES
