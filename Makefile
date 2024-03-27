@@ -43,18 +43,25 @@ build-kimchi-linux:
 		&& cp target/release/libkimchi_verifier_ffi.so ./libkimchi_verifier.so \
 		&& cp target/release/libkimchi_verifier_ffi.a ./libkimchi_verifier.a
 
-test-kimchi-ffi: 
+test-kimchi-ffi:
 	go test -v ./verifiers/kimchi
 
 __COSMOS_BLOCKCHAIN__:
-build-macos: build-cairo-ffi-macos build-sp1-ffi-macos build-kimchi-macos
+build-libs-macos: build-cairo-ffi-macos build-sp1-ffi-macos build-kimchi-macos ;
+
+build-libs-linux: build-cairo-ffi-linux build-sp1-ffi-linux build-kimchi-linux ;
+
+build: verifiers/cairo_platinum/lib/libcairo_platinum.a verifiers/sp1/lib/libsp1_verifier.a verifiers/kimchi/lib/libkimchi_verifier.a
+	ignite chain build
+
+build-macos: build-libs-macos
+	ignite chain build
+
+build-linux: build-libs-linux
 	ignite chain build
 
 run-macos: build-macos
 	ignite chain serve
-
-build-linux: build-cairo-ffi-linux build-sp1-ffi-linux build-kimchi-linux
-	ignite chain build
 
 run-linux: build-linux
 	ignite chain serve
