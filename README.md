@@ -192,12 +192,15 @@ alignedlayerd tx verify gnark-plonk --from <your_key_name> \
 
 - [jq](https://jqlang.github.io/jq/download/)
 - [sponge](https://linux.die.net/man/1/sponge)
+- [make](https://www.gnu.org/software/make/#download)
+- [gcc](https://gcc.gnu.org/install/)
 
 ### Node Setup
 
 To join our network as a full-node, you need a list of public nodes to first connect to. This must be set on a PEER_ADDR env variable:
 
 ```sh
+make clean
 export PEER_ADDR=91.107.239.79,116.203.81.174,88.99.174.203,128.140.3.188
 ```
 
