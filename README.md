@@ -173,7 +173,7 @@ make build-linux
 Create some keys:
 
 ```sh
-alignedlayerd keys add <your_key_name> --node tcp://91.107.239.79:26657
+alignedlayerd keys add <your_key_name>
 ```
 
 After adding the keys you will get an address, use it in the [faucet](https://faucet.alignedlayer.com/) to get more gas for paying fees.
