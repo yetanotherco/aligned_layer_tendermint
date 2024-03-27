@@ -98,7 +98,7 @@ cat prod-sim/$1/config/genesis.json \
     | sponge prod-sim/$1/config/genesis.json
 
 cat prod-sim/$1/config/genesis.json \
-    | jq '.app_state.staking.params.max_validators = "200"' \
+    | jq '.app_state.staking.params.max_validators = "300"' \
     | sponge prod-sim/$1/config/genesis.json
 
 echo "Copying genesis file to other nodes..."
