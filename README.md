@@ -8,52 +8,34 @@ Ignite CLI is used to generate boilerplate code for a Cosmos SDK application, ma
 
 ## Table of Contents
 
-- [Aligned Layer Blockchain](#aligned-layer-blockchain)
-  - [Table of Contents](#table-of-contents)
-  - [Requirements](#requirements)
-  - [Example Local Blockchain](#example-local-blockchain)
-  - [Verifiers](#verifiers)
-    - [Gnark Plonk](#gnark-plonk)
-    - [Cairo Platinum](#cairo-platinum)
-    - [Kimchi](#kimchi)
-    - [Sp1](#sp1)
-  - [Trying our testnet](#trying-our-testnet)
-  - [Joining Our Testnet](#joining-our-testnet)
-    - [Requirements](#requirements-1)
-      - [Hardware](#hardware)
-      - [Software](#software)
-    - [With Docker](#with-docker)
-    - [Node Setup](#node-setup)
-      - [The fast way](#the-fast-way)
-      - [Manual step by step](#manual-step-by-step)
-    - [Creating an Account](#creating-an-account)
-    - [Registering as a Validator](#registering-as-a-validator)
-      - [The fast way](#the-fast-way-1)
-      - [Manual step by step](#manual-step-by-step-1)
-  - [Testnet public IPs](#testnet-public-ips)
-  - [How It Works](#how-it-works)
-    - [Project Anatomy](#project-anatomy)
-    - [Transaction Lifecycle](#transaction-lifecycle)
-    - [Interacting with a Node](#interacting-with-a-node)
-      - [gRPC](#grpc)
-      - [REST](#rest)
-      - [CometBFT RPC](#cometbft-rpc)
-  - [Tutorials](#tutorials)
-    - [Setting up a local network with multiple nodes](#setting-up-a-local-network-with-multiple-nodes)
-    - [Setup the Faucet Locally](#setup-the-faucet-locally)
-    - [Claiming Staking Rewards](#claiming-staking-rewards)
-      - [Querying Outstanding Rewards](#querying-outstanding-rewards)
-      - [Querying Validator Distribution Info](#querying-validator-distribution-info)
-      - [Withdraw All Rewards](#withdraw-all-rewards)
-    - [Bank](#bank)
-      - [Querying Account Balances](#querying-account-balances)
-    - [Slashing](#slashing)
-      - [Querying Slashing Params](#querying-slashing-params)
-      - [Querying Signing info](#querying-signing-info)
-      - [Querying Slashes](#querying-slashes)
-      - [Sending Unjail Transaction](#sending-unjail-transaction)
-    - [Staking](#staking)
-  - [Acknowledgements](#acknowledgements)
+- [Table of Contents](#table-of-contents)
+- [Requirements](#requirements)
+- [Example Local Blockchain](#example-local-blockchain)
+- [Verifiers](#verifiers)
+  - [Gnark Plonk](#gnark-plonk)
+  - [Cairo Platinum](#cairo-platinum)
+  - [Kimchi](#kimchi)
+  - [Sp1](#sp1)
+- [Trying our testnet](#trying-our-testnet)
+- [Joining Our Testnet](#joining-our-testnet)
+  - [Requirements](#requirements-1)
+  - [Node Setup](#node-setup)
+  - [Creating an Account](#creating-an-account)
+  - [Registering as a Validator](#registering-as-a-validator)
+- [Joining Our Testnet With Docker](#joining-our-testnet-with-docker)
+- [Testnet public IPs](#testnet-public-ips)
+- [How It Works](#how-it-works)
+  - [Project Anatomy](#project-anatomy)
+  - [Transaction Lifecycle](#transaction-lifecycle)
+  - [Interacting with a Node](#interacting-with-a-node)
+- [Tutorials](#tutorials)
+  - [Setting up a local network with multiple nodes](#setting-up-a-local-network-with-multiple-nodes)
+  - [Setup the Faucet Locally](#setup-the-faucet-locally)
+  - [Claiming Staking Rewards](#claiming-staking-rewards)
+  - [Bank](#bank)
+  - [Slashing](#slashing)
+  - [Staking](#staking)
+- [Acknowledgements](#acknowledgements)
 
 ## Requirements
 
@@ -210,28 +192,6 @@ alignedlayerd tx verify gnark-plonk --from <your_key_name> \
 
 - [jq](https://jqlang.github.io/jq/download/)
 - [sponge](https://linux.die.net/man/1/sponge)
-
-### With Docker
-
-If you want to run a node on Docker, you first need to build the image by running:
-
-```sh
-docker build . -t alignedlayerd_i
-```
-
-Then go into the `docker` directory and run the following command to setup the node:
-
-```sh
-bash docker.sh setup <your_node_name>
-```
-
-After that, you can decide if you want to be a validator or not. To start the node, run:
-
-```sh
-bash docker.sh run[-validator] <your_node_name>
-```
-
-Once you do a `run-validator`, that node name will be a validator, even if you later run it with `run`.
 
 ### Node Setup
 
@@ -418,6 +378,28 @@ It should return something like:
 - address: alignedvalcons1yead8vgxnmtvmtfrfpleuntslx2jk85drx3ug3
 ```
 </details>
+
+## Joining Our Testnet With Docker 
+
+If you want to run a node on Docker, you first need to build the image by running:
+
+```sh
+docker build . -t alignedlayerd_i
+```
+
+Then go into the `docker` directory and run the following command to setup the node:
+
+```sh
+bash docker.sh setup <your_node_name>
+```
+
+After that, you can decide if you want to be a validator or not. To start the node, run:
+
+```sh
+bash docker.sh run[-validator] <your_node_name>
+```
+
+Once you do a `run-validator`, that node name will be a validator, even if you later run it with `run`.
 
 ## Testnet public IPs
 
