@@ -6,24 +6,19 @@ from slack_sdk import WebhookClient
 
 SLACK_URL = os.environ["SLACK_URL"]
 
+FAUCET_URL = "http://faucet.alignedlayer.com/"
+
+FAUCET_MIN_FUNDS = 1100050
+
 urls = ["http://91.107.239.79:26657/",
         "http://116.203.81.174:26657/",
         "http://88.99.174.203:26657/",
-        "http://128.140.3.188:26657/"]
-
-#urls = ["http://localhost:26657/",
-#        "http://localhost:27000/",
-#        "http://localhost:27001/",
-#        "http://localhost:27002/"]
-        
+        "http://128.140.3.188:26657/"]  
 
 NUMBER_OF_NODES = len(urls)
 
-#url = "http://0.0.0.0:26657/"
-#url = "http:/100.76.93.84:26657/"
-
 def get_block_of(url):
-    for _ in range(2):
+    for _ in range(5):
         try: 
             height = requests.get(url+"abci_info?", timeout=5).json()["result"]["response"]["last_block_height"]
             timestamp =  requests.get(url+"block?", params={"height": height}, timeout=5).json()["result"]["block"]["header"]["time"]
@@ -34,6 +29,20 @@ def get_block_of(url):
             continue
     return ("ERROR","ERROR")
         
+def get_faucet_funds():
+    for _ in range(5):
+        try:
+            funds = requests.get(FAUCET_URL+"balance/alignedlayer", timeout=5).json()["amount"]
+            return funds
+        except:
+            print("Wainting to check faucet again...")
+            time.sleep(5)
+            continue
+    return "ERROR"
+
+def send_faucet_alert(msg):
+    webhook = WebhookClient(SLACK_URL)
+    webhook.send(text=msg)
 
 def send_alert(node_url, height, timestamp):
     webhook = WebhookClient(SLACK_URL)
@@ -59,6 +68,7 @@ if __name__ == "__main__":
     last_height = [0] * NUMBER_OF_NODES
     current_height = [0] * NUMBER_OF_NODES
     alive = [True for i in range(NUMBER_OF_NODES)]
+    faucet_ok = True
 
     for i in range(NUMBER_OF_NODES):
         print("Starting node " + str(i))
@@ -66,7 +76,21 @@ if __name__ == "__main__":
         last_height[i], timestamp = get_block_of(urls[i])
         
     while True:
-        time.sleep(60)
+        time.sleep(5)
+        
+        funds = get_faucet_funds()
+        print(funds)
+        if faucet_ok and funds=="ERROR":
+            send_faucet_alert("The faucet is unreachable.")
+            faucet_ok = False
+        elif faucet_ok and int(funds) < FAUCET_MIN_FUNDS:
+            send_faucet_alert("The faucet has run out of funds. Please refill.")
+            faucet_ok = False
+        elif not faucet_ok and funds!="ERROR" and int(funds)>=FAUCET_MIN_FUNDS:
+            faucet_ok = True
+            send_faucet_alert("The faucet has been successfully refilled.")
+            
+
         for i in range(NUMBER_OF_NODES):
             current_height[i], timestamp = get_block_of(urls[i])
 
