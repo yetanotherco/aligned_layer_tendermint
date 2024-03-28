@@ -31,11 +31,11 @@ func verifySp1(proof string, elf string) bool {
 		return false
 	}
 
-	decodedElf := make([]byte, sp1.MAX_PROOF_SIZE)
+	decodedElf := make([]byte, sp1.MAX_ELF_SIZE)
 	nDecodedElf, err := base64.StdEncoding.Decode(decodedElf, []byte(elf))
 	if err != nil {
 		return false
 	}
 
-	return sp1.VerifySp1ProofElf(([sp1.MAX_PROOF_SIZE]byte)(decodedProof), ([sp1.MAX_PROOF_SIZE]byte)(decodedElf), uint(nDecodedProof), uint(nDecodedElf))
+	return sp1.VerifySp1ProofElf(([sp1.MAX_PROOF_SIZE]byte)(decodedProof), ([sp1.MAX_ELF_SIZE]byte)(decodedElf), uint(nDecodedProof), uint(nDecodedElf))
 }
