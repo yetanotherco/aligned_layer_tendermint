@@ -11,10 +11,6 @@ import (
 	"unsafe"
 )
 
-func VerifySp1Proof(proofBuffer [MAX_PROOF_SIZE]byte, proofLen uint) bool {
-	proofPtr := (*C.uchar)(unsafe.Pointer(&proofBuffer[0]))
-	return (bool)(C.verify_sp1_proof_ffi(proofPtr, (C.uint)(proofLen)))
-}
 const (
 	KB             = 1024
 	MB             = KB * 1024
