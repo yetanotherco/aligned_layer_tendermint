@@ -25,8 +25,8 @@ fn verify_sp1_proof_with_elf(proof_buffer: &[u8], elf_buffer: &[u8]) -> bool {
 mod tests {
     use super::*;
 
-    const PROOF: &[u8] = include_bytes!("../../../../prover_examples/sp1/example/fibonacci.proof");
-    const ELF: &[u8] = include_bytes!("../elf/riscv32im-succinct-zkvm-elf");
+    const PROOF: &[u8] = include_bytes!("fibonacci.proof");
+    const ELF: &[u8] = include_bytes!("fibonacci.elf");
 
     #[test]
     fn can_verify_good_proof() {
