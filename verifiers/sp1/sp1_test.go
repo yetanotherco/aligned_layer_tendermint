@@ -9,18 +9,18 @@ import (
 
 func TestFibonacciSp1ProofVerifies(t *testing.T) {
 	fmt.Println(os.Getwd())
-	f, err := os.Open("../../prover_examples/sp1/example/fibonacci.proof")
+
+	proof, err := os.ReadFile("lib/src/fibonacci.proof")
 	if err != nil {
 		t.Errorf("could not open proof file")
 	}
 
-	proofBytes := make([]byte, sp1.MAX_PROOF_SIZE)
-	nReadBytes, err := f.Read(proofBytes)
+	elf, err := os.ReadFile("lib/src/fibonacci.elf")
 	if err != nil {
-		t.Errorf("could not read bytes from file")
+		t.Errorf("could not open elf file")
 	}
 
-	if !sp1.VerifySp1Proof(([sp1.MAX_PROOF_SIZE]byte)(proofBytes), uint(nReadBytes)) {
+	if !sp1.VerifySp1ProofElf(proof, elf) {
 		t.Errorf("proof did not verify")
 	}
 }

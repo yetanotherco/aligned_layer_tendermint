@@ -140,7 +140,7 @@ bash send_verify_tx.sh kimchi alice ./prover_examples/kimchi/example/kimchi_ec_a
 To send a Sp1 verification transaction, run the following command: 
 
 ```sh
-bash send_sp1_tx.sh alice ./prover_examples/sp1/example/fibonacci.proof ./verifiers/sp1/lib/elf/riscv32im-succinct-zkvm-el
+bash send_sp1_tx.sh alice ./prover_examples/sp1/example/fibonacci.proof ./prover_examples/sp1/example/fibonacci.elf
 ```
 
 ## Trying our testnet

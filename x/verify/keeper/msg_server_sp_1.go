@@ -25,17 +25,15 @@ func (k msgServer) Sp1(goCtx context.Context, msg *types.MsgSp1) (*types.MsgSp1R
 }
 
 func verifySp1(proof string, elf string) bool {
-	decodedProof := make([]byte, sp1.MAX_PROOF_SIZE)
-	nDecodedProof, err := base64.StdEncoding.Decode(decodedProof, []byte(proof))
+	decodedProof, err := base64.StdEncoding.DecodeString(proof)
 	if err != nil {
 		return false
 	}
 
-	decodedElf := make([]byte, sp1.MAX_PROOF_SIZE)
-	nDecodedElf, err := base64.StdEncoding.Decode(decodedElf, []byte(elf))
+	decodedElf, err := base64.StdEncoding.DecodeString(elf)
 	if err != nil {
 		return false
 	}
 
-	return sp1.VerifySp1ProofElf(([sp1.MAX_PROOF_SIZE]byte)(decodedProof), ([sp1.MAX_PROOF_SIZE]byte)(decodedElf), uint(nDecodedProof), uint(nDecodedElf))
+	return sp1.VerifySp1ProofElf(decodedProof, decodedElf)
 }

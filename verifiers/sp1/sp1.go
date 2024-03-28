@@ -11,15 +11,9 @@ import (
 	"unsafe"
 )
 
-const MAX_PROOF_SIZE = 1024 * 1024
+func VerifySp1ProofElf(proof []byte, elf []byte) bool {
+	proofPtr := (*C.uchar)(unsafe.Pointer(&proof[0]))
+	elfPtr := (*C.uchar)(unsafe.Pointer(&elf[0]))
 
-func VerifySp1Proof(proofBuffer [MAX_PROOF_SIZE]byte, proofLen uint) bool {
-	proofPtr := (*C.uchar)(unsafe.Pointer(&proofBuffer[0]))
-	return (bool)(C.verify_sp1_proof_ffi(proofPtr, (C.uint)(proofLen)))
-}
-
-func VerifySp1ProofElf(proofBuffer [MAX_PROOF_SIZE]byte, elfBuffer [MAX_PROOF_SIZE]byte, proofLen uint, elfLen uint) bool {
-	proofPtr := (*C.uchar)(unsafe.Pointer(&proofBuffer[0]))
-	elfPtr := (*C.uchar)(unsafe.Pointer(&elfBuffer[0]))
-	return (bool)(C.verify_sp1_proof_with_elf_ffi(proofPtr, elfPtr, (C.uint)(proofLen), (C.uint)(elfLen)))
+	return (bool)(C.verify_sp1_proof_with_elf_ffi(proofPtr, elfPtr, (C.uint)(len(proof)), (C.uint)(len(elf))))
 }
